@@ -11,7 +11,12 @@ import randomImage10 from "../../images/Food_Login10.jpg";
 import randomImage11 from "../../images/Food_Login11.jpg";
 import randomImage12 from "../../images/Food_Login12.jpg";
 import randomImage13 from "../../images/Food_Login13.jpg";
-import React, { useState } from "react";
+
+import naverIcon from "../../images/Icon_naver.png";
+import kakaoIcon from "../../images/Icon_kakao.png";
+import googleIcon from "../../images/Icon_google.jpg";
+
+import React, { useEffect, useState } from "react";
 
 export default function LoginPage() {
   // 이미지 파일 배열
@@ -31,8 +36,13 @@ export default function LoginPage() {
     randomImage13,
   ];
 
-  // 랜덤한 이미지 선택
-  const randomImage = images[Math.floor(Math.random() * images.length)];
+  // 메인화면 이미지 변수
+  const [randomImage, setRandomImage] = useState("");
+
+  // 랜덤한 이미지 선택 (한번만)
+  useEffect(() => {
+    setRandomImage(images[Math.floor(Math.random() * images.length)]);
+  }, []);
 
   // State 변수
   const [email, setEmail] = useState("");
@@ -64,7 +74,8 @@ export default function LoginPage() {
         width: "1600px",
         margin: "0 auto",
         display: "flex",
-        backgroundColor: "orange",
+        // backgroundColor: "orange",
+        backgroundColor: "#FFFAFA",
       }}
     >
       <div
@@ -82,8 +93,8 @@ export default function LoginPage() {
           style={{
             fontSize: "60px",
             fontFamily: "CookieRun",
-            marginTop: "25px",
-            marginLeft: "40px",
+            marginTop: "40px",
+            marginLeft: "55px",
           }}
         >
           ★ 레시피 추천 시스템
@@ -105,10 +116,12 @@ export default function LoginPage() {
           >
             Log In
           </div>
-          <form style={{ margin: "0 150px" }} onSubmit={handleSubmit}>
+          <form
+            style={{ margin: "25px 150px 0 150px" }}
+            onSubmit={handleSubmit}
+          >
             <div
               style={{
-                marginTop: "25px",
                 textAlign: "left",
                 fontSize: "24px",
                 fontFamily: "CookieRun",
@@ -170,6 +183,61 @@ export default function LoginPage() {
               Sign In
             </button>
           </form>
+          <div
+            style={{
+              marginTop: "15px",
+              marginLeft: "150px",
+              textAlign: "left",
+              fontSize: "16px",
+              fontFamily: "CookieRun",
+            }}
+          >
+            처음이신가요? <a href="/signup">회원가입</a>
+          </div>
+          <div
+            style={{
+              marginTop: "10px",
+              marginLeft: "150px",
+              textAlign: "left",
+              fontSize: "16px",
+              fontFamily: "CookieRun",
+            }}
+          >
+            비밀번호를 잊으셨나요? <a href="/findPassword">비밀번호 찾기</a>
+          </div>
+
+          <div
+            style={{
+              height: "50px",
+              marginTop: "50px",
+              marginLeft: "150px",
+              marginRight: "150px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <a href="https://naver.com">
+              <img
+                src={naverIcon}
+                alt="Naver Icon"
+                style={{ height: "100%", marginRight: "30px" }}
+              />
+            </a>
+            <a href="https://kakao.com">
+              <img
+                src={kakaoIcon}
+                alt="Kakao Icon"
+                style={{ height: "100%", marginRight: "30px" }}
+              />
+            </a>
+            <a href="https://google.com">
+              <img
+                src={googleIcon}
+                alt="Google Icon"
+                style={{ height: "100%", borderRadius: "4px" }}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>
