@@ -17,6 +17,12 @@ import kakaoIcon from "../../images/Icon_kakao.png";
 import googleIcon from "../../images/Icon_google.jpg";
 
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import Modal from "react-modal";
+import { toast, ToastContainer } from "react-toastify";
+
+import SignupForm from "./SignupForm";
+import FindPasswordForm from "./FindPasswordForm";
 
 export default function LoginPage() {
   // 이미지 파일 배열
@@ -39,14 +45,29 @@ export default function LoginPage() {
   // 메인화면 이미지 변수
   const [randomImage, setRandomImage] = useState("");
 
-  // 랜덤한 이미지 선택 (한번만)
-  useEffect(() => {
-    setRandomImage(images[Math.floor(Math.random() * images.length)]);
-  }, []);
-
   // State 변수
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // 회원가입 모달 창 보임 변수
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  // 비밀번호 찾기 모달 창 보임 변수
+  const [modalIsOpen2, setIsOpen2] = useState(false);
+
+  // 모달 창 스타일
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
+
+  Modal.setAppElement("#root");
 
   // 이메일 입력 핸들러
   const handleEmailChange = (e) => {
@@ -58,7 +79,7 @@ export default function LoginPage() {
     setPassword(e.target.value);
   };
 
-  // 폼 제출 핸들러
+  // 로그인 핸들러
   const handleSubmit = (e) => {
     e.preventDefault();
     // 폼 제출 로직 처리
@@ -66,6 +87,31 @@ export default function LoginPage() {
     console.log("Password:", password);
     // 필요한 로직을 추가하세요 (예: 서버로의 요청 등)
   };
+
+  // 회원가입 창 모달 보임함수
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  // 회원가입 창 모달 숨김함수
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  // 비밀번호 찾기 창 모달 보임함수
+  const showModal2 = () => {
+    setIsOpen2(true);
+  };
+
+  // 비밀번호 찾기 창 모달 숨김함수
+  const closeModal2 = () => {
+    setIsOpen2(false);
+  };
+
+  // 랜덤한 이미지 선택 (한번만)
+  useEffect(() => {
+    setRandomImage(images[Math.floor(Math.random() * images.length)]);
+  }, []);
 
   return (
     <div
@@ -178,6 +224,9 @@ export default function LoginPage() {
                 fontSize: "24px",
                 fontFamily: "CookieRun",
                 padding: "10px 20px",
+                backgroundColor: "#0A3440",
+                color: "#FFFFFF",
+                borderRadius: "4px",
               }}
             >
               Sign In
@@ -192,8 +241,28 @@ export default function LoginPage() {
               fontFamily: "CookieRun",
             }}
           >
-            처음이신가요? <a href="/signup">회원가입</a>
+            처음이신가요?{" "}
+            <a
+              style={{
+                cursor: "pointer",
+                textDecoration: "underline",
+                color: "Highlight",
+              }}
+              onClick={showModal}
+            >
+              회원가입
+            </a>
+            {/* 회원가입 모달 */}
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <SignupForm />
+            </Modal>
           </div>
+
           <div
             style={{
               marginTop: "10px",
@@ -203,7 +272,26 @@ export default function LoginPage() {
               fontFamily: "CookieRun",
             }}
           >
-            비밀번호를 잊으셨나요? <a href="/findPassword">비밀번호 찾기</a>
+            비밀번호를 잊으셨나요?{" "}
+            <a
+              style={{
+                cursor: "pointer",
+                textDecoration: "underline",
+                color: "Highlight",
+              }}
+              onClick={showModal2}
+            >
+              비밀번호 찾기
+            </a>
+            {/* 비밀번호 찾기 모달 */}
+            <Modal
+              isOpen={modalIsOpen2}
+              onRequestClose={closeModal2}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <FindPasswordForm />
+            </Modal>
           </div>
 
           <div
