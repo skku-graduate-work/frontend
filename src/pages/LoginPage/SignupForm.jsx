@@ -30,6 +30,7 @@ const SignupForm = () => {
     e.preventDefault();
     // 이메일 인증 로직을 작성하세요
     // 인증이 완료되면 setIsVerified(true)로 설정하세요
+    console.log("인증메일 전송");
     toast.success("인증메일이 전송되었습니다!");
   };
 
@@ -38,6 +39,7 @@ const SignupForm = () => {
     // 인증 코드 확인 로직을 작성하세요
     // 입력된 인증 코드와 일치하는지 확인한 후 setIsEmailVerified(true)로 설정하세요
     // 인증이 완료되면 토스트 메시지를 띄워줍니다.
+    console.log("인증코드 확인");
     if (verificationCode === "123456") {
       setIsEmailVerified(true);
       toast.success("이메일이 인증되었습니다!");

@@ -17,9 +17,8 @@ import kakaoIcon from "../../images/Icon_kakao.png";
 import googleIcon from "../../images/Icon_google.jpg";
 
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import SignupForm from "./SignupForm";
 import FindPasswordForm from "./FindPasswordForm";
@@ -69,6 +68,8 @@ export default function LoginPage() {
 
   Modal.setAppElement("#root");
 
+  const navigate = useNavigate();
+
   // 이메일 입력 핸들러
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -86,6 +87,7 @@ export default function LoginPage() {
     console.log("Email:", email);
     console.log("Password:", password);
     // 필요한 로직을 추가하세요 (예: 서버로의 요청 등)
+    navigate("/main");
   };
 
   // 회원가입 창 모달 보임함수
@@ -106,6 +108,24 @@ export default function LoginPage() {
   // 비밀번호 찾기 창 모달 숨김함수
   const closeModal2 = () => {
     setIsOpen2(false);
+  };
+
+  // 네이버 소셜 로그인
+  const handleNaverLogin = () => {
+    const REST_API_KEY = "백엔드한테 달라하자1";
+    const REDIRECT_URI = "백엔드한테 달라하자2";
+    const link = "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js";
+
+    window.location.href = link;
+  };
+
+  // 카카오 소셜 로그인
+  const handleKakaoLogin = () => {
+    const REST_API_KEY = "백엔드한테 달라하자1";
+    const REDIRECT_URI = "백엔드한테 달라하자2";
+    const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    window.location.href = link;
   };
 
   // 랜덤한 이미지 선택 (한번만)
@@ -227,6 +247,7 @@ export default function LoginPage() {
                 backgroundColor: "#0A3440",
                 color: "#FFFFFF",
                 borderRadius: "4px",
+                cursor: "pointer",
               }}
             >
               Sign In
@@ -304,18 +325,28 @@ export default function LoginPage() {
               justifyContent: "center",
             }}
           >
-            <a href="https://naver.com">
+            <a>
               <img
+                onClick={handleNaverLogin}
                 src={naverIcon}
                 alt="Naver Icon"
-                style={{ height: "100%", marginRight: "30px" }}
+                style={{
+                  height: "100%",
+                  marginRight: "30px",
+                  cursor: "pointer",
+                }}
               />
             </a>
-            <a href="https://kakao.com">
+            <a>
               <img
+                onClick={handleKakaoLogin}
                 src={kakaoIcon}
                 alt="Kakao Icon"
-                style={{ height: "100%", marginRight: "30px" }}
+                style={{
+                  height: "100%",
+                  marginRight: "30px",
+                  cursor: "pointer",
+                }}
               />
             </a>
             <a href="https://google.com">

@@ -1,0 +1,69 @@
+.menuBar {
+  width: 100%;
+  background-color: orange;
+}
+
+.menuBarInner {
+  width: 1600px;
+  height: 120px;
+  margin: auto;
+  color: #ffffff;
+  background-color: #ff8282;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logoTitleContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.logoContainer {
+  margin-right: 15px;
+}
+
+.siteTitle {
+  margin: 0;
+  font-size: 48px;
+  font-family: "CookieRun";
+}
+
+.searchContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  width: 80%;
+  height: 50px;
+  font-size: 36px;
+  font-family: "CookieRun";
+  color: #f2f2f2;
+  background-color: #ff8282;
+  border: 0;
+  border-bottom: 4px solid #ffffff;
+}
+
+.searchInput::placeholder {
+  color: #f2f2f2; /* 원하는 색상으로 변경 */
+}
+
+.focused {
+  /* 검색 input이 포커스된 상태일 때의 스타일 */
+  outline: none;
+}
+
+.searchIconContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.profileContainer {
+  /* 내 정보 아이콘 컨테이너의 스타일 */
+  margin-right: 15px;
+}
