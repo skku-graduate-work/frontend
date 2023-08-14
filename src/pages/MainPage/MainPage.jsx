@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 
 import Reccomendation from "./Components/Recommendations";
+import MarketKurly from "./Components/MarketKurly";
 
 export default function MainPage() {
   const [isInputFocused, setInputFocused] = useState(false);
@@ -70,8 +71,14 @@ export default function MainPage() {
         </div>
       </div>
       <div className="inner" style={{ width: "1600px", margin: "auto" }}>
-        <div style={{ marginTop: "20px" }}>
+        {/* 선호도 추천 레시피 */}
+        <div style={{ marginTop: "30px" }}>
           <Reccomendation />
+        </div>
+
+        {/* 마켓컬리 온라인 쇼핑몰 링크 */}
+        <div style={{ marginTop: "30px" }}>
+          <MarketKurly />
         </div>
       </div>
     </>

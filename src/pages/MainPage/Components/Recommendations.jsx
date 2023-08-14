@@ -24,7 +24,7 @@ const Reccomendation = () => {
           textAlign: "center",
         }}
       >
-        회원님의 선호도를 기반으로 레시피를 추천해드릴게요.
+        회원님의 선호도를 기반으로 레시피를 추천해드릴게요
       </div>
       <div
         className="imageRegion"
