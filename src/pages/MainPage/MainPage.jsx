@@ -6,6 +6,8 @@ import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 
+import Reccomendation from "./Components/Recommendations";
+
 export default function MainPage() {
   const [isInputFocused, setInputFocused] = useState(false);
 
@@ -67,7 +69,11 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-      <div className="inner">{/* 메인 페이지 내용 */}</div>
+      <div className="inner" style={{ width: "1600px", margin: "auto" }}>
+        <div style={{ marginTop: "20px" }}>
+          <Reccomendation />
+        </div>
+      </div>
     </>
   );
 }
