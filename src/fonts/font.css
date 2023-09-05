@@ -5,3 +5,9 @@
   font-family: "CookieRun";
   src: url("../fonts/CookieRun_Regular.otf") format("opentype");
 }
+
+/* font */
+@font-face {
+  font-family: "NotoSans";
+  src: url("../fonts/NotoSansKR-VariableFont_wght.ttf") format("opentype");
+}

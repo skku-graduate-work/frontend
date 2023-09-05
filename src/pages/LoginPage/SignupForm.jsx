@@ -62,216 +62,255 @@ const SignupForm = () => {
   };
 
   return (
-    <div style={{ margin: "50px 120px" }}>
-      <div
-        style={{
-          fontSize: "48px",
-          fontFamily: "CookieRun",
-          marginBottom: "10px",
-          textAlign: "center",
-        }}
-      >
-        회원가입
-      </div>
-      <form
-        style={{ width: "600px", margin: "25px auto 0 auto" }}
-        onSubmit={handleSubmit}
-      >
+    <div
+      style={{
+        width: "600px",
+        height: "600px",
+        border: "2px solid #a5a5a5",
+        fontFamily: "NotoSans",
+        fontWeight: "700",
+      }}
+    >
+      <div style={{ width: "450px", height: "500px", margin: "50px 75px" }}>
         <div
           style={{
-            textAlign: "left",
-            fontSize: "24px",
-            fontFamily: "CookieRun",
+            height: "50px",
+            textAlign: "center",
+            fontSize: "38px",
           }}
         >
-          Email
+          회원가입
         </div>
-        <input
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          style={{
-            width: "100%",
-            display: "block",
-            fontSize: "24px",
-            padding: "10px",
-            marginBottom: "10px",
-            boxSizing: "border-box",
-          }}
-          placeholder="이메일"
-          disabled={isEmailVerified}
-        />
-
-        {!isEmailVerified && (
-          <div style={{ display: "flex" }}>
-            <button
-              type="button"
-              onClick={handleSendEmail}
-              style={{
-                display: "inline-block",
-                fontSize: "18px",
-                padding: "5px 10px",
-                backgroundColor: "#0A3440",
-                color: "#FFFFFF",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "CookieRun",
-              }}
-            >
-              인증메일 보내기
-            </button>
-
-            <input
-              type="text"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-              style={{
-                display: "block",
-                fontSize: "24px",
-                padding: "10px",
-                marginLeft: "20px",
-                boxSizing: "border-box",
-              }}
-              placeholder="인증코드 입력"
-            />
-
-            <button
-              type="button"
-              onClick={handleCheckEmail}
-              style={{
-                display: "inline-block",
-                fontSize: "18px",
-                marginLeft: "auto",
-                padding: "5px 10px",
-                backgroundColor: "#0A3440",
-                color: "#FFFFFF",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "CookieRun",
-              }}
-            >
-              인증확인
-            </button>
-          </div>
-        )}
-
-        {isEmailVerified && (
-          <span
+        <form
+          style={{ width: "100%", height: "420px", marginTop: "30px" }}
+          onSubmit={handleSubmit}
+        >
+          <div
             style={{
-              color: "green",
-              marginLeft: "10px",
-              fontSize: "24px",
-              fontWeight: "700",
+              height: "20px",
+              paddingLeft: "5px",
+              display: "flex",
+              textAlign: "left",
+              alignItems: "center",
             }}
           >
-            ✓
-          </span>
-        )}
+            Email
+          </div>
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            style={{
+              width: "100%",
+              height: "40px",
+              display: "block",
+              padding: "10px",
+              boxSizing: "border-box",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+            placeholder="이메일을 입력해주세요"
+            disabled={isEmailVerified}
+          />
 
-        <div
-          style={{
-            marginTop: "40px",
-            textAlign: "left",
-            fontSize: "24px",
+          {!isEmailVerified && (
+            <div style={{ height: "40px", marginTop: "10px", display: "flex" }}>
+              <button
+                type="button"
+                onClick={handleSendEmail}
+                style={{
+                  width: "120px",
+                  height: "100%",
+                  display: "inline-block",
+                  backgroundColor: "#3498DB",
+                  color: "#FFFFFF",
+                  fontFamily: "NotoSans",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  border: "0",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+              >
+                인증메일 전송
+              </button>
+
+              <input
+                type="text"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+                style={{
+                  width: "230px",
+                  marginLeft: "10px",
+                  display: "block",
+                  padding: "10px",
+                  boxSizing: "border-box",
+                  fontFamily: "NotoSans",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                }}
+                placeholder="인증코드 입력"
+              />
+
+              <button
+                type="button"
+                onClick={handleCheckEmail}
+                style={{
+                  width: "80px",
+                  display: "inline-block",
+                  marginLeft: "auto",
+                  padding: "5px",
+                  backgroundColor: "#5E5E5E",
+                  color: "#FFFFFF",
+                  border: "0",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontFamily: "NotoSans",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                }}
+              >
+                인증확인
+              </button>
+            </div>
+          )}
+
+          {isEmailVerified && (
+            <span
+              style={{
+                display: "block",
+                height: "40px",
+                marginTop: "10px",
+                color: "green",
+                marginLeft: "10px",
+                fontSize: "24px",
+                fontWeight: "700",
+              }}
+            >
+              ✓
+            </span>
+          )}
+
+          <div
+            style={{
+              height: "20px",
+              marginTop: "10px",
+              paddingLeft: "5px",
+              display: "flex",
+              textAlign: "left",
+              alignItems: "center",
+            }}
+          >
+            Password
+          </div>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            style={{
+              width: "100%",
+              height: "40px",
+              display: "block",
+              padding: "10px",
+              boxSizing: "border-box",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+            placeholder="비밀번호를 입력해주세요"
+          />
+
+          <div
+            style={{
+              height: "20px",
+              marginTop: "10px",
+              paddingLeft: "5px",
+              display: "flex",
+              textAlign: "left",
+              alignItems: "center",
+            }}
+          >
+            Password Check
+          </div>
+          <input
+            type="password"
+            value={passwordCheck}
+            onChange={handlePasswordCheckChange}
+            style={{
+              width: "100%",
+              height: "40px",
+              display: "block",
+              padding: "10px",
+              boxSizing: "border-box",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+            placeholder="비밀번호를 한번 더 입력해주세요"
+          />
+
+          <div
+            style={{
+              height: "20px",
+              marginTop: "10px",
+              paddingLeft: "5px",
+              display: "flex",
+              textAlign: "left",
+              alignItems: "center",
+            }}
+          >
+            Username
+          </div>
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            style={{
+              width: "100%",
+              height: "40px",
+              display: "block",
+              padding: "10px",
+              boxSizing: "border-box",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+            placeholder="사용자 이름을 입력해주세요"
+          />
+
+          <button
+            type="submit"
+            style={{
+              marginTop: "60px",
+              width: "100%",
+              height: "40px",
+              display: "block",
+              backgroundColor: "#5E5E5E",
+              color: "#FFFFFF",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+          >
+            회원가입
+          </button>
+        </form>
+        <ToastContainer
+          position="bottom-center"
+          limit={1}
+          closeButton={false}
+          autoClose={3000}
+          hideProgressBar
+          toastStyle={{
             fontFamily: "CookieRun",
+            textAlign: "center",
           }}
-        >
-          Password
-        </div>
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          style={{
-            width: "100%",
-            display: "block",
-            fontSize: "24px",
-            padding: "10px",
-            marginBottom: "10px",
-            boxSizing: "border-box",
-          }}
-          placeholder="비밀번호"
         />
-
-        <div
-          style={{
-            marginTop: "40px",
-            textAlign: "left",
-            fontSize: "24px",
-            fontFamily: "CookieRun",
-          }}
-        >
-          Password Check
-        </div>
-        <input
-          type="password"
-          value={passwordCheck}
-          onChange={handlePasswordCheckChange}
-          style={{
-            width: "100%",
-            display: "block",
-            fontSize: "24px",
-            padding: "10px",
-            marginBottom: "10px",
-            boxSizing: "border-box",
-          }}
-          placeholder="비밀번호 재확인"
-        />
-
-        <div
-          style={{
-            marginTop: "40px",
-            textAlign: "left",
-            fontSize: "24px",
-            fontFamily: "CookieRun",
-          }}
-        >
-          Username
-        </div>
-        <input
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-          style={{
-            width: "100%",
-            display: "block",
-            fontSize: "24px",
-            padding: "10px",
-            marginBottom: "10px",
-            boxSizing: "border-box",
-          }}
-          placeholder="사용자 이름"
-        />
-
-        <button
-          type="submit"
-          style={{
-            marginTop: "55px",
-            width: "100%",
-            display: "block",
-            fontSize: "24px",
-            fontFamily: "CookieRun",
-            padding: "10px 20px",
-            backgroundColor: "#0A3440",
-            color: "#FFFFFF",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          회원가입하기
-        </button>
-      </form>
-      <ToastContainer
-        position="bottom-center"
-        limit={1}
-        closeButton={false}
-        autoClose={3000}
-        hideProgressBar
-        toastStyle={{
-          fontFamily: "CookieRun",
-          textAlign: "center",
-        }}
-      />
+      </div>
     </div>
   );
 };

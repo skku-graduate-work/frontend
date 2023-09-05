@@ -12,6 +12,7 @@ import randomImage11 from "../../images/Food_Login11.jpg";
 import randomImage12 from "../../images/Food_Login12.jpg";
 import randomImage13 from "../../images/Food_Login13.jpg";
 
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import naverIcon from "../../images/Icon_naver.png";
 import kakaoIcon from "../../images/Icon_kakao.png";
 import googleIcon from "../../images/Icon_google.jpg";
@@ -63,6 +64,7 @@ export default function LoginPage() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
+      padding: "0",
     },
   };
 
@@ -137,63 +139,79 @@ export default function LoginPage() {
     <div
       className="inner"
       style={{
-        width: "1600px",
+        width: "1200px",
+        height: "750px",
         margin: "0 auto",
         display: "flex",
-        // backgroundColor: "orange",
-        backgroundColor: "#FFFAFA",
+        fontFamily: "NotoSans",
+        fontWeight: "700",
       }}
     >
       <div
         className="left"
         style={{
           width: "50%",
-          height: "fit-content",
         }}
       >
-        <img src={randomImage} alt="Random Image" style={{ width: "100%" }} />
+        <img
+          src={randomImage}
+          alt="Random Image"
+          style={{ width: "100%", height: "100%" }}
+        />
       </div>
-      <div className="right" style={{ width: "50%" }}>
+      <div
+        className="right"
+        style={{
+          width: "50%",
+          borderRight: "2px solid #e9e9e9",
+          borderBottom: "2px solid #e9e9e9",
+        }}
+      >
         <div
           className="title"
           style={{
-            fontSize: "60px",
-            fontFamily: "CookieRun",
-            marginTop: "40px",
-            marginLeft: "55px",
+            height: "100px",
+            borderBottom: "2px solid #e9e9e9",
+            boxSizing: "border-box",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "40px",
           }}
         >
-          ★ 레시피 추천 시스템
+          <LocalDiningIcon style={{ fontSize: "64px" }} /> 음식 추천 시스템
         </div>
         <div
           className="loginBox"
           style={{
-            marginTop: "200px",
-            width: "100%",
+            width: "400px",
+            height: "500px",
+            margin: "75px auto",
             textAlign: "center",
           }}
         >
           <div
             style={{
-              fontSize: "48px",
-              fontFamily: "CookieRun",
-              marginBottom: "10px",
+              height: "40px",
+              fontSize: "24px",
             }}
           >
             Log In
           </div>
           <form
-            style={{ margin: "25px 150px 0 150px" }}
+            style={{ height: "240px", marginTop: "30px" }}
             onSubmit={handleSubmit}
           >
             <div
               style={{
+                height: "30px",
+                paddingLeft: "10px",
                 textAlign: "left",
-                fontSize: "24px",
-                fontFamily: "CookieRun",
+                fontSize: "18px",
+                color: "#5e5e5e",
               }}
             >
-              Email
+              ID
             </div>
             <input
               type="email"
@@ -201,21 +219,22 @@ export default function LoginPage() {
               onChange={handleEmailChange}
               style={{
                 width: "100%",
-                display: "block",
-                fontSize: "24px",
-                padding: "10px",
-                marginBottom: "10px",
+                height: "40px",
+                paddingLeft: "10px",
                 boxSizing: "border-box",
+                fontSize: "16px",
               }}
-              placeholder="이메일"
+              placeholder="ID를 입력해주세요"
             />
 
             <div
               style={{
-                marginTop: "40px",
+                height: "30px",
+                marginTop: "30px",
+                paddingLeft: "10px",
                 textAlign: "left",
-                fontSize: "24px",
-                fontFamily: "CookieRun",
+                fontSize: "18px",
+                color: "#5e5e5e",
               }}
             >
               Password
@@ -226,27 +245,25 @@ export default function LoginPage() {
               onChange={handlePasswordChange}
               style={{
                 width: "100%",
-                display: "block",
-                fontSize: "24px",
-                padding: "10px",
-                marginBottom: "10px",
+                height: "40px",
+                paddingLeft: "10px",
                 boxSizing: "border-box",
+                fontSize: "16px",
               }}
-              placeholder="비밀번호"
+              placeholder="비밀번호를 입력해주세요"
             />
 
             <button
               type="submit"
               style={{
-                marginTop: "55px",
                 width: "100%",
-                display: "block",
-                fontSize: "24px",
-                fontFamily: "CookieRun",
-                padding: "10px 20px",
-                backgroundColor: "#0A3440",
-                color: "#FFFFFF",
+                height: "40px",
+                marginTop: "30px",
+                border: "0",
                 borderRadius: "4px",
+                fontSize: "18px",
+                color: "#FFFFFF",
+                backgroundColor: "#5E5E5E",
                 cursor: "pointer",
               }}
             >
@@ -255,74 +272,64 @@ export default function LoginPage() {
           </form>
           <div
             style={{
-              marginTop: "15px",
-              marginLeft: "150px",
+              height: "60px",
+              marginTop: "30px",
               textAlign: "left",
-              fontSize: "16px",
-              fontFamily: "CookieRun",
+              fontSize: "18px",
+              color: "#5e5e5e",
             }}
           >
-            처음이신가요?{" "}
-            <a
-              style={{
-                cursor: "pointer",
-                textDecoration: "underline",
-                color: "Highlight",
-              }}
-              onClick={showModal}
-            >
-              회원가입
-            </a>
-            {/* 회원가입 모달 */}
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={customStyles}
-              contentLabel="Example Modal"
-            >
-              <SignupForm />
-            </Modal>
+            <div>
+              계정이&nbsp;없으신가요?{" "}
+              <a
+                style={{
+                  color: "Highlight",
+                  cursor: "pointer",
+                }}
+                onClick={showModal}
+              >
+                회원가입
+              </a>
+            </div>
+            <div>
+              비밀번호를 잊으셨나요?{" "}
+              <a
+                style={{
+                  color: "Highlight",
+                  cursor: "pointer",
+                }}
+                onClick={showModal2}
+              >
+                비밀번호 찾기
+              </a>
+            </div>
           </div>
+
+          {/* 회원가입 모달 */}
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <SignupForm />
+          </Modal>
+          {/* 비밀번호 찾기 모달 */}
+          <Modal
+            isOpen={modalIsOpen2}
+            onRequestClose={closeModal2}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <FindPasswordForm />
+          </Modal>
 
           <div
             style={{
-              marginTop: "10px",
-              marginLeft: "150px",
-              textAlign: "left",
-              fontSize: "16px",
-              fontFamily: "CookieRun",
-            }}
-          >
-            비밀번호를 잊으셨나요?{" "}
-            <a
-              style={{
-                cursor: "pointer",
-                textDecoration: "underline",
-                color: "Highlight",
-              }}
-              onClick={showModal2}
-            >
-              비밀번호 찾기
-            </a>
-            {/* 비밀번호 찾기 모달 */}
-            <Modal
-              isOpen={modalIsOpen2}
-              onRequestClose={closeModal2}
-              style={customStyles}
-              contentLabel="Example Modal"
-            >
-              <FindPasswordForm />
-            </Modal>
-          </div>
-
-          <div
-            style={{
-              height: "50px",
-              marginTop: "50px",
-              marginLeft: "150px",
-              marginRight: "150px",
+              height: "100px",
               display: "flex",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <a>
@@ -331,8 +338,8 @@ export default function LoginPage() {
                 src={naverIcon}
                 alt="Naver Icon"
                 style={{
-                  height: "100%",
-                  marginRight: "30px",
+                  width: "50px",
+                  height: "50px",
                   cursor: "pointer",
                 }}
               />
@@ -343,8 +350,9 @@ export default function LoginPage() {
                 src={kakaoIcon}
                 alt="Kakao Icon"
                 style={{
-                  height: "100%",
-                  marginRight: "30px",
+                  width: "50px",
+                  height: "50px",
+                  marginLeft: "30px",
                   cursor: "pointer",
                 }}
               />
@@ -353,7 +361,12 @@ export default function LoginPage() {
               <img
                 src={googleIcon}
                 alt="Google Icon"
-                style={{ height: "100%", borderRadius: "4px" }}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  marginLeft: "30px",
+                  cursor: "pointer",
+                }}
               />
             </a>
           </div>
