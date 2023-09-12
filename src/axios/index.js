@@ -1,24 +1,24 @@
 import axios from "axios";
 
-var host = window.location.host;
-if (host.includes(":")) {
-  host = host.split(":")[0];
-}
-
-let instance = axios.create({
-  baseURL: `${process.env.REACT_APP_PROTOCAL}://${host}:${process.env.REACT_APP_PORT}/api`,
+const instance = axios.create({
+  baseURL: "http://127.0.0.1:8080/api/v1",
   withCredentials: true,
-  // headers: { 'Content-Type': 'multipart/form-data' },
-  timeout: 5000,
 });
 
-const getInstance = () => {
-  return instance;
-};
-
 // Login
-const Login = async (email) => {
-  return await instance.post(`/login`, {
-    email: email,
+const Login = async (id, password) => {
+  return await instance.post("/user/login", {
+    id,
+    password,
   });
 };
+
+// Signup
+const Signup = async (email, password) => {
+  return await instance.post("/user/signup", {
+    email,
+    password,
+  });
+};
+
+export { Login, Signup };

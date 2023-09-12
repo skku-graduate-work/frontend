@@ -1,3 +1,13 @@
+import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
+import { Login } from "../../axios";
+
+import SignupForm from "./SignupForm";
+import FindPasswordForm from "./FindPasswordForm";
+
 import randomImage1 from "../../images/Food_Login01.jpg";
 import randomImage2 from "../../images/Food_Login02.jpg";
 import randomImage3 from "../../images/Food_Login03.jpg";
@@ -16,13 +26,6 @@ import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import naverIcon from "../../images/Icon_naver.png";
 import kakaoIcon from "../../images/Icon_kakao.png";
 import googleIcon from "../../images/Icon_google.jpg";
-
-import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
-
-import SignupForm from "./SignupForm";
-import FindPasswordForm from "./FindPasswordForm";
 
 export default function LoginPage() {
   // 이미지 파일 배열
@@ -89,7 +92,14 @@ export default function LoginPage() {
     console.log("Email:", email);
     console.log("Password:", password);
     // 필요한 로직을 추가하세요 (예: 서버로의 요청 등)
-    navigate("/main");
+    Login(email, password)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("로그인에 실패했습니다");
+      });
   };
 
   // 회원가입 창 모달 보임함수
@@ -211,10 +221,10 @@ export default function LoginPage() {
                 color: "#5e5e5e",
               }}
             >
-              ID
+              Email
             </div>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={handleEmailChange}
               style={{
@@ -224,7 +234,7 @@ export default function LoginPage() {
                 boxSizing: "border-box",
                 fontSize: "16px",
               }}
-              placeholder="ID를 입력해주세요"
+              placeholder="이메일을 입력해주세요"
             />
 
             <div
@@ -267,7 +277,7 @@ export default function LoginPage() {
                 cursor: "pointer",
               }}
             >
-              Sign In
+              Log In
             </button>
           </form>
           <div
@@ -312,7 +322,7 @@ export default function LoginPage() {
             style={customStyles}
             contentLabel="Example Modal"
           >
-            <SignupForm />
+            <SignupForm closeModal={closeModal} />
           </Modal>
           {/* 비밀번호 찾기 모달 */}
           <Modal

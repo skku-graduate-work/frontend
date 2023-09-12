@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+
+import { Signup } from "../../axios";
+
 import "react-toastify/dist/ReactToastify.css";
 
-const SignupForm = () => {
+const SignupForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
@@ -54,11 +57,33 @@ const SignupForm = () => {
     console.log("Password:", password);
     console.log("PasswordCheck:", passwordCheck);
     console.log("Username:", username);
+
     // 회원가입 처리 로직을 작성하세요
     // 입력된 이메일, 비밀번호, 사용자 이름을 사용하여 회원가입을 진행할 수 있습니다
+    if (email == "") {
+      toast.error("이메일을 입력해주세요");
+    } else if (password == "") {
+      toast.error("비밀번호를 입력해주세요");
+    } else if (username == "") {
+      toast.error("사용자명을 입력해주세요");
+    } else if (password !== passwordCheck) {
+      toast.error("입력한 비밀번호가 일치하지 않습니다");
+    } else {
+      Signup(email, password)
+        .then((res) => {
+          console.log(res);
+          toast.success("회원가입에 성공했습니다");
 
-    // 토스트 메시지 보이기
-    toast("회원가입이 정상적으로 완료되었습니다.");
+          // 1초 대기 후 closeModal 함수 실행
+          setTimeout(() => {
+            props.closeModal();
+          }, 1000); // 1000 밀리초 (1초)
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("회원가입에 실패했습니다");
+        });
+    }
   };
 
   return (
@@ -303,10 +328,10 @@ const SignupForm = () => {
           position="bottom-center"
           limit={1}
           closeButton={false}
-          autoClose={3000}
+          autoClose={1000}
           hideProgressBar
           toastStyle={{
-            fontFamily: "CookieRun",
+            fontFamily: "NotoSans",
             textAlign: "center",
           }}
         />
