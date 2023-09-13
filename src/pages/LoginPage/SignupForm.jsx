@@ -139,7 +139,8 @@ const SignupForm = (props) => {
             disabled={isEmailVerified}
           />
 
-          {!isEmailVerified && (
+          {/* 이메일 인증 영역 */}
+          {/* {!isEmailVerified && (
             <div style={{ height: "40px", marginTop: "10px", display: "flex" }}>
               <button
                 type="button"
@@ -199,7 +200,7 @@ const SignupForm = (props) => {
                 인증확인
               </button>
             </div>
-          )}
+          )} */}
 
           {isEmailVerified && (
             <span

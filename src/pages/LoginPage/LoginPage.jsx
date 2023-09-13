@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import { Login } from "../../axios";
+import { setCookie } from "../../utils/Cookie";
 
 import SignupForm from "./SignupForm";
 import FindPasswordForm from "./FindPasswordForm";
@@ -94,7 +95,14 @@ export default function LoginPage() {
     // 필요한 로직을 추가하세요 (예: 서버로의 요청 등)
     Login(email, password)
       .then((res) => {
-        console.log(res);
+        console.log(res.data.accessToken);
+
+        // 토큰을 브라우저 쿠키에 저장
+        setCookie("accessToken", res.data.accessToken, {
+          path: "/",
+          sameSite: "strict",
+        });
+        navigate("/main");
       })
       .catch((err) => {
         console.log(err);

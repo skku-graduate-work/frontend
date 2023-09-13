@@ -6,9 +6,9 @@ const instance = axios.create({
 });
 
 // Login
-const Login = async (id, password) => {
+const Login = async (email, password) => {
   return await instance.post("/user/login", {
-    id,
+    email,
     password,
   });
 };

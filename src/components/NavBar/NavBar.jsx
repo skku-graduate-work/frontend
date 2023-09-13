@@ -1,12 +1,14 @@
 import { useState } from "react";
 
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const [userName, setUserName] = useState("사용자명");
   const [isInputFocused, setInputFocused] = useState(false);
 
   const handleInputFocus = () => {
@@ -17,41 +19,26 @@ const NavBar = () => {
     setInputFocused(false);
   };
 
+  const handleSetUserInfo = () => {};
+
+  const handleLogout = () => {};
+
   return (
     <div className="menuBar">
       <div className="menuBarInner">
         <div className="logoTitleContainer">
           <div className="logoContainer">
             {/* 사이트 로고 */}
-            <RamenDiningIcon
+            <LocalDiningIcon
               style={{
-                width: "50px",
-                height: "50px",
+                width: "64px",
+                height: "64px",
               }}
             />
           </div>
-          <h1 className="siteTitle">레시피 추천 시스템</h1>
+          <h1 className="siteTitle">음식 추천 시스템</h1>
         </div>
-        <div className="searchContainer">
-          {/* 검색 창 */}
-          <input
-            type="text"
-            placeholder="요리명 혹은 재료로 레시피 검색"
-            className={`searchInput ${isInputFocused ? "focused" : ""}`}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-          />
-          {/* 돋보기 아이콘 */}
-          <div className="searchIconContainer">
-            <SearchIcon
-              style={{
-                width: "50px",
-                height: "50px",
-                cursor: "pointer",
-              }}
-            />
-          </div>
-        </div>
+
         <div className="profileContainer">
           {/* 내 정보 아이콘 */}
           <PersonIcon
@@ -60,7 +47,38 @@ const NavBar = () => {
               height: "50px",
               cursor: "pointer",
             }}
+            onClick={handleSetUserInfo}
           />
+          <h1
+            style={{
+              marginLeft: "10px",
+              fontSize: "16px",
+              fontWeight: "700",
+              fontFamily: "NotoSans",
+            }}
+          >
+            {userName}
+          </h1>
+          <button
+            type="button"
+            onClick={handleLogout}
+            style={{
+              width: "100px",
+              height: "40px",
+              marginLeft: "10px",
+              display: "inline-block",
+              backgroundColor: "#3498DB",
+              color: "#FFFFFF",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            로그아웃
+          </button>
         </div>
       </div>
     </div>
