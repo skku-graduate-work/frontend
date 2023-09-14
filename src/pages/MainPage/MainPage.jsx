@@ -4,6 +4,7 @@ import { getCookie } from "../../utils/Cookie";
 
 import NavBar from "../../components/NavBar/NavBar";
 import Refrigerator from "./Components/Refrigerator";
+import Recommendation from "./Components/Recommendation";
 import Footer from "../../components/Footer/Footer";
 
 export default function MainPage() {
@@ -29,7 +30,9 @@ export default function MainPage() {
         </div>
 
         {/* 마켓컬리 온라인 쇼핑몰 링크 */}
-        <div style={{ marginTop: "30px" }}></div>
+        <div style={{ marginTop: "30px" }}>
+          <Recommendation />
+        </div>
       </div>
       {/* 푸터 */}
       <Footer />
