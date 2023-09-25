@@ -6,8 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Login } from "../../axios";
 import { setCookie } from "../../utils/Cookie";
 
-import SignupForm from "./SignupForm";
-import FindPasswordForm from "./FindPasswordForm";
+import SignupForm from "./Components/SignupForm";
+import FindPasswordForm from "./Components/FindPasswordForm";
 
 import randomImage1 from "../../images/Food_Login01.jpg";
 import randomImage2 from "../../images/Food_Login02.jpg";
@@ -95,7 +95,7 @@ export default function LoginPage() {
     // 필요한 로직을 추가하세요 (예: 서버로의 요청 등)
     Login(email, password)
       .then((res) => {
-        console.log(res.data.accessToken);
+        console.log("엑세스토큰은: ", res.data.accessToken);
 
         // 토큰을 브라우저 쿠키에 저장
         setCookie("accessToken", res.data.accessToken, {

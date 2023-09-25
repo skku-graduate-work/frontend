@@ -7,19 +7,59 @@ import Refrigerator from "./Components/Refrigerator";
 import Recommendation from "./Components/Recommendation";
 import Footer from "../../components/Footer/Footer";
 
-export default function MainPage() {
-  const [accessToken, setAccessToken] = useState("");
+import UserInfoForm from "./Components/UserInfoForm";
+import { GetUserInfo } from "../../axios";
 
-  // 브라우저 쿠키 가져오기
+export default function MainPage() {
+  // 쿠키 이름으로 엑세스 토큰을 가져옵니다.
+  function getCookie(name) {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // 쿠키 이름과 일치하는 경우 값을 반환합니다.
+      if (cookie.startsWith(name + "=")) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    // 해당 쿠키 이름을 찾지 못한 경우 null을 반환합니다.
+    return null;
+  }
+
+  // 상태 변수
+  const [accessToken, setAccessToken] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  // 초기 엑세스 토큰 설정
   useEffect(() => {
-    setAccessToken(getCookie("token"));
-    console.log("엑세스 토큰: ", accessToken);
+    setAccessToken(getCookie("accessToken"));
   }, []);
+
+  // 엑세스 토큰 로깅
+  useEffect(() => {
+    if (accessToken) {
+      console.log("쿠키 엑세스 토큰:", accessToken);
+    } else {
+      console.log("쿠키 엑세스 토큰이 없습니다.");
+    }
+  }, [accessToken]);
+
+  // 사용자 정보 가져오기
+  useEffect(() => {
+    GetUserInfo(accessToken)
+      .then((res) => {
+        console.log(res);
+        setUserName(res.data.user.nickname);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [accessToken]);
 
   return (
     <>
       {/* 네비게이션 바 */}
-      <NavBar />
+      <NavBar userName={userName} />
       <div
         className="inner"
         style={{ width: "1024px", margin: "30px auto 0 auto" }}

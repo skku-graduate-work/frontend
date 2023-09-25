@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
+
+import UserInfoForm from "../../pages/MainPage/Components/UserInfoForm";
 
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
@@ -8,20 +12,56 @@ import PersonIcon from "@mui/icons-material/Person";
 import "./NavBar.css";
 
 const NavBar = (props) => {
+  // 상태변수
   const [userName, setUserName] = useState("사용자명");
-  const [isInputFocused, setInputFocused] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
-  const handleInputFocus = () => {
-    setInputFocused(true);
+  // 모달 창 스타일
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+    },
   };
 
-  const handleInputBlur = () => {
-    setInputFocused(false);
+  const navigate = useNavigate();
+
+  // 사용자 정보창 모달 보임함수
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  // 사용자 정보창 모달 숨김함수
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   const handleSetUserInfo = () => {};
 
-  const handleLogout = () => {};
+  // 로그아웃
+  const handleLogout = () => {
+    // 모든 쿠키를 삭제
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+
+    // 로그인 페이지로 리디렉션
+    navigate("/login");
+  };
+
+  // 사용자명 설정
+  useEffect(() => {
+    setUserName(props.userName);
+  }, [props.userName]);
 
   return (
     <div className="menuBar">
@@ -47,7 +87,7 @@ const NavBar = (props) => {
               height: "50px",
               cursor: "pointer",
             }}
-            onClick={handleSetUserInfo}
+            onClick={showModal}
           />
           <h1
             style={{
@@ -57,7 +97,7 @@ const NavBar = (props) => {
               fontFamily: "NotoSans",
             }}
           >
-            {userName}
+            {userName} 님
           </h1>
           <button
             type="button"
@@ -81,6 +121,16 @@ const NavBar = (props) => {
           </button>
         </div>
       </div>
+
+      {/* 사용자 정보창 모달 */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <UserInfoForm userName={userName} />
+      </Modal>
     </div>
   );
 };

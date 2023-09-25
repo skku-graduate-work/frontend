@@ -1,4 +1,20 @@
-const Refrigerator = (props) => {
+import { useEffect } from "react";
+import { GetFood } from "../../../axios";
+
+const Refrigerator = () => {
+  useEffect(() => {
+    GetFood(
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDY5NjcxOSwiZW1haWwiOiJ0ZXN0QG5hdmVyLmNvbSJ9.oNmXFPpkQG7b1S-oMdaT1EB60Zxli87v-efHYTtU6sASPNEZOwMVXoSiuuZhuV-ZPomcyfZwlwTItXRCZmoA7w",
+      ["apple", "egg"]
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div style={{ display: "flex", fontFamily: "NotoSans", fontWeight: "700" }}>
       <div style={{ width: "512px" }}>

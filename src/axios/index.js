@@ -21,4 +21,24 @@ const Signup = async (email, password) => {
   });
 };
 
-export { Login, Signup };
+// GetUserInfo
+const GetUserInfo = async (accessToken) => {
+  return await instance.get("/user/ingredient", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+// GetFood
+const GetFood = async (accessToken, food) => {
+  return await instance.post(
+    "/food-by-ingredient",
+    {
+      food,
+    },
+    { headers: accessToken }
+  );
+};
+
+export { Login, Signup, GetUserInfo, GetFood };

@@ -1,6 +1,12 @@
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
+import testImage from "../../../images/Food_Login01.jpg";
+import testImage2 from "../../../images/Food_Login02.jpg";
+import testImage3 from "../../../images/Food_Login03.jpg";
+import testImage4 from "../../../images/Food_Login04.jpg";
+import testImage5 from "../../../images/Food_Login05.jpg";
+
 const Recommendation = (props) => {
   return (
     <div style={{ width: "1024px", fontFamily: "NotoSans", fontWeight: "700" }}>
@@ -19,7 +25,60 @@ const Recommendation = (props) => {
         }}
       >
         <ArrowBackIosIcon style={{ marginRight: "auto", fontSize: "64px" }} />
-        음식 사진 영역
+        <img
+          src={testImage}
+          alt="음식이미지"
+          style={{
+            width: "140px",
+            height: "180px",
+            border: "2px solid #a5a5a5",
+            boxSizing: "border-box",
+          }}
+        />
+        <img
+          src={testImage2}
+          alt="음식이미지"
+          style={{
+            width: "140px",
+            height: "180px",
+            marginLeft: "20px",
+            border: "2px solid #a5a5a5",
+            boxSizing: "border-box",
+          }}
+        />
+        <img
+          src={testImage3}
+          alt="음식이미지"
+          style={{
+            width: "140px",
+            height: "180px",
+            marginLeft: "20px",
+            border: "2px solid #a5a5a5",
+            boxSizing: "border-box",
+          }}
+        />
+        <img
+          src={testImage4}
+          alt="음식이미지"
+          style={{
+            width: "140px",
+            height: "180px",
+            marginLeft: "20px",
+            border: "2px solid #a5a5a5",
+            boxSizing: "border-box",
+          }}
+        />
+        <img
+          src={testImage5}
+          alt="음식이미지"
+          style={{
+            width: "140px",
+            height: "180px",
+            marginLeft: "20px",
+            border: "2px solid #a5a5a5",
+            boxSizing: "border-box",
+          }}
+        />
         <ArrowForwardIosIcon style={{ marginLeft: "auto", fontSize: "64px" }} />
       </div>
       <div
