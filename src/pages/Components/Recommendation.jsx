@@ -1,11 +1,11 @@
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-import testImage from "../../../images/Food_Login01.jpg";
-import testImage2 from "../../../images/Food_Login02.jpg";
-import testImage3 from "../../../images/Food_Login03.jpg";
-import testImage4 from "../../../images/Food_Login04.jpg";
-import testImage5 from "../../../images/Food_Login05.jpg";
+import testImage from "../../images/Food_Login01.jpg";
+import testImage2 from "../../images/Food_Login02.jpg";
+import testImage3 from "../../images/Food_Login03.jpg";
+import testImage4 from "../../images/Food_Login04.jpg";
+import testImage5 from "../../images/Food_Login05.jpg";
 
 const Recommendation = (props) => {
   return (

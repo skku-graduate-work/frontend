@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
-import UserInfoForm from "../../pages/MainPage/Components/UserInfoForm";
-
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,7 +12,6 @@ import "./NavBar.css";
 const NavBar = (props) => {
   // 상태변수
   const [userName, setUserName] = useState("사용자명");
-  const [modalIsOpen, setIsOpen] = useState(false);
 
   // 모달 창 스타일
   const customStyles = {
@@ -31,17 +28,9 @@ const NavBar = (props) => {
 
   const navigate = useNavigate();
 
-  // 사용자 정보창 모달 보임함수
-  const showModal = () => {
-    setIsOpen(true);
+  const handleToProfile = () => {
+    navigate("/profile");
   };
-
-  // 사용자 정보창 모달 숨김함수
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const handleSetUserInfo = () => {};
 
   // 로그아웃
   const handleLogout = () => {
@@ -87,7 +76,7 @@ const NavBar = (props) => {
               height: "50px",
               cursor: "pointer",
             }}
-            onClick={showModal}
+            onClick={handleToProfile}
           />
           <h1
             style={{
@@ -121,16 +110,6 @@ const NavBar = (props) => {
           </button>
         </div>
       </div>
-
-      {/* 사용자 정보창 모달 */}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <UserInfoForm userName={userName} />
-      </Modal>
     </div>
   );
 };

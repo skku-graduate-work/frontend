@@ -30,15 +30,44 @@ const GetUserInfo = async (accessToken) => {
   });
 };
 
-// GetFood
-const GetFood = async (accessToken, food) => {
+// PostIngredient
+const PostIngredient = async (accessToken, ingredient) => {
   return await instance.post(
-    "/food-by-ingredient",
+    "/ingredient-by-user",
     {
-      food,
+      name: ingredient,
+      image: "string",
+      expiration_date: "2023-10-30",
+      calories: 0,
+      carbs: 0,
+      fat: 0,
+      protein: 0,
     },
-    { headers: accessToken }
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
   );
 };
 
-export { Login, Signup, GetUserInfo, GetFood };
+// GetFood
+const GetFood = async (accessToken, ingredient1, ingredient2, ingredient3) => {
+  return await instance.post(
+    "/food-by-ingredient",
+    {
+      food1: ingredient1,
+      food2: ingredient2,
+      food3: ingredient3,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
+export { Login, Signup, GetUserInfo, PostIngredient, GetFood };

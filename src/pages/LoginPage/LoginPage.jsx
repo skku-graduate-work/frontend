@@ -6,8 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Login } from "../../axios";
 import { setCookie } from "../../utils/Cookie";
 
-import SignupForm from "./Components/SignupForm";
-import FindPasswordForm from "./Components/FindPasswordForm";
+import SignupForm from "../Components/SignupForm";
+import FindPasswordForm from "../Components/FindPasswordForm";
 
 import randomImage1 from "../../images/Food_Login01.jpg";
 import randomImage2 from "../../images/Food_Login02.jpg";

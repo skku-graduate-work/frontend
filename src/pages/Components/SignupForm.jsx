@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-import { Signup } from "../../../axios";
+import { Signup } from "../../axios";
 
 import "react-toastify/dist/ReactToastify.css";
 
