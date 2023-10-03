@@ -80,7 +80,7 @@ const SignupForm = () => {
             fontSize: "38px",
           }}
         >
-          비밀번호 찾기
+          비밀번호 찾기/변경
         </div>
         <form
           style={{ width: "100%", height: "420px", marginTop: "30px" }}

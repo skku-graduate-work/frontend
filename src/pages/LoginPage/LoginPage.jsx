@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 
 import { Login } from "../../axios";
@@ -332,6 +332,7 @@ export default function LoginPage() {
           >
             <SignupForm closeModal={closeModal} />
           </Modal>
+
           {/* 비밀번호 찾기 모달 */}
           <Modal
             isOpen={modalIsOpen2}

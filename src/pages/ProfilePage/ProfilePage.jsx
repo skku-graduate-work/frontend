@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 
 import { GetUserInfo } from "../../axios";
 
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import NameChangeForm from "../Components/NameChangeForm";
+import FindPasswordForm from "../Components/FindPasswordForm";
 
 import testImage from "../../images/Food_Login03.jpg";
 import testImage2 from "../../images/Kurly_Logo03.jpg";
@@ -12,8 +15,34 @@ import testImage2 from "../../images/Kurly_Logo03.jpg";
 export default function ProfilePage(props) {
   // 상태 변수
   const [accessToken, setAccessToken] = useState("");
+  const [modal2IsOpen, set2IsOpen] = useState(false);
   const [modal3IsOpen, set3IsOpen] = useState(false);
   const [userName, setUserName] = useState("");
+
+  // 모달 창 스타일
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+    },
+  };
+
+  Modal.setAppElement("#root");
+
+  // 이름 변경 모달 보임함수
+  const showModal2 = () => {
+    set2IsOpen(true);
+  };
+
+  // 이름 변경 모달 숨김함수
+  const closeModal2 = () => {
+    set2IsOpen(false);
+  };
 
   // 비밀번호 변경 모달 보임함수
   const showModal3 = () => {
@@ -97,7 +126,6 @@ export default function ProfilePage(props) {
               padding: "0 ",
               fontFamily: "NotoSans",
               fontWeight: "700",
-              zIndex: 1, // 텍스트 요소의 쌓임 순서를 높게 설정
             }}
           >
             회원정보 수정
@@ -113,7 +141,7 @@ export default function ProfilePage(props) {
               width: "100%",
               height: "1px",
               backgroundColor: "gray",
-              zIndex: 0, // 선 요소의 쌓임 순서를 낮게 설정
+              zIndex: -1, // 선 요소의 쌓임 순서를 낮게 설정
             }}
           ></span>
         </div>
@@ -124,7 +152,7 @@ export default function ProfilePage(props) {
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "500px",
+              height: "600px",
               borderRight: "2px solid #a5a5a5",
             }}
           >
@@ -208,6 +236,7 @@ export default function ProfilePage(props) {
 
               <button
                 type="submit"
+                onClick={showModal2}
                 style={{
                   width: "200px",
                   height: "40px",
@@ -265,7 +294,7 @@ export default function ProfilePage(props) {
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "500px",
+              height: "600px",
               position: "relative", // 추가: 부모 요소에 상대적인 위치 지정
             }}
           >
@@ -287,6 +316,7 @@ export default function ProfilePage(props) {
 
             <button
               type="submit"
+              onClick={showModal3}
               style={{
                 width: "calc(100% - 10px)",
                 height: "40px",
@@ -440,6 +470,26 @@ export default function ProfilePage(props) {
 
       {/* 푸터 */}
       <Footer />
+
+      {/* 사용자명 변경 모달 */}
+      <Modal
+        isOpen={modal2IsOpen}
+        onRequestClose={closeModal2}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <NameChangeForm accessToken={accessToken} />
+      </Modal>
+
+      {/* 비밀번호 찾기 모달 */}
+      <Modal
+        isOpen={modal3IsOpen}
+        onRequestClose={closeModal3}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <FindPasswordForm />
+      </Modal>
     </>
   );
 }
