@@ -24,6 +24,7 @@ const Refrigerator = (props) => {
   const [userName, setUserName] = useState("");
   const [ingredients, setIngredients] = useState([]); // 사용자 현재 냉장고 음식상태
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [bucket, setBucket] = useState([]); // 선택한 식재료를 담는 버킷
 
   // 재료 등록 창 모달 보임함수
   const showModal = () => {
@@ -33,6 +34,49 @@ const Refrigerator = (props) => {
   // 재료 등록 창 모달 숨김함수
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  // 체크박스 변화 감지함수
+  const handleIngredientCheckboxChange = (index) => {
+    setIngredients((prevIngredients) => {
+      const updatedIngredients = prevIngredients.map((ingredient, i) =>
+        i === index
+          ? { ...ingredient, checked: !ingredient.checked }
+          : ingredient
+      );
+
+      // 현재 상태에서 4개 이상이 선택되어 있는지 확인
+      const checkedCount = updatedIngredients.filter(
+        (ingredient) => ingredient.checked
+      ).length;
+
+      if (checkedCount > 3) {
+        // 4개 이상이 선택된 경우
+        alert("선택 가능한 식재료는 최대 3개입니다");
+        return prevIngredients; // 변경사항 취소
+      }
+
+      setBucket((prevBucket) => {
+        const selectedIngredient = updatedIngredients[index];
+
+        if (!selectedIngredient.checked) {
+          // 체크가 해제되어 있으면 삭제
+          return prevBucket.filter(
+            (name) => name !== selectedIngredient.name_ko
+          );
+        }
+
+        if (prevBucket.includes(selectedIngredient.name_ko)) {
+          // 이미 버킷에 있는 경우 추가하지 않음
+          return prevBucket;
+        }
+
+        // 체크되어 있으면 추가
+        return [...prevBucket, selectedIngredient.name_ko];
+      });
+
+      return updatedIngredients;
+    });
   };
 
   // 사용자 정보 가져오기
@@ -56,89 +100,135 @@ const Refrigerator = (props) => {
         .then((res) => {
           console.log(res);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   }, [ingredients]);
 
-  return (
-    <div style={{ display: "flex", fontFamily: "NotoSans", fontWeight: "700" }}>
-      <div
-        style={{
-          width: "512px",
-          paddingRight: "15px",
-          boxSizing: "border-box",
-        }}
-      >
-        <h3>{userName} 님의 냉장고</h3>
-        <div>
-          <div
-            style={{
-              display: "flex",
-              marginBottom: "15px",
-              borderBottom: "4px solid #3498DB",
-            }}
-          >
-            <div style={{ width: "100px" }}>이름</div>
-            <div style={{ width: "100px" }}>칼로리</div>
-            <div style={{ width: "100px" }}>탄수화물</div>
-            <div style={{ width: "100px" }}>단백질</div>
-            <div style={{ width: "100px" }}>지방</div>
-          </div>
+  // 버킷이 변경될 때마다 출력
+  useEffect(() => {
+    console.log("ingredients", ingredients);
+    console.log("Bucket:", bucket);
+  }, [bucket]);
 
-          {/* ingredients 배열을 돌면서 속성을 출력 */}
-          {ingredients.map((ingredient, index) => (
-            <div
-              style={{
-                display: "flex",
-                borderBottom: "2px solid #a5a5a5",
-              }}
-            >
-              <div style={{ width: "100px" }}>{ingredient.name_ko}</div>
-              <div style={{ width: "100px" }}>{ingredient.calories}</div>
-              <div style={{ width: "100px" }}>{ingredient.carbs}</div>
-              <div style={{ width: "100px" }}>{ingredient.protein}</div>
-              <div style={{ width: "100px" }}>{ingredient.fat}</div>
-            </div>
-          ))}
+  return (
+    <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {/* Left Section */}
+        <div
+          style={{ flex: 7, borderRight: "2px solid #e9e9e9", padding: "20px" }}
+        >
+          <h2
+            style={{
+              textAlign: "center",
+              fontSize: "20px",
+              fontFamily: "NotoSans",
+            }}
+          >{`${userName} 님의 냉장고`}</h2>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {ingredients.map((ingredient, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  margin: "10px",
+                  width: "calc(33.33% - 20px)", // 한 줄에 세 개씩
+                }}
+              >
+                <img
+                  src={ingredient.image}
+                  alt={ingredient.name_ko}
+                  style={{ width: "60px", height: "60px", marginRight: "10px" }}
+                />
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: "16px",
+                    fontFamily: "NotoSans",
+                  }}
+                >
+                  {ingredient.name_ko}
+                </h3>
+                <input
+                  type="checkbox"
+                  checked={ingredient.checked}
+                  onChange={() => handleIngredientCheckboxChange(index)}
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "15px",
+                    width: "18px", // 원하는 가로 크기
+                    height: "18px", // 원하는 세로 크기
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <button
-          type="submit"
-          onClick={showModal}
+
+        {/* Right Section */}
+        <div
           style={{
-            width: "100%",
-            height: "40px",
-            margin: "30px auto 0 auto",
-            border: "0",
-            borderRadius: "4px",
-            fontSize: "16px",
-            color: "#FFFFFF",
-            backgroundColor: "#5E5E5E",
-            cursor: "pointer",
+            flex: 3,
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          재료 추가하기
-        </button>
-      </div>
-      <div style={{ width: "512px" }}>
-        <h3>현재 식재료들로 만들 수 있는 요리 목록:</h3>
-        <div>결과 표 영역</div>
+          {/* Your content on the right section */}
+          <button
+            style={{
+              width: "250px",
+              height: "40px",
+              marginTop: "auto",
+              marginBottom: "10px",
+              backgroundColor: "#5E5E5E",
+              color: "#FFFFFF",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+            onClick={showModal}
+          >
+            식재료 추가하기
+          </button>
+          <button
+            style={{
+              width: "250px",
+              height: "40px",
+              backgroundColor: "#3498DB",
+              color: "#FFFFFF",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+            onClick={() => {}}
+          >
+            선택한 재료 조합으로 검색
+          </button>
+        </div>
       </div>
 
-      {/* 재료 등록 모달 */}
+      {/* Add Ingredient Modal */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Add Ingredient Modal"
       >
         <AddIngredientForm
           setIngredients={setIngredients}
           accessToken={accessToken}
         />
       </Modal>
-    </div>
+    </>
   );
 };
 

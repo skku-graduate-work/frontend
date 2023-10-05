@@ -32,24 +32,26 @@ const GetUserInfo = async (accessToken) => {
 
 // PostIngredient
 const PostIngredient = async (accessToken, ingredient) => {
-  return await instance.post(
-    "/ingredient-by-user",
-    {
+  const formData = new FormData();
+  formData.append(
+    "ingredientRequestDto",
+    JSON.stringify({
       name: ingredient,
-      image: "string",
       expiration_date: "2023-10-30",
       calories: 0,
       carbs: 0,
       fat: 0,
       protein: 0,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    }
+    })
   );
+  formData.append("image", "string");
+
+  return await instance.post("/ingredient-by-user", formData, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 // GetFood

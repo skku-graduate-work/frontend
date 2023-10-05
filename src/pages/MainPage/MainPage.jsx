@@ -27,7 +27,6 @@ export default function MainPage() {
 
   // 상태 변수
   const [accessToken, setAccessToken] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
@@ -66,15 +65,13 @@ export default function MainPage() {
         className="inner"
         style={{ width: "1024px", margin: "30px auto 0 auto" }}
       >
-        {/* 냉장고, 제작가능 음식 목록 */}
-        <div>
-          <Refrigerator
-            setIngredients={setIngredients}
-            accessToken={accessToken}
-            userName={userName}
-            ingredients={ingredients}
-          />
-        </div>
+        {/* 냉장고 */}
+        <Refrigerator
+          setIngredients={setIngredients}
+          accessToken={accessToken}
+          userName={userName}
+          ingredients={ingredients}
+        />
 
         {/* 추천 요리 */}
         <div style={{ marginTop: "30px" }}>
