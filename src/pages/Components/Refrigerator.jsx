@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import { GetFood } from "../../axios";
 
 import AddIngredientForm from "./AddIngredientForm";
+import SearchFoodForm from "./SearchFoodForm";
 
 const Refrigerator = (props) => {
   // 모달 창 스타일
@@ -24,6 +25,7 @@ const Refrigerator = (props) => {
   const [userName, setUserName] = useState("");
   const [ingredients, setIngredients] = useState([]); // 사용자 현재 냉장고 음식상태
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modal2IsOpen, set2IsOpen] = useState(false);
   const [bucket, setBucket] = useState([]); // 선택한 식재료를 담는 버킷
 
   // 재료 등록 창 모달 보임함수
@@ -34,6 +36,16 @@ const Refrigerator = (props) => {
   // 재료 등록 창 모달 숨김함수
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  // 음식 검색 창 모달 보임함수
+  const showModal2 = () => {
+    set2IsOpen(true);
+  };
+
+  // 음식 검색 창 모달 숨김함수
+  const closeModal2 = () => {
+    set2IsOpen(false);
   };
 
   // 체크박스 변화 감지함수
@@ -112,10 +124,21 @@ const Refrigerator = (props) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         {/* Left Section */}
         <div
-          style={{ flex: 7, borderRight: "2px solid #e9e9e9", padding: "20px" }}
+          style={{
+            height: "270px",
+            overflowY: "scroll", // 세로 scrollbar만 표시
+            overflowX: "hidden", // 가로 scrollbar는 숨김
+            flex: 7,
+            padding: "20px",
+          }}
         >
           <h2
             style={{
@@ -174,14 +197,15 @@ const Refrigerator = (props) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {/* Your content on the right section */}
           <button
+            onClick={showModal}
             style={{
               width: "250px",
               height: "40px",
-              marginTop: "auto",
               marginBottom: "10px",
               backgroundColor: "#5E5E5E",
               color: "#FFFFFF",
@@ -192,11 +216,11 @@ const Refrigerator = (props) => {
               borderRadius: "4px",
               cursor: "pointer",
             }}
-            onClick={showModal}
           >
             식재료 추가하기
           </button>
           <button
+            onClick={showModal2}
             style={{
               width: "250px",
               height: "40px",
@@ -209,7 +233,6 @@ const Refrigerator = (props) => {
               borderRadius: "4px",
               cursor: "pointer",
             }}
-            onClick={() => {}}
           >
             선택한 재료 조합으로 검색
           </button>
@@ -226,7 +249,18 @@ const Refrigerator = (props) => {
         <AddIngredientForm
           setIngredients={setIngredients}
           accessToken={accessToken}
+          closeModal={closeModal}
         />
+      </Modal>
+
+      {/* Search Food Modal */}
+      <Modal
+        isOpen={modal2IsOpen}
+        onRequestClose={closeModal2}
+        style={customStyles}
+        contentLabel="Search Food Modal"
+      >
+        <SearchFoodForm ingreList={bucket} accessToken={accessToken} />
       </Modal>
     </>
   );

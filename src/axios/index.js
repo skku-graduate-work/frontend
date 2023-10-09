@@ -31,8 +31,11 @@ const GetUserInfo = async (accessToken) => {
 };
 
 // PostIngredient
-const PostIngredient = async (accessToken, ingredient) => {
+const PostIngredient = async (accessToken, ingredient, image) => {
+  // FormData 생성
   const formData = new FormData();
+
+  // JSON 데이터 추가
   formData.append(
     "ingredientRequestDto",
     JSON.stringify({
@@ -44,8 +47,11 @@ const PostIngredient = async (accessToken, ingredient) => {
       protein: 0,
     })
   );
-  formData.append("image", "string");
 
+  // 이미지 파일 추가
+  formData.append("image", image);
+
+  // 데이터 전송
   return await instance.post("/ingredient-by-user", formData, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
