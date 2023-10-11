@@ -133,9 +133,6 @@ const Refrigerator = (props) => {
         {/* Left Section */}
         <div
           style={{
-            height: "270px",
-            overflowY: "scroll", // 세로 scrollbar만 표시
-            overflowX: "hidden", // 가로 scrollbar는 숨김
             flex: 7,
             padding: "20px",
           }}
@@ -147,7 +144,15 @@ const Refrigerator = (props) => {
               fontFamily: "NotoSans",
             }}
           >{`${userName} 님의 냉장고`}</h2>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              height: "250px",
+              overflowY: "scroll", // 세로 scrollbar만 표시
+              overflowX: "hidden", // 가로 scrollbar는 숨김
+            }}
+          >
             {ingredients.map((ingredient, index) => (
               <div
                 key={index}

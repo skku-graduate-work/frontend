@@ -56,12 +56,86 @@ const SearchFoodForm = (props) => {
       style={{
         width: "1000px",
         height: "600px",
+        padding: "40px",
+        boxSizing: "border-box",
         border: "2px solid #a5a5a5",
         fontFamily: "NotoSans",
         fontWeight: "700",
+        overflow: "hidden",
       }}
     >
-      {/* 여기를 채워줘 */}
+      <h1 style={{ margin: "0", fontSize: "36px", fontFamily: "NotoSans" }}>
+        선택한 재료로 만들 수 있는 요리입니다.
+      </h1>
+      <div
+        style={{
+          height: "450px",
+          overflowY: "scroll", // 세로 scrollbar만 표시
+          overflowX: "hidden", // 가로 scrollbar는 숨김
+        }}
+      >
+        <table
+          style={{
+            width: "100%",
+            marginTop: "15px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th
+                style={{
+                  width: "35%",
+                  background: "#EAEAEA",
+                  border: "1px solid #dddddd",
+                }}
+              >
+                이미지
+              </th>
+              <th
+                style={{
+                  width: "35%",
+                  background: "#EAEAEA",
+                  border: "1px solid #dddddd",
+                }}
+              >
+                요리명
+              </th>
+              <th
+                style={{
+                  background: "#EAEAEA",
+                  border: "1px solid #dddddd",
+                }}
+              >
+                칼로리(kcal)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {foodList.map((food, index) => (
+              <tr
+                key={index}
+                style={{
+                  height: "100px",
+                  marginTop: "10px",
+                  borderBottom: "2px solid #dddddd",
+                }}
+              >
+                <td style={{ width: "35%", textAlign: "center" }}>
+                  <img
+                    src={food.image} // foodList에 있는 이미지 소스 경로
+                    alt={food.name_ko} // 이미지 대체 텍스트
+                    style={{ width: "60px", height: "60px" }} // 이미지 크기 조절
+                  />
+                </td>
+                <td style={{ width: "35%", textAlign: "center" }}>
+                  {food.name_ko}
+                </td>
+                <td style={{ textAlign: "center" }}>{0}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
