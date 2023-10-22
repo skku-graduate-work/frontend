@@ -78,4 +78,13 @@ const GetFood = async (accessToken, ingredient1, ingredient2, ingredient3) => {
   );
 };
 
-export { Login, Signup, GetUserInfo, PostIngredient, GetFood };
+// GetRandomFood
+const GetRandomFood = async (accessToken) => {
+  return await instance.get("/favorite-food/random-food", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export { Login, Signup, GetUserInfo, PostIngredient, GetFood, GetRandomFood };

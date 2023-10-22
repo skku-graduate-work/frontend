@@ -75,7 +75,7 @@ export default function MainPage() {
 
         {/* 추천 요리 */}
         <div style={{ marginTop: "30px" }}>
-          <Recommendation />
+          <Recommendation userName={userName} />
         </div>
       </div>
 

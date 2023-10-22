@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -8,10 +10,17 @@ import testImage4 from "../../images/Food_Login04.jpg";
 import testImage5 from "../../images/Food_Login05.jpg";
 
 const Recommendation = (props) => {
+  // 상태변수
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    setUserName(props.userName);
+  }, [props]);
+
   return (
     <div style={{ width: "1024px", fontFamily: "NotoSans", fontWeight: "700" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <h2 style={{ color: "#0a0a5c" }}>사용자명</h2>
+        <h2 style={{ color: "#0a0a5c" }}>{userName}</h2>
         <h2 style={{ marginLeft: "5px", fontWeight: "400" }}>
           님의 선호도를 바탕으로 요리를 추천해드릴게요.
         </h2>

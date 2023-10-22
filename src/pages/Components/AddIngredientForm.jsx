@@ -7,14 +7,20 @@ const AddIngredientForm = (props) => {
   const [accessToken, setAccessToken] = useState("");
   const [ingredient, setIngredient] = useState("");
   const [image, setImage] = useState(null); // 이미지 상태 변수 추가
-  const [mode, setMode] = useState(false); // false=일반입력모드 true=OCR모드
+  const [image2, setImage2] = useState(null); // 이미지 상태 변수 추가2
+  const [mode, setMode] = useState(false); // false=일반입력모드 true=객체탐지모드
 
   // 이미지를 선택할 때 호출되는 함수
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
-  // 식재료 등록함수
+  // 이미지를 선택할 때 호출되는 함수(객체탐지모드)
+  const handleImageChange2 = (e) => {
+    setImage2(e.target.files[0]);
+  };
+
+  // 식재료 등록함수(일반)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -42,13 +48,24 @@ const AddIngredientForm = (props) => {
       });
   };
 
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+
+    // 이미지가 null로 넘어가면 안돼서 예외처리
+    if (image == null) {
+      setImage("");
+    }
+
+    // 객체탐지 API 추가바람
+  };
+
   // 입력모드 변경함수: 일반 입력모드
   const handleChangeMode = (e) => {
     e.preventDefault();
     setMode(false);
   };
 
-  // 입력모드 변경함수: OCR 입력모드
+  // 입력모드 변경함수: 객체탐지 입력모드
   const handleChangeMode2 = (e) => {
     e.preventDefault();
     setMode(true);
@@ -162,7 +179,7 @@ const AddIngredientForm = (props) => {
           </div>
         )}
 
-        {/* OCR 입력 모드의 경우 */}
+        {/* 객체탐지 입력 모드의 경우 */}
         {mode && (
           <div
             style={{
@@ -170,7 +187,54 @@ const AddIngredientForm = (props) => {
               marginTop: "30px",
             }}
           >
-            OCR입력모드입니다
+            {/* 첨부파일 영역: 이미지 선택 input 추가 */}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange2}
+              style={{
+                width: "100%",
+                height: "40px",
+                marginTop: "15px",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+                fontSize: "16px",
+              }}
+            />
+
+            {/* 힌트 */}
+            <div
+              style={{
+                height: "20px",
+                paddingLeft: "5px",
+                display: "flex",
+                textAlign: "left",
+                alignItems: "center",
+                color: "#aeaeae",
+              }}
+            >
+              식재료가 포함된 이미지를 첨부하세요.
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSubmit2}
+              style={{
+                width: "100%",
+                height: "40px",
+                marginTop: "15px",
+                backgroundColor: "#5E5E5E",
+                color: "#FFFFFF",
+                border: "0",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+                fontSize: "16px",
+              }}
+            >
+              재료 추가하기
+            </button>
           </div>
         )}
 
@@ -221,7 +285,7 @@ const AddIngredientForm = (props) => {
               fontSize: "16px",
             }}
           >
-            OCR 입력모드
+            객체탐지 입력모드
           </button>
         </div>
       </div>

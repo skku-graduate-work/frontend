@@ -84,7 +84,7 @@ const SearchFoodForm = (props) => {
             <tr>
               <th
                 style={{
-                  width: "35%",
+                  width: "50%",
                   background: "#EAEAEA",
                   border: "1px solid #dddddd",
                 }}
@@ -93,20 +93,12 @@ const SearchFoodForm = (props) => {
               </th>
               <th
                 style={{
-                  width: "35%",
+                  width: "50%",
                   background: "#EAEAEA",
                   border: "1px solid #dddddd",
                 }}
               >
                 요리명
-              </th>
-              <th
-                style={{
-                  background: "#EAEAEA",
-                  border: "1px solid #dddddd",
-                }}
-              >
-                칼로리(kcal)
               </th>
             </tr>
           </thead>
@@ -115,22 +107,42 @@ const SearchFoodForm = (props) => {
               <tr
                 key={index}
                 style={{
-                  height: "100px",
+                  height: "150px",
                   marginTop: "10px",
-                  borderBottom: "2px solid #dddddd",
                 }}
               >
-                <td style={{ width: "35%", textAlign: "center" }}>
+                {console.log(food.image.substring(1, food.image.length - 1))}
+                <td
+                  style={{
+                    width: "50%",
+                    textAlign: "center",
+                    borderBottom: "2px solid #aeaeae",
+                  }}
+                >
                   <img
-                    src={food.image} // foodList에 있는 이미지 소스 경로
+                    src={food.image.substring(1, food.image.length - 1)} // foodList에 있는 이미지 소스 경로
                     alt={food.name_ko} // 이미지 대체 텍스트
-                    style={{ width: "60px", height: "60px" }} // 이미지 크기 조절
+                    style={{ width: "130px", height: "130px" }} // 이미지 크기 조절
                   />
                 </td>
-                <td style={{ width: "35%", textAlign: "center" }}>
+                <td
+                  style={{
+                    width: "50%",
+                    textAlign: "center",
+                    borderBottom: "2px solid #aeaeae",
+                  }}
+                >
+                  <h3
+                    style={{
+                      marginTop: "0",
+                      fontSize: "16px",
+                      color: "#aeaeae",
+                    }}
+                  >
+                    {food.name_en.substring(1, food.name_en.length - 1)}
+                  </h3>
                   {food.name_ko}
                 </td>
-                <td style={{ textAlign: "center" }}>{0}</td>
               </tr>
             ))}
           </tbody>

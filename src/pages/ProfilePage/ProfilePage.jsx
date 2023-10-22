@@ -8,6 +8,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import NameChangeForm from "../Components/NameChangeForm";
 import FindPasswordForm from "../Components/FindPasswordForm";
+import FavorFoodForm from "../Components/FavorFoodForm";
 
 import testImage from "../../images/Food_Login03.jpg";
 import testImage2 from "../../images/Kurly_Logo03.jpg";
@@ -17,6 +18,7 @@ export default function ProfilePage(props) {
   const [accessToken, setAccessToken] = useState("");
   const [modal2IsOpen, set2IsOpen] = useState(false);
   const [modal3IsOpen, set3IsOpen] = useState(false);
+  const [modal4IsOpen, set4IsOpen] = useState(false);
   const [userName, setUserName] = useState("");
 
   // 모달 창 스타일
@@ -52,6 +54,16 @@ export default function ProfilePage(props) {
   // 비밀번호 변경 모달 숨김함수
   const closeModal3 = () => {
     set3IsOpen(false);
+  };
+
+  // 선호음식 변경 모달 보임함수
+  const showModal4 = () => {
+    set4IsOpen(true);
+  };
+
+  // 선호음식 변경 모달 숨김함수
+  const closeModal4 = () => {
+    set4IsOpen(false);
   };
 
   // 쿠키 이름으로 엑세스 토큰을 가져옵니다.
@@ -422,6 +434,7 @@ export default function ProfilePage(props) {
             </div>
             <button
               type="submit"
+              onClick={showModal4}
               style={{
                 width: "calc(100% - 10px)",
                 height: "40px",
@@ -489,6 +502,16 @@ export default function ProfilePage(props) {
         contentLabel="Example Modal"
       >
         <FindPasswordForm />
+      </Modal>
+
+      {/* 선호음식 변경 모달 */}
+      <Modal
+        isOpen={modal4IsOpen}
+        onRequestClose={closeModal4}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <FavorFoodForm accessToken={accessToken} userName={userName} />
       </Modal>
     </>
   );

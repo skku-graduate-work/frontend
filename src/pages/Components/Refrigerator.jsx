@@ -100,22 +100,6 @@ const Refrigerator = (props) => {
     }
   }, [props]);
 
-  // 요리 목록 가져오기
-  useEffect(() => {
-    if (ingredients && ingredients[0]) {
-      GetFood(
-        accessToken,
-        ingredients[2].name_ko,
-        ingredients[3].name_ko,
-        ingredients[5].name_ko
-      )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {});
-    }
-  }, [ingredients]);
-
   // 버킷이 변경될 때마다 출력
   useEffect(() => {
     console.log("ingredients", ingredients);
@@ -192,6 +176,18 @@ const Refrigerator = (props) => {
               </div>
             ))}
           </div>
+
+          {/* 힌트 */}
+          <h2
+            style={{
+              textAlign: "center",
+              fontSize: "20px",
+              fontFamily: "NotoSans",
+              color: "#aeaeae",
+            }}
+          >
+            최대 3개의 재료를 선택할 수 있습니다
+          </h2>
         </div>
 
         {/* Right Section */}
