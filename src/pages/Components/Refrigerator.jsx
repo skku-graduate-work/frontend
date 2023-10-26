@@ -202,6 +202,51 @@ const Refrigerator = (props) => {
           }}
         >
           {/* Your content on the right section */}
+
+          <div
+            style={{
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            <h2
+              style={{
+                fontSize: "18px",
+                fontFamily: "NotoSans",
+                color: "#333333",
+              }}
+            >
+              사용자 설정 영양정보
+            </h2>
+
+            <input
+              type="text"
+              placeholder="입력하세요"
+              style={{
+                width: "250px",
+                height: "30px",
+                marginTop: "5px",
+                marginBottom: "5px",
+                padding: "5px",
+                boxSizing: "border-box",
+                fontFamily: "NotoSans",
+                fontSize: "14px",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+              }}
+            />
+            <p
+              style={{
+                fontSize: "14px",
+                fontFamily: "NotoSans",
+                color: "#7F7F7F",
+                margin: 0,
+              }}
+            >
+              원하는 내용을 입력하세요.
+            </p>
+          </div>
+
           <button
             onClick={showModal}
             style={{

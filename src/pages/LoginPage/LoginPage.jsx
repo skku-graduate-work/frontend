@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -132,18 +132,14 @@ export default function LoginPage() {
 
   // 네이버 소셜 로그인
   const handleNaverLogin = () => {
-    const REST_API_KEY = "백엔드한테 달라하자1";
-    const REDIRECT_URI = "백엔드한테 달라하자2";
-    const link = "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js";
-
-    window.location.href = link;
+    window.location.href = "http://127.0.0.1:8080/oauth2/authorization/naver";
   };
 
   // 카카오 소셜 로그인
   const handleKakaoLogin = () => {
-    const REST_API_KEY = "백엔드한테 달라하자1";
-    const REDIRECT_URI = "백엔드한테 달라하자2";
-    const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    const client_id = "b693914bce90ffe5cd36881849f94517";
+    const redirect_uri = "http://localhost:3000/login/oauth2/callback/kakao";
+    const link = `https://kauth.kakao.com/oauth/authorize?scope=account_email&client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&prompt=login`;
 
     window.location.href = link;
   };

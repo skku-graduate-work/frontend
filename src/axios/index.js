@@ -87,4 +87,35 @@ const GetRandomFood = async (accessToken) => {
   });
 };
 
-export { Login, Signup, GetUserInfo, PostIngredient, GetFood, GetRandomFood };
+// AddFavoriteFood
+const AddFavoriteFood = async (
+  accessToken,
+  FoodID1,
+  FoodID2,
+  FoodID3,
+  FoodID4,
+  FoodID5
+) => {
+  return await instance.post(
+    "/favorite-food",
+    {
+      favoriteFoodList: [FoodID1, FoodID2, FoodID3, FoodID4, FoodID5],
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
+export {
+  Login,
+  Signup,
+  GetUserInfo,
+  PostIngredient,
+  GetFood,
+  GetRandomFood,
+  AddFavoriteFood,
+};
