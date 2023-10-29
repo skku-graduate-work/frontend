@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
-import { GetUserInfo } from "../../axios";
+import { GetUserInfo, SetMinNutrient, SetMaxNutrient } from "../../axios";
 
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -20,6 +20,8 @@ export default function ProfilePage(props) {
   const [modal3IsOpen, set3IsOpen] = useState(false);
   const [modal4IsOpen, set4IsOpen] = useState(false);
   const [userName, setUserName] = useState("");
+  const [minCal, setMinCal] = useState(0);
+  const [maxCal, setMaxCal] = useState(0);
 
   // 모달 창 스타일
   const customStyles = {
@@ -46,16 +48,6 @@ export default function ProfilePage(props) {
     set2IsOpen(false);
   };
 
-  // 비밀번호 변경 모달 보임함수
-  const showModal3 = () => {
-    set3IsOpen(true);
-  };
-
-  // 비밀번호 변경 모달 숨김함수
-  const closeModal3 = () => {
-    set3IsOpen(false);
-  };
-
   // 선호음식 변경 모달 보임함수
   const showModal4 = () => {
     set4IsOpen(true);
@@ -80,8 +72,38 @@ export default function ProfilePage(props) {
     return null;
   }
 
-  const navigate = useNavigate();
+  // 최소칼로리 변경 함수
+  const handleChangeMinCal = (event) => {
+    const newMinCal = parseInt(event.target.value, 10);
+    setMinCal(newMinCal);
+  };
 
+  // 최대칼로리 변경 함수
+  const handleChangeMaxCal = (event) => {
+    const newMaxCal = parseInt(event.target.value, 10);
+    setMaxCal(newMaxCal);
+  };
+
+  // 칼로리 상/하한 저장함수
+  const handleSaveCalories = () => {
+    SetMinNutrient(accessToken, minCal)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    SetMaxNutrient(accessToken, maxCal)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // 네비게이션 함수
+  const navigate = useNavigate();
   const handleToMain = () => {
     navigate("/main");
   };
@@ -106,6 +128,8 @@ export default function ProfilePage(props) {
       .then((res) => {
         console.log(res);
         setUserName(res.data.user.nickname);
+        setMinCal(res.data.user.minCalories);
+        setMaxCal(res.data.user.maxCalories);
       })
       .catch((err) => {
         console.log(err);
@@ -168,6 +192,14 @@ export default function ProfilePage(props) {
               borderRight: "2px solid #a5a5a5",
             }}
           >
+            <h2
+              style={{
+                maginTop: "10px",
+                fontFamily: "NotoSans",
+              }}
+            >
+              기본 정보
+            </h2>
             {/* 프로필사진 */}
             <div
               style={{
@@ -310,7 +342,16 @@ export default function ProfilePage(props) {
               position: "relative", // 추가: 부모 요소에 상대적인 위치 지정
             }}
           >
-            {/* 비밀번호 */}
+            <h2
+              style={{
+                maginTop: "10px",
+                marginLeft: "10px",
+                fontFamily: "NotoSans",
+              }}
+            >
+              영양 정보
+            </h2>
+            {/* 최소칼로리 */}
             <div
               style={{
                 height: "20px",
@@ -323,16 +364,68 @@ export default function ProfilePage(props) {
                 fontWeight: "700",
               }}
             >
-              비밀번호
+              최소칼로리
             </div>
 
-            <button
-              type="submit"
-              onClick={showModal3}
+            <input
+              type="text"
+              value={minCal}
+              onChange={handleChangeMinCal}
               style={{
                 width: "calc(100% - 10px)",
                 height: "40px",
                 marginTop: "5px",
+                marginLeft: "10px",
+                display: "block",
+                padding: "10px",
+                boxSizing: "border-box",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+                fontSize: "16px",
+              }}
+            />
+
+            {/* 최대칼로리 */}
+            <div
+              style={{
+                height: "20px",
+                marginTop: "10px",
+                paddingLeft: "10px",
+                display: "flex",
+                textAlign: "left",
+                alignItems: "center",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+              }}
+            >
+              최대칼로리
+            </div>
+
+            <input
+              type="text"
+              value={maxCal}
+              onChange={handleChangeMaxCal}
+              style={{
+                width: "calc(100% - 10px)",
+                height: "40px",
+                marginTop: "5px",
+                marginLeft: "10px",
+                display: "block",
+                padding: "10px",
+                boxSizing: "border-box",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+                fontSize: "16px",
+              }}
+            />
+
+            <button
+              type="submit"
+              onClick={handleSaveCalories}
+              style={{
+                width: "calc(100% - 10px)",
+                height: "40px",
+                marginTop: "10px",
                 marginLeft: "10px",
                 display: "block",
                 backgroundColor: "#5E5E5E",
@@ -345,7 +438,7 @@ export default function ProfilePage(props) {
                 fontSize: "16px",
               }}
             >
-              비밀번호 변경
+              칼로리 상/하한 변경
             </button>
 
             {/* 선호 음식 */}
@@ -492,16 +585,6 @@ export default function ProfilePage(props) {
         contentLabel="Example Modal"
       >
         <NameChangeForm accessToken={accessToken} />
-      </Modal>
-
-      {/* 비밀번호 찾기 모달 */}
-      <Modal
-        isOpen={modal3IsOpen}
-        onRequestClose={closeModal3}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <FindPasswordForm />
       </Modal>
 
       {/* 선호음식 변경 모달 */}

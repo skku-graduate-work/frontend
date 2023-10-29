@@ -28,6 +28,8 @@ import naverIcon from "../../images/Icon_naver.png";
 import kakaoIcon from "../../images/Icon_kakao.png";
 import googleIcon from "../../images/Icon_google.jpg";
 
+import axios from "axios";
+
 export default function LoginPage() {
   // 이미지 파일 배열
   const images = [
@@ -135,13 +137,34 @@ export default function LoginPage() {
     window.location.href = "http://127.0.0.1:8080/oauth2/authorization/naver";
   };
 
+  const instance = axios.create({
+    baseURL: "http://127.0.0.1:8080",
+    // withCredentials: true,
+  });
+
+  // Login
+  const Login2 = async () => {
+    return await instance.post("/oauth2/authorization/kakao", {
+      headers: {
+        "Access-Control-Allow-Origin": "*", //이건 cors 에러때문에 넣어둔것. 당신의 프로젝트에 맞게 지워도됨
+      },
+    });
+  };
+
   // 카카오 소셜 로그인
   const handleKakaoLogin = () => {
-    const client_id = "b693914bce90ffe5cd36881849f94517";
-    const redirect_uri = "http://localhost:3000/login/oauth2/callback/kakao";
-    const link = `https://kauth.kakao.com/oauth/authorize?scope=account_email&client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&prompt=login`;
+    // const client_id = "9c3c93e06a2894304c42d728a9ef1820";
+    // const redirect_uri = "http://localhost:8080/login/oauth2/code/kakao";
+    // const link = `https://kauth.kakao.com/oauth/authorize?scope=account_email&client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&prompt=login`;
 
-    window.location.href = link;
+    // window.location.href = link;
+    Login2()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // 랜덤한 이미지 선택 (한번만)

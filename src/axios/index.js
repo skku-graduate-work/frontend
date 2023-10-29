@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://127.0.0.1:8080/api/v1",
+  baseURL: "/api/v1",
   withCredentials: true,
 });
 
@@ -28,6 +28,44 @@ const GetUserInfo = async (accessToken) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+};
+
+// SetMinNutrient
+const SetMinNutrient = async (accessToken, minCal) => {
+  return await instance.put(
+    "/user/min-nutrients",
+    {
+      calories: minCal,
+      carbs: 0,
+      fat: 0,
+      protein: 0,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
+// SetMaxNutrient
+const SetMaxNutrient = async (accessToken, maxCal) => {
+  return await instance.put(
+    "/user/max-nutrients",
+    {
+      calories: maxCal,
+      carbs: 0,
+      fat: 0,
+      protein: 0,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 // PostIngredient
@@ -114,6 +152,8 @@ export {
   Login,
   Signup,
   GetUserInfo,
+  SetMinNutrient,
+  SetMaxNutrient,
   PostIngredient,
   GetFood,
   GetRandomFood,
