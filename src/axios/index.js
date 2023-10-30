@@ -98,6 +98,38 @@ const PostIngredient = async (accessToken, ingredient, image) => {
   });
 };
 
+// PostObjectDetection
+const PostObjectDetection = async (accessToken, image) => {
+  // FormData 생성
+  const formData = new FormData();
+
+  // 이미지 파일 추가
+  formData.append("image", image);
+
+  // 데이터 전송
+  return await instance.post("/ingredient/detect-label-from-image", formData, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+// ReportODResult
+const ReportODResult = async (accessToken, name) => {
+  return await instance.post(
+    `/ingredient/detect-label-from-image/user-result?name_ko=${encodeURIComponent(
+      name
+    )}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+};
+
 // GetFood
 const GetFood = async (accessToken, ingredient1, ingredient2, ingredient3) => {
   return await instance.post(
@@ -164,6 +196,8 @@ export {
   SetMinNutrient,
   SetMaxNutrient,
   PostIngredient,
+  PostObjectDetection,
+  ReportODResult,
   GetFood,
   GetFoodByNut,
   GetRandomFood,

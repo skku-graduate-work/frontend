@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { GetUserInfo, PostIngredient } from "../../axios";
+import {
+  GetUserInfo,
+  PostIngredient,
+  PostObjectDetection,
+  ReportODResult,
+} from "../../axios";
 
 const AddIngredientForm = (props) => {
   // 상태 변수
@@ -9,6 +14,10 @@ const AddIngredientForm = (props) => {
   const [image, setImage] = useState(null); // 이미지 상태 변수 추가
   const [image2, setImage2] = useState(null); // 이미지 상태 변수 추가2
   const [mode, setMode] = useState(false); // false=일반입력모드 true=객체탐지모드
+  const [results, setResults] = useState([]);
+
+  // 새로운 상태 변수 추가
+  const [selectedResultIndex, setSelectedResultIndex] = useState(0);
 
   // 이미지를 선택할 때 호출되는 함수
   const handleImageChange = (e) => {
@@ -48,6 +57,7 @@ const AddIngredientForm = (props) => {
       });
   };
 
+  // 객체탐지 사진 전송함수
   const handleSubmit2 = (e) => {
     e.preventDefault();
 
@@ -56,7 +66,36 @@ const AddIngredientForm = (props) => {
       setImage("");
     }
 
-    // 객체탐지 API 추가바람
+    PostObjectDetection(accessToken, image2)
+      .then((res) => {
+        console.log(res);
+        setResults(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // 버튼 클릭 처리 함수 (원하는 로직으로 대체하세요)
+  const handleDropdownButtonClick = () => {
+    ReportODResult(accessToken, results[selectedResultIndex].description_ko)
+      .then((res) => {
+        console.log(res);
+        GetUserInfo(accessToken)
+          .then((res) => {
+            console.log(res);
+            props.setIngredients(res.data.ingredients);
+            alert("성공적으로 등록되었습니다.");
+            props.closeModal();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("식재료 등록에 실패했습니다.");
+      });
   };
 
   // 입력모드 변경함수: 일반 입력모드
@@ -222,7 +261,7 @@ const AddIngredientForm = (props) => {
               style={{
                 width: "100%",
                 height: "40px",
-                marginTop: "15px",
+                marginTop: "10px",
                 backgroundColor: "#5E5E5E",
                 color: "#FFFFFF",
                 border: "0",
@@ -233,8 +272,70 @@ const AddIngredientForm = (props) => {
                 fontSize: "16px",
               }}
             >
-              재료 추가하기
+              객체 탐지하기
             </button>
+
+            {/* 결과 드롭다운과 버튼 */}
+            <div
+              style={{
+                display: results.length > 0 ? "flex" : "none",
+                marginTop: "15px",
+              }}
+            >
+              <select
+                value={selectedResultIndex}
+                onChange={(e) =>
+                  setSelectedResultIndex(parseInt(e.target.value))
+                }
+                style={{
+                  width: "50%",
+                  height: "40px",
+                  marginRight: "5px",
+                  fontFamily: "NotoSans",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                }}
+              >
+                {results.map((result, index) => (
+                  <option key={index} value={index}>
+                    {result.description_ko}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                type="button"
+                onClick={handleDropdownButtonClick}
+                style={{
+                  width: "50%",
+                  height: "40px",
+                  backgroundColor: "#3498DB",
+                  color: "#FFFFFF",
+                  border: "0",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontFamily: "NotoSans",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                }}
+              >
+                식재료 등록하기
+              </button>
+            </div>
+
+            {/* 힌트 */}
+            <div
+              style={{
+                height: "20px",
+                paddingLeft: "5px",
+                display: "flex",
+                textAlign: "left",
+                alignItems: "center",
+                color: "#aeaeae",
+              }}
+            >
+              일치하는 결과가 없다면, 일반 입력으로 추가해주세요
+            </div>
           </div>
         )}
 
