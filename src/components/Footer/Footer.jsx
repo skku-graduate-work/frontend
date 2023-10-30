@@ -3,7 +3,18 @@ import githubIcon from "../../images/Icon_github.png";
 import notionIcon from "../../images/Icon_notion.png";
 
 const Footer = () => {
-  const handleLinkKurly = () => {};
+  const handleLinkKurly = () => {
+    window.location.href = "https://www.kurly.com/main";
+  };
+
+  const handleLinkGithub = () => {
+    window.location.href = "https://github.com/skku-graduate-work";
+  };
+
+  const handleLinkNotion = () => {
+    window.location.href =
+      "https://www.notion.so/hyelimlog/177667bc02ac4968ab3c816afeb16f80";
+  };
 
   return (
     <div
@@ -70,11 +81,13 @@ const Footer = () => {
           <img
             src={githubIcon}
             alt="깃허브아이콘"
+            onClick={handleLinkGithub}
             style={{ width: "60px", height: "60px", cursor: "pointer" }}
           />
           <img
             src={notionIcon}
             alt="노션아이콘"
+            onClick={handleLinkNotion}
             style={{
               width: "60px",
               height: "60px",

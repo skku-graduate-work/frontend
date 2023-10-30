@@ -5,6 +5,7 @@ import { GetFood } from "../../axios";
 
 import AddIngredientForm from "./AddIngredientForm";
 import SearchFoodForm from "./SearchFoodForm";
+import SearchFoodForm2 from "./SearchFoodForm2";
 
 const Refrigerator = (props) => {
   // 모달 창 스타일
@@ -26,7 +27,9 @@ const Refrigerator = (props) => {
   const [ingredients, setIngredients] = useState([]); // 사용자 현재 냉장고 음식상태
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modal2IsOpen, set2IsOpen] = useState(false);
+  const [modal3IsOpen, set3IsOpen] = useState(false);
   const [bucket, setBucket] = useState([]); // 선택한 식재료를 담는 버킷
+  const [minCal, setMinCal] = useState(0);
 
   // 재료 등록 창 모달 보임함수
   const showModal = () => {
@@ -46,6 +49,16 @@ const Refrigerator = (props) => {
   // 음식 검색 창 모달 숨김함수
   const closeModal2 = () => {
     set2IsOpen(false);
+  };
+
+  // 음식 검색 창 모달 보임함수2
+  const showModal3 = () => {
+    set3IsOpen(true);
+  };
+
+  // 음식 검색 창 모달 숨김함수2
+  const closeModal3 = () => {
+    set3IsOpen(false);
   };
 
   // 체크박스 변화 감지함수
@@ -95,6 +108,7 @@ const Refrigerator = (props) => {
   useEffect(() => {
     setAccessToken(props.accessToken);
     setUserName(props.userName);
+    setMinCal(props.minCal);
     if (props.ingredients) {
       setIngredients(props.ingredients);
     }
@@ -205,46 +219,87 @@ const Refrigerator = (props) => {
 
           <div
             style={{
-              marginBottom: "20px",
+              marginBottom: "120px",
               textAlign: "center",
             }}
           >
             <h2
               style={{
+                marginBottom: "0",
                 fontSize: "18px",
                 fontFamily: "NotoSans",
                 color: "#333333",
               }}
             >
-              사용자 설정 영양정보
+              {userName}&nbsp;님의 최소 칼로리
             </h2>
 
-            <input
-              type="text"
-              placeholder="입력하세요"
+            <div
               style={{
                 width: "250px",
-                height: "30px",
-                marginTop: "5px",
-                marginBottom: "5px",
-                padding: "5px",
-                boxSizing: "border-box",
-                fontFamily: "NotoSans",
-                fontSize: "14px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-              }}
-            />
-            <p
-              style={{
-                fontSize: "14px",
-                fontFamily: "NotoSans",
-                color: "#7F7F7F",
-                margin: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              원하는 내용을 입력하세요.
-            </p>
+              <input
+                type="text"
+                value={minCal}
+                disabled
+                style={{
+                  width: "50%",
+                  height: "30px",
+                  marginTop: "5px",
+                  marginBottom: "5px",
+                  padding: "5px",
+                  boxSizing: "border-box",
+                  fontFamily: "NotoSans",
+                  fontSize: "14px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  textAlign: "right",
+                }}
+              />
+              <p
+                style={{
+                  marginLeft: "5px",
+                  fontSize: "14px",
+                  fontFamily: "NotoSans",
+                  color: "#7F7F7F",
+                  margin: 0,
+                }}
+              >
+                칼로리
+              </p>
+            </div>
+            <button
+              onClick={showModal3}
+              style={{
+                width: "250px",
+                height: "40px",
+                backgroundColor: "#c0c0c0",
+                color: "#FFFFFF",
+                fontFamily: "NotoSans",
+                fontWeight: "700",
+                fontSize: "16px",
+                border: "0",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              최소 칼로리로 검색
+            </button>
+            <h2
+              style={{
+                marginTop: "0",
+                textAlign: "center",
+                fontSize: "16px",
+                fontFamily: "NotoSans",
+                color: "#aeaeae",
+              }}
+            >
+              최소 칼로리 이상의 음식을 검색합니다
+            </h2>
           </div>
 
           <button
@@ -307,6 +362,20 @@ const Refrigerator = (props) => {
         contentLabel="Search Food Modal"
       >
         <SearchFoodForm ingreList={bucket} accessToken={accessToken} />
+      </Modal>
+
+      {/* Search Food Modal2 */}
+      <Modal
+        isOpen={modal3IsOpen}
+        onRequestClose={closeModal3}
+        style={customStyles}
+        contentLabel="Search Food Modal2"
+      >
+        <SearchFoodForm2
+          accessToken={accessToken}
+          minCal={minCal}
+          userName={userName}
+        />
       </Modal>
     </>
   );

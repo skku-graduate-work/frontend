@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "/api/v1",
+  baseURL: "http://localhost:8080/api/v1",
   withCredentials: true,
 });
 
@@ -116,6 +116,15 @@ const GetFood = async (accessToken, ingredient1, ingredient2, ingredient3) => {
   );
 };
 
+// GetFoodByNut
+const GetFoodByNut = async (accessToken) => {
+  return await instance.get("/food-by-nutrients", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
 // GetRandomFood
 const GetRandomFood = async (accessToken) => {
   return await instance.get("/favorite-food/random-food", {
@@ -156,6 +165,7 @@ export {
   SetMaxNutrient,
   PostIngredient,
   GetFood,
+  GetFoodByNut,
   GetRandomFood,
   AddFavoriteFood,
 };
