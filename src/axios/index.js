@@ -13,6 +13,15 @@ const Login = async (email, password) => {
   });
 };
 
+// SocialLogin
+const SocialLogin = async (type) => {
+  let instance = axios.create({
+    baseURL: "http://localhost:8080",
+    withCredentials: true,
+  });
+  return await instance.post(`/oauth2/authorization/${type}`);
+};
+
 // Signup
 const Signup = async (email, password) => {
   return await instance.post("/user/signup", {
@@ -31,14 +40,20 @@ const GetUserInfo = async (accessToken) => {
 };
 
 // SetMinNutrient
-const SetMinNutrient = async (accessToken, minCal) => {
+const SetMinNutrient = async (
+  accessToken,
+  minCal,
+  minCarb,
+  minProt,
+  minFat
+) => {
   return await instance.put(
     "/user/min-nutrients",
     {
       calories: minCal,
-      carbs: 0,
-      fat: 0,
-      protein: 0,
+      carbs: minCarb,
+      fat: minFat,
+      protein: minProt,
     },
     {
       headers: {
@@ -50,14 +65,20 @@ const SetMinNutrient = async (accessToken, minCal) => {
 };
 
 // SetMaxNutrient
-const SetMaxNutrient = async (accessToken, maxCal) => {
+const SetMaxNutrient = async (
+  accessToken,
+  maxCal,
+  maxCarb,
+  maxProt,
+  maxFat
+) => {
   return await instance.put(
     "/user/max-nutrients",
     {
       calories: maxCal,
-      carbs: 0,
-      fat: 0,
-      protein: 0,
+      carbs: maxCarb,
+      fat: maxFat,
+      protein: maxProt,
     },
     {
       headers: {
@@ -191,6 +212,7 @@ const AddFavoriteFood = async (
 
 export {
   Login,
+  SocialLogin,
   Signup,
   GetUserInfo,
   SetMinNutrient,

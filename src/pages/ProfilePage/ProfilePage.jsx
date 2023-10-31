@@ -21,7 +21,13 @@ export default function ProfilePage(props) {
   const [modal4IsOpen, set4IsOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [minCal, setMinCal] = useState(0);
+  const [minCarb, setMinCarb] = useState(0);
+  const [minProt, setMinProt] = useState(0);
+  const [minFat, setMinFat] = useState(0);
   const [maxCal, setMaxCal] = useState(0);
+  const [maxCarb, setMaxCarb] = useState(0);
+  const [maxProt, setMaxProt] = useState(0);
+  const [maxFat, setMaxFat] = useState(0);
 
   // 모달 창 스타일
   const customStyles = {
@@ -78,27 +84,65 @@ export default function ProfilePage(props) {
     setMinCal(newMinCal);
   };
 
+  // 최소탄수화물 변경 함수
+  const handleChangeMinCarb = (event) => {
+    const newMinCarb = parseInt(event.target.value, 10);
+    setMinCarb(newMinCarb);
+  };
+
+  // 최소단백질 변경 함수
+  const handleChangeMinProt = (event) => {
+    const newMinProt = parseInt(event.target.value, 10);
+    setMinProt(newMinProt);
+  };
+
+  // 최소지방 변경 함수
+  const handleChangeMinFat = (event) => {
+    const newMinFat = parseInt(event.target.value, 10);
+    setMinFat(newMinFat);
+  };
+
   // 최대칼로리 변경 함수
   const handleChangeMaxCal = (event) => {
     const newMaxCal = parseInt(event.target.value, 10);
     setMaxCal(newMaxCal);
   };
 
-  // 칼로리 상/하한 저장함수
+  // 최대탄수화물 변경 함수
+  const handleChangeMaxCarb = (event) => {
+    const newMaxCarb = parseInt(event.target.value, 10);
+    setMaxCarb(newMaxCarb);
+  };
+
+  // 최대단백질 변경 함수
+  const handleChangeMaxProt = (event) => {
+    const newMaxProt = parseInt(event.target.value, 10);
+    setMaxProt(newMaxProt);
+  };
+
+  // 최대지방 변경 함수
+  const handleChangeMaxFat = (event) => {
+    const newMaxFat = parseInt(event.target.value, 10);
+    setMaxFat(newMaxFat);
+  };
+
+  // 칼로리, 영양소 상/하한 저장함수
   const handleSaveCalories = () => {
-    SetMinNutrient(accessToken, minCal)
+    SetMinNutrient(accessToken, minCal, minCarb, minProt, minFat)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    SetMaxNutrient(accessToken, maxCal)
+    SetMaxNutrient(accessToken, maxCal, maxCarb, maxProt, maxFat)
       .then((res) => {
         console.log(res);
+        alert("성공적으로 등록되었습니다");
       })
       .catch((err) => {
         console.log(err);
+        alert("영양정보 등록에 실패했습니다");
       });
   };
 
@@ -129,6 +173,9 @@ export default function ProfilePage(props) {
         console.log(res);
         setUserName(res.data.user.nickname);
         setMinCal(res.data.user.minCalories);
+        setMinCarb(res.data.user.minCarbs);
+        setMinProt(res.data.user.minProtein);
+        setMinFat(res.data.user.minFat);
         setMaxCal(res.data.user.maxCalories);
       })
       .catch((err) => {
@@ -188,7 +235,7 @@ export default function ProfilePage(props) {
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "600px",
+              height: "800px",
               borderRight: "2px solid #a5a5a5",
             }}
           >
@@ -338,7 +385,7 @@ export default function ProfilePage(props) {
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "600px",
+              height: "800px",
               position: "relative", // 추가: 부모 요소에 상대적인 위치 지정
             }}
           >
@@ -346,78 +393,303 @@ export default function ProfilePage(props) {
               style={{
                 maginTop: "10px",
                 marginLeft: "10px",
+                marginBottom: "0",
                 fontFamily: "NotoSans",
               }}
             >
               영양 정보
             </h2>
-            {/* 최소칼로리 */}
-            <div
-              style={{
-                height: "20px",
-                marginTop: "10px",
-                paddingLeft: "10px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-              }}
-            >
-              최소칼로리
+            <div style={{ width: "100%", display: "flex" }}>
+              <div style={{ width: "50%" }}>
+                {/* 최소칼로리 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최소칼로리(kcal)
+                </div>
+
+                <input
+                  type="text"
+                  value={minCal}
+                  onChange={handleChangeMinCal}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+              <div style={{ width: "50%" }}>
+                {/* 최소탄수화물 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최소탄수화물(g)
+                </div>
+
+                <input
+                  type="text"
+                  value={minCarb}
+                  onChange={handleChangeMinCarb}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
             </div>
 
-            <input
-              type="text"
-              value={minCal}
-              onChange={handleChangeMinCal}
-              style={{
-                width: "calc(100% - 10px)",
-                height: "40px",
-                marginTop: "5px",
-                marginLeft: "10px",
-                display: "block",
-                padding: "10px",
-                boxSizing: "border-box",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            />
+            <div style={{ width: "100%", display: "flex" }}>
+              <div style={{ width: "50%" }}>
+                {/* 최소단백질 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최소단백질(g)
+                </div>
 
-            {/* 최대칼로리 */}
-            <div
-              style={{
-                height: "20px",
-                marginTop: "10px",
-                paddingLeft: "10px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-              }}
-            >
-              최대칼로리
+                <input
+                  type="text"
+                  value={minProt}
+                  onChange={handleChangeMinProt}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+              <div style={{ width: "50%" }}>
+                {/* 최소지방 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최소지방(g)
+                </div>
+
+                <input
+                  type="text"
+                  value={minFat}
+                  onChange={handleChangeMinFat}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
             </div>
 
-            <input
-              type="text"
-              value={maxCal}
-              onChange={handleChangeMaxCal}
-              style={{
-                width: "calc(100% - 10px)",
-                height: "40px",
-                marginTop: "5px",
-                marginLeft: "10px",
-                display: "block",
-                padding: "10px",
-                boxSizing: "border-box",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            />
+            <div style={{ width: "100%", display: "flex" }}>
+              <div style={{ width: "50%" }}>
+                {/* 최대칼로리 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최대칼로리(kcal)
+                </div>
+
+                <input
+                  type="text"
+                  value={maxCal}
+                  onChange={handleChangeMaxCal}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+              <div style={{ width: "50%" }}>
+                {/* 최대탄수화물 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최대탄수화물(g)
+                </div>
+
+                <input
+                  type="text"
+                  value={maxCarb}
+                  onChange={handleChangeMaxCarb}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div style={{ width: "100%", display: "flex" }}>
+              <div style={{ width: "50%" }}>
+                {/* 최대단백질 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최대단백질(g)
+                </div>
+
+                <input
+                  type="text"
+                  value={maxProt}
+                  onChange={handleChangeMaxProt}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+              <div style={{ width: "50%" }}>
+                {/* 최대지방 */}
+                <div
+                  style={{
+                    height: "20px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    display: "flex",
+                    textAlign: "left",
+                    alignItems: "center",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                  }}
+                >
+                  최대지방(g)
+                </div>
+
+                <input
+                  type="text"
+                  value={maxFat}
+                  onChange={handleChangeMaxFat}
+                  style={{
+                    width: "calc(100% - 10px)",
+                    height: "40px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    display: "block",
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                  }}
+                />
+              </div>
+            </div>
 
             <button
               type="submit"
@@ -438,7 +710,7 @@ export default function ProfilePage(props) {
                 fontSize: "16px",
               }}
             >
-              칼로리 상/하한 변경
+              칼로리&영양소 정보 상/하한 변경
             </button>
 
             {/* 선호 음식 */}

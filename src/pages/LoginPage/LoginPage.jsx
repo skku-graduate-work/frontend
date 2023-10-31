@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 
-import { Login } from "../../axios";
+import { Login, SocialLogin } from "../../axios";
 import { setCookie } from "../../utils/Cookie";
 
 import SignupForm from "../Components/SignupForm";
@@ -134,37 +134,38 @@ export default function LoginPage() {
 
   // 네이버 소셜 로그인
   const handleNaverLogin = () => {
-    window.location.href = "http://127.0.0.1:8080/oauth2/authorization/naver";
-  };
-
-  const instance = axios.create({
-    baseURL: "http://127.0.0.1:8080",
-    // withCredentials: true,
-  });
-
-  // Login
-  const Login2 = async () => {
-    return await instance.post("/oauth2/authorization/kakao", {
-      headers: {
-        "Access-Control-Allow-Origin": "*", //이건 cors 에러때문에 넣어둔것. 당신의 프로젝트에 맞게 지워도됨
-      },
-    });
+    // SocialLogin("naver")
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    window.location.href = "http://localhost:8080/oauth2/authorization/naver";
   };
 
   // 카카오 소셜 로그인
   const handleKakaoLogin = () => {
-    // const client_id = "9c3c93e06a2894304c42d728a9ef1820";
-    // const redirect_uri = "http://localhost:8080/login/oauth2/code/kakao";
-    // const link = `https://kauth.kakao.com/oauth/authorize?scope=account_email&client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&prompt=login`;
+    // SocialLogin("kakao")
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+  };
 
-    // window.location.href = link;
-    Login2()
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  // 구글 소셜 로그인
+  const handleGoogleLogin = () => {
+    // SocialLogin("google")
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
   };
 
   // 랜덤한 이미지 선택 (한번만)
@@ -328,7 +329,7 @@ export default function LoginPage() {
                 회원가입
               </a>
             </div>
-            <div>
+            {/* <div>
               비밀번호를 잊으셨나요?{" "}
               <a
                 style={{
@@ -339,7 +340,7 @@ export default function LoginPage() {
               >
                 비밀번호 찾기
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* 회원가입 모달 */}
@@ -395,8 +396,9 @@ export default function LoginPage() {
                 }}
               />
             </a>
-            <a href="https://google.com">
+            <a>
               <img
+                onClick={handleGoogleLogin}
                 src={googleIcon}
                 alt="Google Icon"
                 style={{
