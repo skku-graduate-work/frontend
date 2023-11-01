@@ -31,6 +31,9 @@ export default function MainPage() {
   const [ingredients, setIngredients] = useState([]);
   const [favorite, setFavorite] = useState([]);
   const [minCal, setMinCal] = useState(0);
+  const [minCarb, setMinCarb] = useState(0);
+  const [minProt, setMinProt] = useState(0);
+  const [minFat, setMinFat] = useState(0);
 
   // 초기 엑세스 토큰 설정
   useEffect(() => {
@@ -53,6 +56,9 @@ export default function MainPage() {
         console.log(res);
         setUserName(res.data.user.nickname);
         setMinCal(res.data.user.minCalories);
+        setMinCarb(res.data.user.minCarbs);
+        setMinProt(res.data.user.minProtein);
+        setMinFat(res.data.user.minFat);
         setIngredients(res.data.ingredients);
         setFavorite(res.data.favoriteFoodInfoList);
       })
@@ -76,6 +82,9 @@ export default function MainPage() {
           userName={userName}
           ingredients={ingredients}
           minCal={minCal}
+          minCarb={minCarb}
+          minProt={minProt}
+          minFat={minFat}
         />
 
         {/* 추천 요리 */}

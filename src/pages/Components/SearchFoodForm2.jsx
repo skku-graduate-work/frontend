@@ -7,12 +7,18 @@ const SearchFoodForm2 = (props) => {
   const [foodList, setFoodList] = useState([]);
   const [userName, setUserName] = useState("");
   const [minCal, setMinCal] = useState(0);
+  const [minCarb, setMinCarb] = useState(0);
+  const [minProt, setMinProt] = useState(0);
+  const [minFat, setMinFat] = useState(0);
 
-  // 엑세스 토큰 가져오기
+  // 사용자 정보 가져오기
   useEffect(() => {
     setAccessToken(props.accessToken);
     setUserName(props.userName);
     setMinCal(props.minCal);
+    setMinCarb(props.minCarb);
+    setMinProt(props.minProt);
+    setMinFat(props.minFat);
   }, [props]);
 
   // 제작 가능 음식 받아오기
@@ -33,7 +39,7 @@ const SearchFoodForm2 = (props) => {
     <div
       style={{
         width: "1000px",
-        height: "600px",
+        height: "700px",
         padding: "40px",
         boxSizing: "border-box",
         border: "2px solid #a5a5a5",
@@ -43,7 +49,13 @@ const SearchFoodForm2 = (props) => {
       }}
     >
       <h1 style={{ margin: "0", fontSize: "36px", fontFamily: "NotoSans" }}>
-        {userName} 님이 설정하신 {minCal.toString()} 칼로리 이하의 요리입니다.
+        <span style={{ color: "#01579b" }}>{userName}</span> 님이 설정하신
+        영양정보 하한
+        <br />(<span style={{ color: "#01579b" }}>{minCal}</span> kcal, 탄수화물{" "}
+        <span style={{ color: "#01579b" }}>{minCarb}</span> g, 단백질{" "}
+        <span style={{ color: "#01579b" }}>{minProt}</span> g, 지방{" "}
+        <span style={{ color: "#01579b" }}>{minFat}</span> g) <br />
+        이상의 요리를 알려드릴게요
       </h1>
       <div
         style={{

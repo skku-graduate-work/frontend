@@ -30,6 +30,9 @@ const Refrigerator = (props) => {
   const [modal3IsOpen, set3IsOpen] = useState(false);
   const [bucket, setBucket] = useState([]); // 선택한 식재료를 담는 버킷
   const [minCal, setMinCal] = useState(0);
+  const [minCarb, setMinCarb] = useState(0);
+  const [minProt, setMinProt] = useState(0);
+  const [minFat, setMinFat] = useState(0);
 
   // 재료 등록 창 모달 보임함수
   const showModal = () => {
@@ -109,6 +112,9 @@ const Refrigerator = (props) => {
     setAccessToken(props.accessToken);
     setUserName(props.userName);
     setMinCal(props.minCal);
+    setMinCarb(props.minCarb);
+    setMinProt(props.minProt);
+    setMinFat(props.minFat);
     if (props.ingredients) {
       setIngredients(props.ingredients);
     }
@@ -144,6 +150,7 @@ const Refrigerator = (props) => {
           >{`${userName} 님의 냉장고`}</h2>
           <div
             style={{
+              marginTop: "50px",
               display: "flex",
               flexWrap: "wrap",
               height: "250px",
@@ -231,7 +238,7 @@ const Refrigerator = (props) => {
                 color: "#333333",
               }}
             >
-              {userName}&nbsp;님의 최소 칼로리
+              {userName}&nbsp;님의 영양정보(하한)
             </h2>
 
             <div
@@ -242,41 +249,179 @@ const Refrigerator = (props) => {
                 justifyContent: "center",
               }}
             >
-              <input
-                type="text"
-                value={minCal}
-                disabled
+              {/* 최소칼로리 */}
+              <div style={{ width: "calc(50% - 5px)", display: "flex" }}>
+                <input
+                  type="text"
+                  value={minCal}
+                  disabled
+                  style={{
+                    width: "50%",
+                    height: "30px",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontSize: "14px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    textAlign: "right",
+                  }}
+                />
+                <p
+                  style={{
+                    width: "50%",
+                    marginLeft: "5px",
+                    fontSize: "14px",
+                    fontFamily: "NotoSans",
+                    color: "#7F7F7F",
+                    margin: 0,
+                  }}
+                >
+                  칼로리
+                  <br />
+                  (kcal)
+                </p>
+              </div>
+
+              {/* 최소탄수화물 */}
+              <div
                 style={{
-                  width: "50%",
-                  height: "30px",
-                  marginTop: "5px",
-                  marginBottom: "5px",
-                  padding: "5px",
-                  boxSizing: "border-box",
-                  fontFamily: "NotoSans",
-                  fontSize: "14px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  textAlign: "right",
-                }}
-              />
-              <p
-                style={{
-                  marginLeft: "5px",
-                  fontSize: "14px",
-                  fontFamily: "NotoSans",
-                  color: "#7F7F7F",
-                  margin: 0,
+                  width: "calc(50% - 5px)",
+                  marginLeft: "10px",
+                  display: "flex",
                 }}
               >
-                칼로리
-              </p>
+                <input
+                  type="text"
+                  value={minCarb}
+                  disabled
+                  style={{
+                    width: "50%",
+                    height: "30px",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontSize: "14px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    textAlign: "right",
+                  }}
+                />
+                <p
+                  style={{
+                    width: "50%",
+                    marginLeft: "5px",
+                    fontSize: "14px",
+                    fontFamily: "NotoSans",
+                    color: "#7F7F7F",
+                    margin: 0,
+                  }}
+                >
+                  탄수화물
+                  <br />
+                  (g)
+                </p>
+              </div>
             </div>
+
+            <div
+              style={{
+                width: "250px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {/* 최소단백질 */}
+              <div style={{ width: "calc(50% - 5px)", display: "flex" }}>
+                <input
+                  type="text"
+                  value={minProt}
+                  disabled
+                  style={{
+                    width: "50%",
+                    height: "30px",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontSize: "14px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    textAlign: "right",
+                  }}
+                />
+                <p
+                  style={{
+                    width: "50%",
+                    marginLeft: "5px",
+                    fontSize: "14px",
+                    fontFamily: "NotoSans",
+                    color: "#7F7F7F",
+                    margin: 0,
+                  }}
+                >
+                  단백질
+                  <br />
+                  (g)
+                </p>
+              </div>
+
+              {/* 최소지방 */}
+              <div
+                style={{
+                  width: "calc(50% - 5px)",
+                  marginLeft: "10px",
+                  display: "flex",
+                }}
+              >
+                <input
+                  type="text"
+                  value={minFat}
+                  disabled
+                  style={{
+                    width: "50%",
+                    height: "30px",
+                    marginTop: "5px",
+                    marginBottom: "5px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                    fontFamily: "NotoSans",
+                    fontSize: "14px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    textAlign: "right",
+                  }}
+                />
+                <p
+                  style={{
+                    width: "50%",
+                    marginLeft: "5px",
+                    fontSize: "14px",
+                    fontFamily: "NotoSans",
+                    color: "#7F7F7F",
+                    margin: 0,
+                  }}
+                >
+                  지방
+                  <br />
+                  (g)
+                </p>
+              </div>
+            </div>
+
+            {/* 영양소 하한으로 검색 */}
             <button
               onClick={showModal3}
               style={{
-                width: "250px",
+                width: "100%",
                 height: "40px",
+                marginTop: "5px",
                 backgroundColor: "#c0c0c0",
                 color: "#FFFFFF",
                 fontFamily: "NotoSans",
@@ -287,7 +432,7 @@ const Refrigerator = (props) => {
                 cursor: "pointer",
               }}
             >
-              최소 칼로리로 검색
+              영양소 하한으로 검색
             </button>
             <h2
               style={{
@@ -298,14 +443,14 @@ const Refrigerator = (props) => {
                 color: "#aeaeae",
               }}
             >
-              최소 칼로리 이상의 음식을 검색합니다
+              최소 영양정보 이상의 음식을 검색합니다
             </h2>
           </div>
 
           <button
             onClick={showModal}
             style={{
-              width: "250px",
+              width: "264px",
               height: "40px",
               marginBottom: "10px",
               backgroundColor: "#5E5E5E",
@@ -323,7 +468,7 @@ const Refrigerator = (props) => {
           <button
             onClick={showModal2}
             style={{
-              width: "250px",
+              width: "264px",
               height: "40px",
               backgroundColor: "#3498DB",
               color: "#FFFFFF",
@@ -373,8 +518,11 @@ const Refrigerator = (props) => {
       >
         <SearchFoodForm2
           accessToken={accessToken}
-          minCal={minCal}
           userName={userName}
+          minCal={minCal}
+          minCarb={minCarb}
+          minProt={minProt}
+          minFat={minFat}
         />
       </Modal>
     </>
