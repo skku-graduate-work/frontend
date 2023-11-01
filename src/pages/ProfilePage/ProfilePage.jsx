@@ -11,7 +11,7 @@ import FindPasswordForm from "../Components/FindPasswordForm";
 import FavorFoodForm from "../Components/FavorFoodForm";
 import ChangeProfileImgForm from "../Components/ChangeProfileImgForm";
 
-import testImage from "../../images/Food_Login03.jpg";
+import NoFoodImg from "../../images/no_food.jpg";
 import UserDefaultImg from "../../images/no-user.jpg";
 
 export default function ProfilePage(props) {
@@ -32,6 +32,17 @@ export default function ProfilePage(props) {
   const [maxCarb, setMaxCarb] = useState(0);
   const [maxProt, setMaxProt] = useState(0);
   const [maxFat, setMaxFat] = useState(0);
+  const [favoriteFood, setFavoriteFood] = useState([]);
+  const [FoodImgSource1, setFoodImgSource1] = useState("");
+  const [FoodImgSource2, setFoodImgSource2] = useState("");
+  const [FoodImgSource3, setFoodImgSource3] = useState("");
+  const [FoodImgSource4, setFoodImgSource4] = useState("");
+  const [FoodImgSource5, setFoodImgSource5] = useState("");
+  const [FoodName1, setFoodName1] = useState("미등록");
+  const [FoodName2, setFoodName2] = useState("미등록");
+  const [FoodName3, setFoodName3] = useState("미등록");
+  const [FoodName4, setFoodName4] = useState("미등록");
+  const [FoodName5, setFoodName5] = useState("미등록");
 
   // 모달 창 스타일
   const customStyles = {
@@ -197,11 +208,39 @@ export default function ProfilePage(props) {
         setMaxCarb(res.data.user.maxCarbs);
         setMaxProt(res.data.user.maxProtein);
         setMaxFat(res.data.user.maxFat);
+        if (res.data.favoriteFoodInfoList) {
+          setFavoriteFood(res.data.favoriteFoodInfoList);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }, [accessToken]);
+
+  useEffect(() => {
+    if (favoriteFood && favoriteFood[0]) {
+      setFoodImgSource1(
+        favoriteFood[0].image.substring(1, favoriteFood[0].image.length - 1)
+      );
+      setFoodImgSource2(
+        favoriteFood[1].image.substring(1, favoriteFood[1].image.length - 1)
+      );
+      setFoodImgSource3(
+        favoriteFood[2].image.substring(1, favoriteFood[2].image.length - 1)
+      );
+      setFoodImgSource4(
+        favoriteFood[3].image.substring(1, favoriteFood[3].image.length - 1)
+      );
+      setFoodImgSource5(
+        favoriteFood[4].image.substring(1, favoriteFood[4].image.length - 1)
+      );
+      setFoodName1(favoriteFood[0].name_ko);
+      setFoodName2(favoriteFood[1].name_ko);
+      setFoodName3(favoriteFood[2].name_ko);
+      setFoodName4(favoriteFood[3].name_ko);
+      setFoodName5(favoriteFood[4].name_ko);
+    }
+  }, [favoriteFood]);
 
   return (
     <>
@@ -763,11 +802,11 @@ export default function ProfilePage(props) {
               {/* 선호음식 1 */}
               <div style={{ width: "calc((100% - 40px) / 5)" }}>
                 <img
-                  src={testImage}
+                  src={FoodImgSource1 ? FoodImgSource1 : NoFoodImg}
                   alt="testIMG"
-                  style={{ width: "100%", height: "120px" }}
+                  style={{ width: "100%", height: "92px" }}
                 />
-                <span>음식명</span>
+                <span>{FoodName1}</span>
               </div>
 
               {/* 선호음식 2 */}
@@ -775,11 +814,11 @@ export default function ProfilePage(props) {
                 style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
               >
                 <img
-                  src={testImage}
+                  src={FoodImgSource2 ? FoodImgSource2 : NoFoodImg}
                   alt="testIMG"
-                  style={{ width: "100%", height: "120px" }}
+                  style={{ width: "100%", height: "92px" }}
                 />
-                <span>음식명</span>
+                <span>{FoodName2}</span>
               </div>
 
               {/* 선호음식 3 */}
@@ -787,11 +826,11 @@ export default function ProfilePage(props) {
                 style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
               >
                 <img
-                  src={testImage}
+                  src={FoodImgSource3 ? FoodImgSource3 : NoFoodImg}
                   alt="testIMG"
-                  style={{ width: "100%", height: "120px" }}
+                  style={{ width: "100%", height: "92px" }}
                 />
-                <span>음식명</span>
+                <span>{FoodName3}</span>
               </div>
 
               {/* 선호음식 4 */}
@@ -799,11 +838,11 @@ export default function ProfilePage(props) {
                 style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
               >
                 <img
-                  src={testImage}
+                  src={FoodImgSource4 ? FoodImgSource4 : NoFoodImg}
                   alt="testIMG"
-                  style={{ width: "100%", height: "120px" }}
+                  style={{ width: "100%", height: "92px" }}
                 />
-                <span>음식명</span>
+                <span>{FoodName4}</span>
               </div>
 
               {/* 선호음식 5 */}
@@ -811,11 +850,11 @@ export default function ProfilePage(props) {
                 style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
               >
                 <img
-                  src={testImage}
+                  src={FoodImgSource5 ? FoodImgSource5 : NoFoodImg}
                   alt="testIMG"
-                  style={{ width: "100%", height: "120px" }}
+                  style={{ width: "100%", height: "92px" }}
                 />
-                <span>음식명</span>
+                <span>{FoodName5}</span>
               </div>
             </div>
             <button
