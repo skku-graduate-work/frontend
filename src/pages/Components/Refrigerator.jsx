@@ -156,16 +156,16 @@ const Refrigerator = (props) => {
                 key={index}
                 style={{
                   display: "flex",
+                  marginBottom: "10px",
                   flexDirection: "row",
                   alignItems: "center",
-                  margin: "10px",
-                  width: "calc(33.33% - 20px)", // 한 줄에 세 개씩
+                  width: "calc(33.33%)", // 한 줄에 세 개씩
                 }}
               >
                 <img
                   src={ingredient.image}
                   alt={ingredient.name_ko}
-                  style={{ width: "60px", height: "60px", marginRight: "10px" }}
+                  style={{ width: "80px", height: "80px", marginRight: "10px" }}
                 />
                 <h3
                   style={{

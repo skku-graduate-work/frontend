@@ -39,6 +39,22 @@ const GetUserInfo = async (accessToken) => {
   });
 };
 
+const PatchProfileImg = async (accessToken, image) => {
+  // FormData 생성
+  const formData = new FormData();
+
+  // 이미지 파일 추가
+  formData.append("image", image);
+
+  // 데이터 전송
+  return await instance.post("/user/update-image", formData, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 // SetMinNutrient
 const SetMinNutrient = async (
   accessToken,
@@ -215,6 +231,7 @@ export {
   SocialLogin,
   Signup,
   GetUserInfo,
+  PatchProfileImg,
   SetMinNutrient,
   SetMaxNutrient,
   PostIngredient,

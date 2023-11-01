@@ -9,17 +9,21 @@ import Footer from "../../components/Footer/Footer";
 import NameChangeForm from "../Components/NameChangeForm";
 import FindPasswordForm from "../Components/FindPasswordForm";
 import FavorFoodForm from "../Components/FavorFoodForm";
+import ChangeProfileImgForm from "../Components/ChangeProfileImgForm";
 
 import testImage from "../../images/Food_Login03.jpg";
-import testImage2 from "../../images/Kurly_Logo03.jpg";
+import UserDefaultImg from "../../images/no-user.jpg";
 
 export default function ProfilePage(props) {
   // 상태 변수
   const [accessToken, setAccessToken] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [modal2IsOpen, set2IsOpen] = useState(false);
   const [modal3IsOpen, set3IsOpen] = useState(false);
   const [modal4IsOpen, set4IsOpen] = useState(false);
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [profileImg, setProfileImg] = useState("");
   const [minCal, setMinCal] = useState(0);
   const [minCarb, setMinCarb] = useState(0);
   const [minProt, setMinProt] = useState(0);
@@ -43,6 +47,16 @@ export default function ProfilePage(props) {
   };
 
   Modal.setAppElement("#root");
+
+  // 프로필 사진 변경 모달 보임함수
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  // 프로필 사진 변경 모달 숨김함수
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   // 이름 변경 모달 보임함수
   const showModal2 = () => {
@@ -131,14 +145,15 @@ export default function ProfilePage(props) {
     SetMinNutrient(accessToken, minCal, minCarb, minProt, minFat)
       .then((res) => {
         console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    SetMaxNutrient(accessToken, maxCal, maxCarb, maxProt, maxFat)
-      .then((res) => {
-        console.log(res);
-        alert("성공적으로 등록되었습니다");
+        SetMaxNutrient(accessToken, maxCal, maxCarb, maxProt, maxFat)
+          .then((res) => {
+            console.log(res);
+            alert("성공적으로 등록되었습니다");
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("영양정보 등록에 실패했습니다");
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -172,11 +187,16 @@ export default function ProfilePage(props) {
       .then((res) => {
         console.log(res);
         setUserName(res.data.user.nickname);
+        setEmail(res.data.user.email);
+        setProfileImg(res.data.user.profileImg);
         setMinCal(res.data.user.minCalories);
         setMinCarb(res.data.user.minCarbs);
         setMinProt(res.data.user.minProtein);
         setMinFat(res.data.user.minFat);
         setMaxCal(res.data.user.maxCalories);
+        setMaxCarb(res.data.user.maxCarbs);
+        setMaxProt(res.data.user.maxProtein);
+        setMaxFat(res.data.user.maxFat);
       })
       .catch((err) => {
         console.log(err);
@@ -256,7 +276,7 @@ export default function ProfilePage(props) {
               }}
             >
               <img
-                src={testImage2}
+                src={profileImg ? profileImg : UserDefaultImg}
                 alt="profileIMG"
                 style={{
                   width: "200px",
@@ -266,6 +286,7 @@ export default function ProfilePage(props) {
               />
 
               <button
+                onClick={showModal}
                 type="submit"
                 style={{
                   width: "200px",
@@ -313,7 +334,7 @@ export default function ProfilePage(props) {
                 onChange={console.log()}
                 disabled
                 style={{
-                  width: "280px",
+                  width: "100%",
                   height: "40px",
                   display: "block",
                   padding: "10px",
@@ -325,7 +346,7 @@ export default function ProfilePage(props) {
                 placeholder={userName}
               />
 
-              <button
+              {/* <button
                 type="submit"
                 onClick={showModal2}
                 style={{
@@ -344,7 +365,7 @@ export default function ProfilePage(props) {
                 }}
               >
                 사용자명 변경
-              </button>
+              </button> */}
             </div>
 
             {/* 이메일 */}
@@ -377,7 +398,7 @@ export default function ProfilePage(props) {
                 fontWeight: "700",
                 fontSize: "16px",
               }}
-              placeholder={"이메일이 들어갑니다"}
+              placeholder={email}
             />
           </div>
 
@@ -848,6 +869,20 @@ export default function ProfilePage(props) {
 
       {/* 푸터 */}
       <Footer />
+
+      {/* 프로필 사진 변경 모달 */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <ChangeProfileImgForm
+          accessToken={accessToken}
+          closeModal={closeModal}
+          setProfileImg={setProfileImg}
+        />
+      </Modal>
 
       {/* 사용자명 변경 모달 */}
       <Modal
