@@ -940,7 +940,12 @@ export default function ProfilePage(props) {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <FavorFoodForm accessToken={accessToken} userName={userName} />
+        <FavorFoodForm
+          accessToken={accessToken}
+          userName={userName}
+          closeModal={closeModal4}
+          setFavoriteFood={setFavoriteFood}
+        />
       </Modal>
     </>
   );

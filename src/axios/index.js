@@ -210,8 +210,8 @@ const GetRandomFood = async (accessToken) => {
   });
 };
 
-// AddFavoriteFood
-const AddFavoriteFood = async (
+// ChangeFavoriteFood
+const ChangeFavoriteFood = async (
   accessToken,
   FoodID1,
   FoodID2,
@@ -219,7 +219,7 @@ const AddFavoriteFood = async (
   FoodID4,
   FoodID5
 ) => {
-  return await instance.post(
+  return await instance.patch(
     "/favorite-food",
     {
       favoriteFoodList: [FoodID1, FoodID2, FoodID3, FoodID4, FoodID5],
@@ -247,5 +247,5 @@ export {
   GetFood,
   GetFoodByNut,
   GetRandomFood,
-  AddFavoriteFood,
+  ChangeFavoriteFood,
 };
