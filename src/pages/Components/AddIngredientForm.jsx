@@ -78,7 +78,16 @@ const AddIngredientForm = (props) => {
 
   // 버튼 클릭 처리 함수 (원하는 로직으로 대체하세요)
   const handleDropdownButtonClick = () => {
-    ReportODResult(accessToken, results[selectedResultIndex].description_ko)
+    // 이미지가 null로 넘어가면 안돼서 예외처리
+    if (image2 == null) {
+      setImage2("");
+    }
+
+    ReportODResult(
+      accessToken,
+      results[selectedResultIndex].description_ko,
+      image2
+    )
       .then((res) => {
         console.log(res);
         GetUserInfo(accessToken)

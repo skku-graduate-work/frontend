@@ -90,7 +90,7 @@ const Recommendation = (props) => {
           alignItems: "center",
         }}
       >
-        <ArrowBackIosIcon style={{ marginRight: "auto", fontSize: "64px" }} />
+        {/* <ArrowBackIosIcon style={{ marginRight: "auto", fontSize: "64px" }} /> */}
         <div style={{ width: "160px", height: "240px" }}>
           <img
             src={recommendFood[0] ? recommendFood[0]?.image : AltFoodImage}
@@ -186,7 +186,7 @@ const Recommendation = (props) => {
           </h5>
         </div>
 
-        <ArrowForwardIosIcon style={{ marginLeft: "auto", fontSize: "64px" }} />
+        {/* <ArrowForwardIosIcon style={{ marginLeft: "auto", fontSize: "64px" }} /> */}
       </div>
     </div>
   );

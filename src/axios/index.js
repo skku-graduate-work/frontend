@@ -153,15 +153,22 @@ const PostObjectDetection = async (accessToken, image) => {
 };
 
 // ReportODResult
-const ReportODResult = async (accessToken, name) => {
+const ReportODResult = async (accessToken, name, image) => {
+  // FormData 생성
+  const formData = new FormData();
+
+  // 이미지 파일 추가
+  formData.append("image", image);
+
   return await instance.post(
     `/ingredient/detect-label-from-image/user-result?name_ko=${encodeURIComponent(
       name
     )}`,
-    {},
+    formData,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "multipart/form-data",
       },
     }
   );
