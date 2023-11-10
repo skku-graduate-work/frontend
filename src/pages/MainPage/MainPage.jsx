@@ -7,8 +7,11 @@ import Footer from "../../components/Footer/Footer";
 
 import Refrigerator from "../Components/Refrigerator";
 import Recommendation from "../Components/Recommendation";
+import FavorFoodForm from "../Components/FavorFoodForm";
 
 import { GetUserInfo } from "../../axios";
+
+import Modal from "react-modal";
 
 export default function MainPage() {
   // 쿠키 이름으로 엑세스 토큰을 가져옵니다.
@@ -34,6 +37,30 @@ export default function MainPage() {
   const [minCarb, setMinCarb] = useState(0);
   const [minProt, setMinProt] = useState(0);
   const [minFat, setMinFat] = useState(0);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  // 모달 창 스타일
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+    },
+  };
+
+  // 선호음식 설정 모달 보임함수
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  // 선호음식 설정 모달 숨김함수
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   // 초기 엑세스 토큰 설정
   useEffect(() => {
@@ -61,7 +88,11 @@ export default function MainPage() {
         setMinProt(res.data.user.minProtein);
         setMinFat(res.data.user.minFat);
         setIngredients(res.data.ingredients);
-        setFavorite(res.data.favoriteFoodInfoList);
+        if (res.data.favoriteFoodInfoList) {
+          setFavorite(res.data.favoriteFoodInfoList);
+        } else {
+          showModal();
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +127,21 @@ export default function MainPage() {
 
       {/* 푸터 */}
       <Footer />
+
+      {/* 선호음식 변경 모달 */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <FavorFoodForm
+          accessToken={accessToken}
+          userName={userName}
+          closeModal={closeModal}
+          setFavoriteFood={""}
+        />
+      </Modal>
     </>
   );
 }

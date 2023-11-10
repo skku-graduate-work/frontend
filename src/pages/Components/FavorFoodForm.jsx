@@ -55,7 +55,9 @@ const FavorFoodForm = (props) => {
           alert("정상적으로 수정되었습니다");
           GetUserInfo(accessToken).then((res) => {
             if (res.data.favoriteFoodInfoList) {
-              props.setFavoriteFood(res.data.favoriteFoodInfoList);
+              if (props.setFavoriteFood != "") {
+                props.setFavoriteFood(res.data.favoriteFoodInfoList);
+              }
             }
           });
           props.closeModal();
