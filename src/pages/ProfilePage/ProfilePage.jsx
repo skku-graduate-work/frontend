@@ -38,6 +38,11 @@ export default function ProfilePage(props) {
   const [FoodImgSource3, setFoodImgSource3] = useState("");
   const [FoodImgSource4, setFoodImgSource4] = useState("");
   const [FoodImgSource5, setFoodImgSource5] = useState("");
+  const [FoodName1En, setFoodName1En] = useState("No data");
+  const [FoodName2En, setFoodName2En] = useState("No data");
+  const [FoodName3En, setFoodName3En] = useState("No data");
+  const [FoodName4En, setFoodName4En] = useState("No data");
+  const [FoodName5En, setFoodName5En] = useState("No data");
   const [FoodName1, setFoodName1] = useState("미등록");
   const [FoodName2, setFoodName2] = useState("미등록");
   const [FoodName3, setFoodName3] = useState("미등록");
@@ -234,6 +239,11 @@ export default function ProfilePage(props) {
       setFoodImgSource5(
         favoriteFood[4].image.substring(1, favoriteFood[4].image.length - 1)
       );
+      setFoodName1En(favoriteFood[0].name_en);
+      setFoodName2En(favoriteFood[1].name_en);
+      setFoodName3En(favoriteFood[2].name_en);
+      setFoodName4En(favoriteFood[3].name_en);
+      setFoodName5En(favoriteFood[4].name_en);
       setFoodName1(favoriteFood[0].name_ko);
       setFoodName2(favoriteFood[1].name_ko);
       setFoodName3(favoriteFood[2].name_ko);
@@ -287,14 +297,13 @@ export default function ProfilePage(props) {
             }}
           ></span>
         </div>
-
         {/* 본문 */}
         <div style={{ width: "100%", display: "flex" }}>
           {/* Left */}
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "800px",
+              height: "600px",
               borderRight: "2px solid #a5a5a5",
             }}
           >
@@ -445,7 +454,7 @@ export default function ProfilePage(props) {
           <div
             style={{
               width: "calc(50% - 2px)",
-              height: "800px",
+              height: "600px",
               position: "relative", // 추가: 부모 요소에 상대적인 위치 지정
             }}
           >
@@ -772,137 +781,138 @@ export default function ProfilePage(props) {
             >
               칼로리&영양소 정보 상/하한 변경
             </button>
-
-            {/* 선호 음식 */}
-            <div
-              style={{
-                height: "20px",
-                marginTop: "20px",
-                paddingLeft: "10px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-              }}
-            >
-              선호 음식
-            </div>
-
-            <div
-              style={{
-                marginTop: "5px",
-                marginLeft: "10px",
-                display: "flex",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                textAlign: "center",
-              }}
-            >
-              {/* 선호음식 1 */}
-              <div style={{ width: "calc((100% - 40px) / 5)" }}>
-                <img
-                  src={FoodImgSource1 ? FoodImgSource1 : NoFoodImg}
-                  alt="testIMG"
-                  style={{ width: "100%", height: "92px" }}
-                />
-                <span>{FoodName1}</span>
-              </div>
-
-              {/* 선호음식 2 */}
-              <div
-                style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
-              >
-                <img
-                  src={FoodImgSource2 ? FoodImgSource2 : NoFoodImg}
-                  alt="testIMG"
-                  style={{ width: "100%", height: "92px" }}
-                />
-                <span>{FoodName2}</span>
-              </div>
-
-              {/* 선호음식 3 */}
-              <div
-                style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
-              >
-                <img
-                  src={FoodImgSource3 ? FoodImgSource3 : NoFoodImg}
-                  alt="testIMG"
-                  style={{ width: "100%", height: "92px" }}
-                />
-                <span>{FoodName3}</span>
-              </div>
-
-              {/* 선호음식 4 */}
-              <div
-                style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
-              >
-                <img
-                  src={FoodImgSource4 ? FoodImgSource4 : NoFoodImg}
-                  alt="testIMG"
-                  style={{ width: "100%", height: "92px" }}
-                />
-                <span>{FoodName4}</span>
-              </div>
-
-              {/* 선호음식 5 */}
-              <div
-                style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}
-              >
-                <img
-                  src={FoodImgSource5 ? FoodImgSource5 : NoFoodImg}
-                  alt="testIMG"
-                  style={{ width: "100%", height: "92px" }}
-                />
-                <span>{FoodName5}</span>
-              </div>
-            </div>
-            <button
-              type="submit"
-              onClick={showModal4}
-              style={{
-                width: "calc(100% - 10px)",
-                height: "40px",
-                marginTop: "15px",
-                marginLeft: "10px",
-                display: "block",
-                backgroundColor: "#5E5E5E",
-                color: "#FFFFFF",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            >
-              선호 음식 변경하기
-            </button>
-
-            {/* 메인으로 돌아가기 */}
-            <button
-              type="button"
-              onClick={handleToMain}
-              style={{
-                position: "absolute", // 추가: 절대적인 위치 지정
-                bottom: "0", // 추가: 아래에서 0px 떨어진 위치
-                right: "0", // 추가: 오른쪽에서 0px 떨어진 위치
-                width: "200px",
-                height: "40px",
-                display: "inline-block",
-                backgroundColor: "#3498DB",
-                color: "#FFFFFF",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              메인으로 돌아가기
-            </button>
           </div>
+        </div>
+
+        {/* 선호 음식 */}
+        <h2
+          style={{
+            marginTop: "0",
+            borderTop: "2px solid #a5a5a5",
+            paddingTop: "10px",
+            fontFamily: "NotoSans",
+          }}
+        >
+          선호 음식
+        </h2>
+
+        <div
+          style={{
+            marginTop: "5px",
+            border: "4px solid #ffa6c5",
+            borderRadius: "8px",
+            padding: "10px",
+            boxSizing: "border-box",
+            display: "flex",
+            fontFamily: "NotoSans",
+            fontWeight: "700",
+            textAlign: "center",
+          }}
+        >
+          {/* 선호음식 1 */}
+          <div style={{ width: "calc((100% - 40px) / 5)" }}>
+            <img
+              src={FoodImgSource1 ? FoodImgSource1 : NoFoodImg}
+              alt="testIMG"
+              style={{ width: "calc(100% - 10px)", height: "180px" }}
+            />
+            <span style={{ color: "#aeaeae" }}>{FoodName1En}</span>
+            <br />
+            <span>{FoodName1}</span>
+          </div>
+
+          {/* 선호음식 2 */}
+          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
+            <img
+              src={FoodImgSource2 ? FoodImgSource2 : NoFoodImg}
+              alt="testIMG"
+              style={{ width: "calc(100% - 10px)", height: "180px" }}
+            />
+            <span style={{ color: "#aeaeae" }}>{FoodName2En}</span>
+            <br />
+            <span>{FoodName2}</span>
+          </div>
+
+          {/* 선호음식 3 */}
+          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
+            <img
+              src={FoodImgSource3 ? FoodImgSource3 : NoFoodImg}
+              alt="testIMG"
+              style={{ width: "calc(100% - 10px)", height: "180px" }}
+            />
+            <span style={{ color: "#aeaeae" }}>{FoodName3En}</span>
+            <br />
+            <span>{FoodName3}</span>
+          </div>
+
+          {/* 선호음식 4 */}
+          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
+            <img
+              src={FoodImgSource4 ? FoodImgSource4 : NoFoodImg}
+              alt="testIMG"
+              style={{ width: "calc(100% - 10px)", height: "180px" }}
+            />
+            <span style={{ color: "#aeaeae" }}>{FoodName4En}</span>
+            <br />
+            <span>{FoodName4}</span>
+          </div>
+
+          {/* 선호음식 5 */}
+          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
+            <img
+              src={FoodImgSource5 ? FoodImgSource5 : NoFoodImg}
+              alt="testIMG"
+              style={{ width: "calc(100% - 10px)", height: "180px" }}
+            />
+            <span style={{ color: "#aeaeae" }}>{FoodName5En}</span>
+            <br />
+            <span>{FoodName5}</span>
+          </div>
+        </div>
+
+        {/* button area */}
+        <div style={{ marginTop: "30px", display: "flex" }}>
+          <button
+            type="submit"
+            onClick={showModal4}
+            style={{
+              width: "250px",
+              height: "40px",
+              display: "block",
+              backgroundColor: "#5E5E5E",
+              color: "#FFFFFF",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+            }}
+          >
+            선호 음식 변경하기
+          </button>
+
+          {/* 메인으로 돌아가기 */}
+          <button
+            type="button"
+            onClick={handleToMain}
+            style={{
+              width: "250px",
+              height: "40px",
+              marginLeft: "auto",
+              display: "inline-block",
+              backgroundColor: "#3498DB",
+              color: "#FFFFFF",
+              fontFamily: "NotoSans",
+              fontWeight: "700",
+              fontSize: "16px",
+              border: "0",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            메인으로 돌아가기
+          </button>
         </div>
       </div>
 

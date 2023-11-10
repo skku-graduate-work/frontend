@@ -38,6 +38,7 @@ export default function MainPage() {
   // 초기 엑세스 토큰 설정
   useEffect(() => {
     setAccessToken(getCookie("accessToken"));
+    window.scrollTo(0, 0);
   }, []);
 
   // 엑세스 토큰 로깅
