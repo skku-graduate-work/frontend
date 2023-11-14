@@ -23,10 +23,11 @@ const SocialLogin = async (type) => {
 };
 
 // Signup
-const Signup = async (email, password) => {
+const Signup = async (email, password, name) => {
   return await instance.post("/user/signup", {
     email,
     password,
+    name,
   });
 };
 

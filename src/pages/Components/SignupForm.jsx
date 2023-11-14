@@ -69,7 +69,7 @@ const SignupForm = (props) => {
     } else if (password !== passwordCheck) {
       toast.error("입력한 비밀번호가 일치하지 않습니다");
     } else {
-      Signup(email, password)
+      Signup(email, password, username)
         .then((res) => {
           console.log(res);
           toast.success("회원가입에 성공했습니다");

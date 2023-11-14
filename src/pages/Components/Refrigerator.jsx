@@ -238,7 +238,7 @@ const Refrigerator = (props) => {
                 color: "#333333",
               }}
             >
-              {userName}&nbsp;님의 영양정보(하한)
+              {userName}&nbsp;님의 영양정보
             </h2>
 
             <div
@@ -432,7 +432,7 @@ const Refrigerator = (props) => {
                 cursor: "pointer",
               }}
             >
-              영양소 하한으로 검색
+              개인 영양정보로 검색
             </button>
             <h2
               style={{

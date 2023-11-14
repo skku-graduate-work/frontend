@@ -50,12 +50,12 @@ const SearchFoodForm2 = (props) => {
     >
       <h1 style={{ margin: "0", fontSize: "36px", fontFamily: "NotoSans" }}>
         <span style={{ color: "#01579b" }}>{userName}</span> 님이 설정하신
-        영양정보 하한
+        영양정보
         <br />(<span style={{ color: "#01579b" }}>{minCal}</span> kcal, 탄수화물{" "}
         <span style={{ color: "#01579b" }}>{minCarb}</span> g, 단백질{" "}
         <span style={{ color: "#01579b" }}>{minProt}</span> g, 지방{" "}
-        <span style={{ color: "#01579b" }}>{minFat}</span> g) <br />
-        이상의 요리를 알려드릴게요
+        <span style={{ color: "#01579b" }}>{minFat}</span> g) <br />의 요리를
+        알려드릴게요
       </h1>
       <div
         style={{

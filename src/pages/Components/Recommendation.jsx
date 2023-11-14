@@ -29,7 +29,6 @@ const Recommendation = (props) => {
         temp.push(element.name_en);
       });
       setFavorite(temp);
-      // setFavorite(["Cinnamon French Toast Sticks", "Classic Hush Puppies"]);
     }
   }, [props]);
 
@@ -38,6 +37,7 @@ const Recommendation = (props) => {
     if (favorite.length) {
       GetRecommendation(favorite)
         .then((res) => {
+          console.log(res);
           let temp = [];
           for (let i = 0; i < Math.min(5, res.data.result.length); i++) {
             temp.push(res.data.result[i].id);
