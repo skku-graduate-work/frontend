@@ -8,6 +8,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AltFoodImage from "../../images/no_food.jpg";
 import { autocompleteClasses } from "@mui/material";
 
+import { useTranslation } from "react-i18next"; // 추가
+
 const Recommendation = (props) => {
   // 상태변수
   const [userName, setUserName] = useState("");
@@ -19,6 +21,9 @@ const Recommendation = (props) => {
 
   // 특정 Food ID
   const [recommendID, setRecommendID] = useState([]);
+
+  // Recommendation 컴포넌트 내에서 useTranslation 훅 사용
+  const { t } = useTranslation();
 
   // 선호 요리 받아오기
   useEffect(() => {
@@ -73,8 +78,6 @@ const Recommendation = (props) => {
     }
   }, [recommendID]);
 
-  console.log(recommendFood);
-
   return (
     <div style={{ width: "1024px", fontFamily: "NotoSans", fontWeight: "700" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -92,17 +95,22 @@ const Recommendation = (props) => {
       >
         {/* <ArrowBackIosIcon style={{ marginRight: "auto", fontSize: "64px" }} /> */}
         <div style={{ width: "160px", height: "240px" }}>
-          <img
-            src={recommendFood[0] ? recommendFood[0]?.image : AltFoodImage}
-            alt="음식이미지"
-            style={{
-              width: "100%",
-              height: "160px",
-              marginBottom: "auto",
-              border: "2px solid #a5a5a5",
-              boxSizing: "border-box",
-            }}
-          />
+          <a
+            href={recommendFood[0] ? recommendFood[0]?.sourceUrl : ""}
+            target="_blank"
+          >
+            <img
+              src={recommendFood[0] ? recommendFood[0]?.image : AltFoodImage}
+              alt="음식이미지"
+              style={{
+                width: "100%",
+                height: "160px",
+                marginBottom: "auto",
+                border: "2px solid #a5a5a5",
+                boxSizing: "border-box",
+              }}
+            />
+          </a>
           <h5 style={{ margin: 0, textAlign: "center" }}>
             {recommendFood[0]
               ? recommendFood[0]?.title
@@ -111,17 +119,22 @@ const Recommendation = (props) => {
         </div>
 
         <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <img
-            src={recommendFood[1] ? recommendFood[1]?.image : AltFoodImage}
-            alt="음식이미지"
-            style={{
-              width: "100%",
-              height: "160px",
-              marginBottom: "auto",
-              border: "2px solid #a5a5a5",
-              boxSizing: "border-box",
-            }}
-          />
+          <a
+            href={recommendFood[1] ? recommendFood[1]?.sourceUrl : ""}
+            target="_blank"
+          >
+            <img
+              src={recommendFood[1] ? recommendFood[1]?.image : AltFoodImage}
+              alt="음식이미지"
+              style={{
+                width: "100%",
+                height: "160px",
+                marginBottom: "auto",
+                border: "2px solid #a5a5a5",
+                boxSizing: "border-box",
+              }}
+            />
+          </a>
           <h5 style={{ margin: 0, textAlign: "center" }}>
             {recommendFood[1]
               ? recommendFood[1]?.title
@@ -130,17 +143,22 @@ const Recommendation = (props) => {
         </div>
 
         <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <img
-            src={recommendFood[2] ? recommendFood[2]?.image : AltFoodImage}
-            alt="음식이미지"
-            style={{
-              width: "100%",
-              height: "160px",
-              marginBottom: "auto",
-              border: "2px solid #a5a5a5",
-              boxSizing: "border-box",
-            }}
-          />
+          <a
+            href={recommendFood[2] ? recommendFood[2]?.sourceUrl : ""}
+            target="_blank"
+          >
+            <img
+              src={recommendFood[2] ? recommendFood[2]?.image : AltFoodImage}
+              alt="음식이미지"
+              style={{
+                width: "100%",
+                height: "160px",
+                marginBottom: "auto",
+                border: "2px solid #a5a5a5",
+                boxSizing: "border-box",
+              }}
+            />
+          </a>
           <h5 style={{ margin: 0, textAlign: "center" }}>
             {recommendFood[2]
               ? recommendFood[2]?.title
@@ -149,17 +167,22 @@ const Recommendation = (props) => {
         </div>
 
         <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <img
-            src={recommendFood[3] ? recommendFood[3]?.image : AltFoodImage}
-            alt="음식이미지"
-            style={{
-              width: "100%",
-              height: "160px",
-              marginBottom: "auto",
-              border: "2px solid #a5a5a5",
-              boxSizing: "border-box",
-            }}
-          />
+          <a
+            href={recommendFood[3] ? recommendFood[3]?.sourceUrl : ""}
+            target="_blank"
+          >
+            <img
+              src={recommendFood[3] ? recommendFood[3]?.image : AltFoodImage}
+              alt="음식이미지"
+              style={{
+                width: "100%",
+                height: "160px",
+                marginBottom: "auto",
+                border: "2px solid #a5a5a5",
+                boxSizing: "border-box",
+              }}
+            />
+          </a>
           <h5 style={{ margin: 0, textAlign: "center" }}>
             {recommendFood[3]
               ? recommendFood[3]?.title
@@ -168,17 +191,22 @@ const Recommendation = (props) => {
         </div>
 
         <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <img
-            src={recommendFood[4] ? recommendFood[4]?.image : AltFoodImage}
-            alt="음식이미지"
-            style={{
-              width: "100%",
-              height: "160px",
-              marginBottom: "auto",
-              border: "2px solid #a5a5a5",
-              boxSizing: "border-box",
-            }}
-          />
+          <a
+            href={recommendFood[4] ? recommendFood[4]?.sourceUrl : ""}
+            target="_blank"
+          >
+            <img
+              src={recommendFood[4] ? recommendFood[4]?.image : AltFoodImage}
+              alt="음식이미지"
+              style={{
+                width: "100%",
+                height: "160px",
+                marginBottom: "auto",
+                border: "2px solid #a5a5a5",
+                boxSizing: "border-box",
+              }}
+            />
+          </a>
           <h5 style={{ margin: 0, textAlign: "center" }}>
             {recommendFood[4]
               ? recommendFood[4]?.title

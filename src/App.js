@@ -7,6 +7,10 @@ import RedirectPage from "./pages/RedirectPage/RedirectPage"; // Redirect.jsx의
 
 import SocialLoginHandeler from "./pages/Components/SocialLoginHandler";
 
+import React from "react";
+import Recommendation from "./pages/Components/Recommendation";
+import i18n from "./i18n";
+
 function App() {
   return (
     <BrowserRouter>
