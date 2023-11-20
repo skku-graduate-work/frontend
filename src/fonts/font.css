@@ -11,3 +11,9 @@
   font-family: "NotoSans";
   src: url("../fonts/NotoSansKR-VariableFont_wght.ttf") format("opentype");
 }
+
+/* font */
+@font-face {
+  font-family: "NanumSquare";
+  src: url("../fonts/NanumSquareR.otf") format("opentype");
+}
