@@ -1,222 +1,219 @@
 import { useEffect, useState } from "react";
-
-import { GetRecommendation } from "../../axios/model";
-
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
+import { GetSimilarFood, GetFoodInformation } from "../../axios/recommend";
 import AltFoodImage from "../../images/no_food.jpg";
-import { autocompleteClasses } from "@mui/material";
-
-import { useTranslation } from "react-i18next"; // 추가
+import "./Recommendation.css";
 
 const Recommendation = (props) => {
   // 상태변수
   const [userName, setUserName] = useState("");
-  const [favorite, setFavorite] = useState([]);
+  const [favoriteFood, setFavoriteFood] = useState([]);
+  const [favoriteFoodId, setFavoriteFoodId] = useState([]);
   const [recommendFood, setRecommendFood] = useState([]);
+  const [recommendFoodInfo, setRecommendFoodInfo] = useState([]);
 
-  // Spoonacular API 키
-  const apiKey = "a4ddf5c135114a29b5644d98695c2960";
-
-  // 특정 Food ID
-  const [recommendID, setRecommendID] = useState([]);
-
-  // Recommendation 컴포넌트 내에서 useTranslation 훅 사용
-  const { t } = useTranslation();
-
-  // 선호 요리 받아오기
+  // 선호 음식 받아오기
   useEffect(() => {
     setUserName(props.userName);
     if (props.favorite) {
       let temp = [];
-      props.favorite.map((element, index) => {
-        temp.push(element.name_en);
+      props.favorite.map((element) => {
+        temp.push(element);
       });
-      setFavorite(temp);
+      setFavoriteFood(temp);
     }
   }, [props]);
 
-  // 추천 요리 받아오기
+  // 선호 음식 ID 추출
   useEffect(() => {
-    if (favorite.length) {
-      GetRecommendation(favorite)
-        .then((res) => {
-          console.log(res);
-          let temp = [];
-          for (let i = 0; i < Math.min(5, res.data.result.length); i++) {
-            temp.push(res.data.result[i].id);
-          }
-          setRecommendID(temp);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (favoriteFood[0]) {
+      let temp = [];
+      favoriteFood.map((element) => {
+        var url = element.image;
+        var startIndex = url.lastIndexOf("/") + 1; // 마지막 슬래시 다음 인덱스부터 시작
+        var endIndex = url.indexOf("-", startIndex); // 다음 하이픈 이전까지의 인덱스
+        var recipeId = url.substring(startIndex, endIndex);
+        temp.push(recipeId);
+      });
+      setFavoriteFoodId(temp);
     }
-  }, [favorite]);
+  }, [favoriteFood]);
 
-  // Spoonacular API 호출
+  // 유사 요리 받아오기
   useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const promises = recommendID.map(async (id) => {
-          const apiEndpoint = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
-          const response = await fetch(apiEndpoint);
-          const data = await response.json();
-          return data;
-        });
-
-        const results = await Promise.all(promises);
-        setRecommendFood(results);
-      } catch (error) {
-        console.error("에러 발생:", error);
+    const fetchData = async () => {
+      if (favoriteFoodId[0] && !recommendFood.length) {
+        let temp = [];
+        await Promise.all(
+          favoriteFoodId.map(async (element) => {
+            try {
+              const res = await GetSimilarFood(element);
+              if (res.data[0]) {
+                temp.push(res.data[0]);
+              } else {
+                temp.push(null);
+              }
+            } catch (err) {
+              console.log(err);
+            }
+          })
+        );
+        setRecommendFood(temp);
       }
     };
 
-    if (recommendID.length === 5) {
-      fetchRecommendations();
-    }
-  }, [recommendID]);
+    fetchData();
+  }, [favoriteFoodId]);
+
+  // 유사 음식 세부정보 받아오기
+  useEffect(() => {
+    console.log("유사음식세부정보: ", recommendFood);
+    let temp = [];
+    recommendFood.map((element, index) => {
+      if (element) {
+        GetFoodInformation(element.id)
+          .then((res) => {
+            console.log(res);
+            temp[index] = res.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        temp[index] = null;
+      }
+    });
+
+    setRecommendFoodInfo(temp);
+  }, [recommendFood]);
 
   return (
-    <div style={{ width: "1024px", fontFamily: "NotoSans", fontWeight: "700" }}>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <h2 style={{ color: "#0a0a5c" }}>{userName}</h2>
-        <h2 style={{ marginLeft: "5px", fontWeight: "400" }}>
-          님의 선호도를 바탕으로 요리를 추천해드릴게요.
+    <>
+      <div className="recommend-area">
+        <p className="recommend-title">
+          <span style={{ color: "#E2594C" }}>{userName}</span> 님의 선호 요리와
+        </p>
+        <h2 className="recommend-hint">유사한 이 요리들은 어떠세요?</h2>
+
+        <div className="recommend-list-row">
+          <div className="recommend-list-item">
+            <a
+              href={recommendFood[0] ? recommendFood[0]?.sourceUrl : ""}
+              target="_blank"
+            >
+              <img
+                className="recommend-list-img"
+                src={
+                  recommendFoodInfo[0]
+                    ? recommendFoodInfo[0]?.image
+                    : AltFoodImage
+                }
+                alt="recommend_img_01"
+              />
+            </a>
+            <h5 className="recommend-list-name">
+              {recommendFood[0]
+                ? recommendFood[0]?.title
+                : "음식 정보가 없습니다"}
+            </h5>
+          </div>
+
+          <div className="recommend-list-item">
+            <a
+              href={recommendFood[1] ? recommendFood[1]?.sourceUrl : ""}
+              target="_blank"
+            >
+              <img
+                className="recommend-list-img"
+                src={
+                  recommendFoodInfo[1]
+                    ? recommendFoodInfo[1]?.image
+                    : AltFoodImage
+                }
+                alt="recommend_img_02"
+              />
+            </a>
+            <h5 className="recommend-list-name">
+              {recommendFood[1]
+                ? recommendFood[1]?.title
+                : "음식 정보가 없습니다"}
+            </h5>
+          </div>
+
+          <div className="recommend-list-item">
+            <a
+              href={recommendFood[2] ? recommendFood[2]?.sourceUrl : ""}
+              target="_blank"
+            >
+              <img
+                className="recommend-list-img"
+                src={
+                  recommendFoodInfo[2]
+                    ? recommendFoodInfo[2]?.image
+                    : AltFoodImage
+                }
+                alt="음식이미지"
+              />
+            </a>
+            <h5 className="recommend-list-name">
+              {recommendFood[2]
+                ? recommendFood[2]?.title
+                : "음식 정보가 없습니다"}
+            </h5>
+          </div>
+
+          <div className="recommend-list-item">
+            <a
+              href={recommendFood[3] ? recommendFood[3]?.sourceUrl : ""}
+              target="_blank"
+            >
+              <img
+                className="recommend-list-img"
+                src={
+                  recommendFoodInfo[3]
+                    ? recommendFoodInfo[3]?.image
+                    : AltFoodImage
+                }
+                alt="음식이미지"
+              />
+            </a>
+            <h5 className="recommend-list-name">
+              {recommendFood[3]
+                ? recommendFood[3]?.title
+                : "음식 정보가 없습니다"}
+            </h5>
+          </div>
+
+          <div className="recommend-list-item" style={{ marginRight: "0" }}>
+            <a
+              href={recommendFood[4] ? recommendFood[4]?.sourceUrl : ""}
+              target="_blank"
+            >
+              <img
+                className="recommend-list-img"
+                src={
+                  recommendFoodInfo[4]
+                    ? recommendFoodInfo[4]?.image
+                    : AltFoodImage
+                }
+                alt="음식이미지"
+              />
+            </a>
+            <h5 className="recommend-list-name">
+              {recommendFood[4]
+                ? recommendFood[4]?.title
+                : "음식 정보가 없습니다"}
+            </h5>
+          </div>
+        </div>
+
+        <h2 className="recommend-hint">
+          이미지를 클릭하면 외부 레시피 주소로 이동합니다
         </h2>
       </div>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {/* <ArrowBackIosIcon style={{ marginRight: "auto", fontSize: "64px" }} /> */}
-        <div style={{ width: "160px", height: "240px" }}>
-          <a
-            href={recommendFood[0] ? recommendFood[0]?.sourceUrl : ""}
-            target="_blank"
-          >
-            <img
-              src={recommendFood[0] ? recommendFood[0]?.image : AltFoodImage}
-              alt="음식이미지"
-              style={{
-                width: "100%",
-                height: "160px",
-                marginBottom: "auto",
-                border: "2px solid #a5a5a5",
-                boxSizing: "border-box",
-              }}
-            />
-          </a>
-          <h5 style={{ margin: 0, textAlign: "center" }}>
-            {recommendFood[0]
-              ? recommendFood[0]?.title
-              : "추천 음식이 없습니다"}
-          </h5>
-        </div>
-
-        <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <a
-            href={recommendFood[1] ? recommendFood[1]?.sourceUrl : ""}
-            target="_blank"
-          >
-            <img
-              src={recommendFood[1] ? recommendFood[1]?.image : AltFoodImage}
-              alt="음식이미지"
-              style={{
-                width: "100%",
-                height: "160px",
-                marginBottom: "auto",
-                border: "2px solid #a5a5a5",
-                boxSizing: "border-box",
-              }}
-            />
-          </a>
-          <h5 style={{ margin: 0, textAlign: "center" }}>
-            {recommendFood[1]
-              ? recommendFood[1]?.title
-              : "추천 음식이 없습니다"}
-          </h5>
-        </div>
-
-        <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <a
-            href={recommendFood[2] ? recommendFood[2]?.sourceUrl : ""}
-            target="_blank"
-          >
-            <img
-              src={recommendFood[2] ? recommendFood[2]?.image : AltFoodImage}
-              alt="음식이미지"
-              style={{
-                width: "100%",
-                height: "160px",
-                marginBottom: "auto",
-                border: "2px solid #a5a5a5",
-                boxSizing: "border-box",
-              }}
-            />
-          </a>
-          <h5 style={{ margin: 0, textAlign: "center" }}>
-            {recommendFood[2]
-              ? recommendFood[2]?.title
-              : "추천 음식이 없습니다"}
-          </h5>
-        </div>
-
-        <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <a
-            href={recommendFood[3] ? recommendFood[3]?.sourceUrl : ""}
-            target="_blank"
-          >
-            <img
-              src={recommendFood[3] ? recommendFood[3]?.image : AltFoodImage}
-              alt="음식이미지"
-              style={{
-                width: "100%",
-                height: "160px",
-                marginBottom: "auto",
-                border: "2px solid #a5a5a5",
-                boxSizing: "border-box",
-              }}
-            />
-          </a>
-          <h5 style={{ margin: 0, textAlign: "center" }}>
-            {recommendFood[3]
-              ? recommendFood[3]?.title
-              : "추천 음식이 없습니다"}
-          </h5>
-        </div>
-
-        <div style={{ width: "160px", height: "240px", marginLeft: "15px" }}>
-          <a
-            href={recommendFood[4] ? recommendFood[4]?.sourceUrl : ""}
-            target="_blank"
-          >
-            <img
-              src={recommendFood[4] ? recommendFood[4]?.image : AltFoodImage}
-              alt="음식이미지"
-              style={{
-                width: "100%",
-                height: "160px",
-                marginBottom: "auto",
-                border: "2px solid #a5a5a5",
-                boxSizing: "border-box",
-              }}
-            />
-          </a>
-          <h5 style={{ margin: 0, textAlign: "center" }}>
-            {recommendFood[4]
-              ? recommendFood[4]?.title
-              : "추천 음식이 없습니다"}
-          </h5>
-        </div>
-
-        {/* <ArrowForwardIosIcon style={{ marginLeft: "auto", fontSize: "64px" }} /> */}
-      </div>
-    </div>
+        style={{ width: "1024px", fontFamily: "NotoSans", fontWeight: "700" }}
+      ></div>
+    </>
   );
 };
 
