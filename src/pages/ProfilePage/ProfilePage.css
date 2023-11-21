@@ -1,0 +1,158 @@
+.profile-background {
+  position: absolute;
+  top: 141.6px;
+  width: 100vw;
+  background-color: #f7f7f7;
+}
+
+.profile-area1 {
+  margin-top: 30px;
+  border: 2px solid #e9e9e9;
+  background-color: white;
+}
+
+.profile-title {
+  margin-top: 40px;
+  margin-left: 80px;
+  font-size: 36px;
+  font-family: "NanumSquareNeobd";
+}
+
+.profile-flexbox {
+  display: flex;
+}
+
+.profile-subtitle {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-left: 80px;
+  font-size: 24px;
+  font-family: "NanumSquareNeoRg";
+}
+
+.profile-img {
+  width: 200px;
+  margin-left: 80px;
+  border: 2px solid #a5a5a5;
+}
+
+.profile-imgchange-button {
+  width: 200px;
+  margin-top: 20px;
+  margin-left: 80px;
+  margin-bottom: 30px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: black;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "NanumSquareNeoRg";
+}
+
+.profile-imgchange-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.profile-flexcontent {
+  position: absolute;
+  left: calc(50% - 40px);
+}
+
+.profile-text {
+  margin-top: 0;
+  margin-bottom: 100px;
+  margin-left: 80px;
+  font-size: 20px;
+  font-family: "NanumSquareNeoBd";
+}
+
+.profile-ingre-row {
+  margin-left: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-ingre-input {
+  width: 100px;
+  height: 40px;
+
+  border: 2px solid #e9e9e9;
+  border-radius: 4px;
+  padding-left: 10px;
+
+  background-color: #fafafa;
+  color: #959595;
+  font-weight: 700;
+  font-family: "NanumSquareNeoRg";
+}
+
+.profile-ingre-text {
+  width: 120px;
+  margin-left: 10px;
+
+  font-size: 20px;
+  font-family: "NanumSquareNeoBd";
+}
+
+.profile-buttonarea {
+  display: flex;
+  align-items: center;
+  margin: 30px 80px 30px 80px;
+}
+
+.profile-ingre-save-button {
+  width: 200px;
+  height: 40px;
+  margin: auto 0 auto auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: black;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "NanumSquareNeoRg";
+}
+
+.profile-ingre-save-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.profile-down-button-area {
+  display: flex;
+}
+
+.profile-tomain-button {
+  width: 200px;
+  height: 40px;
+  margin: 30px 0 auto auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: black;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "NanumSquareNeoRg";
+}
+
+.profile-tomain-button:hover {
+  background-color: white;
+  color: black;
+}

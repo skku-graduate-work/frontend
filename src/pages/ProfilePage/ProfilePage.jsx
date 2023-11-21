@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-
 import { GetUserInfo, SetMinNutrient, SetMaxNutrient } from "../../axios";
-
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import NameChangeForm from "../Components/NameChangeForm";
-import FindPasswordForm from "../Components/FindPasswordForm";
 import FavorFoodForm from "../Components/FavorFoodForm";
 import ChangeProfileImgForm from "../Components/ChangeProfileImgForm";
-
 import NoFoodImg from "../../images/no_food.jpg";
 import UserDefaultImg from "../../images/no-user.jpg";
+import "./ProfilePage.css";
 
 export default function ProfilePage(props) {
   // 상태 변수
@@ -257,668 +254,222 @@ export default function ProfilePage(props) {
       {/* 네비게이션 바 */}
       <NavBar userName={userName} />
 
-      {/* 이너 */}
-      <div
-        className="inner"
-        style={{ width: "1024px", margin: "30px auto 0 auto" }}
-      >
-        {/* 페이지 타이틀, 중간선 */}
-        <div
-          style={{
-            height: "50px",
-            textAlign: "center",
-            fontSize: "38px",
-            position: "relative",
-          }}
-        >
-          <span
-            style={{
-              position: "relative",
-              backgroundColor: "white",
-              padding: "0 ",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-            }}
-          >
-            회원정보 수정
-          </span>
-
-          {/* 중간선을 그리는 가상 요소 */}
-          <span
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "60%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-              height: "1px",
-              backgroundColor: "gray",
-              zIndex: -1, // 선 요소의 쌓임 순서를 낮게 설정
-            }}
-          ></span>
-        </div>
-        {/* 본문 */}
-        <div style={{ width: "100%", display: "flex" }}>
-          {/* Left */}
-          <div
-            style={{
-              width: "calc(50% - 2px)",
-              height: "600px",
-              borderRight: "2px solid #a5a5a5",
-            }}
-          >
-            <h2
-              style={{
-                maginTop: "10px",
-                fontFamily: "NotoSans",
-              }}
-            >
-              기본 정보
-            </h2>
-            {/* 프로필사진 */}
-            <div
-              style={{
-                paddingTop: "10px",
-                paddingRight: "10px",
-                textAlign: "center",
-              }}
-            >
-              <img
-                src={profileImg ? profileImg : UserDefaultImg}
-                alt="profileIMG"
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  border: "4px solid #a5a5a5",
-                }}
+      <div className="profile-background">
+        {/* 이너 */}
+        <div className="inner" style={{ width: "1024px", margin: "0 auto" }}>
+          <div className="profile-area1">
+            <p className="profile-title">기본 정보</p>
+            <div className="profile-flexbox">
+              <div>
+                <p className="profile-subtitle">프로필 사진</p>
+                <div>
+                  <img
+                    className="profile-img"
+                    src={profileImg ? profileImg : UserDefaultImg}
+                    alt="profile_img"
+                  />
+                </div>
+                <button
+                  className="profile-imgchange-button"
+                  onClick={showModal}
+                  type="submit"
+                >
+                  프로필사진 변경
+                </button>
+              </div>
+              <div className="profile-flexcontent">
+                <p className="profile-subtitle">사용자명</p>
+                <p className="profile-text">{userName}</p>
+                <p className="profile-subtitle">이메일</p>
+                <p className="profile-text">{email}</p>
+              </div>
+            </div>
+          </div>
+          <div className="profile-area1">
+            <p className="profile-title">영양 정보</p>
+            <p className="profile-subtitle">칼로리</p>
+            <div className="profile-ingre-row">
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={minCal}
+                onChange={handleChangeMinCal}
               />
-
+              <span className="profile-ingre-text">kcal 이상,</span>
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={maxCal}
+                onChange={handleChangeMaxCal}
+              />
+              <span className="profile-ingre-text">kcal 이하</span>
+            </div>
+            <p className="profile-subtitle">탄수화물</p>
+            <div className="profile-ingre-row">
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={minCarb}
+                onChange={handleChangeMinCarb}
+              />
+              <span className="profile-ingre-text">g 이상,</span>
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={maxCarb}
+                onChange={handleChangeMaxCarb}
+              />
+              <span className="profile-ingre-text">g 이하</span>
+            </div>
+            <p className="profile-subtitle">단백질</p>
+            <div className="profile-ingre-row">
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={minProt}
+                onChange={handleChangeMinProt}
+              />
+              <span className="profile-ingre-text">g 이상,</span>
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={maxProt}
+                onChange={handleChangeMaxProt}
+              />
+              <span className="profile-ingre-text">g 이하</span>
+            </div>
+            <p className="profile-subtitle">지방</p>
+            <div className="profile-ingre-row">
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={minFat}
+                onChange={handleChangeMinFat}
+              />
+              <span className="profile-ingre-text">g 이상,</span>
+              <input
+                className="profile-ingre-input"
+                type="number"
+                value={maxFat}
+                onChange={handleChangeMaxFat}
+              />
+              <span className="profile-ingre-text">g 이하</span>
+            </div>
+            <div className="profile-buttonarea">
+              <h2 className="refri-hint2">
+                원하는 영양 정보를 설정할 수 있습니다
+              </h2>
               <button
-                onClick={showModal}
+                className="profile-ingre-save-button"
                 type="submit"
-                style={{
-                  width: "200px",
-                  height: "40px",
-                  margin: "25px auto 0 auto",
-                  display: "block",
-                  backgroundColor: "#5E5E5E",
-                  color: "#FFFFFF",
-                  border: "0",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
+                onClick={handleSaveCalories}
               >
-                프로필사진 변경
+                영양정보 저장
               </button>
             </div>
-
-            {/* 사용자명 */}
-            <div
-              style={{
-                height: "20px",
-                marginTop: "20px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-              }}
-            >
-              사용자명
-            </div>
-            <div
-              style={{
-                marginTop: "5px",
-                paddingRight: "10px",
-                display: "flex",
-              }}
-            >
-              <input
-                type="text"
-                value={userName}
-                onChange={console.log()}
-                disabled
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  display: "block",
-                  padding: "10px",
-                  boxSizing: "border-box",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
-                placeholder={userName}
-              />
-
-              {/* <button
-                type="submit"
-                onClick={showModal2}
-                style={{
-                  width: "200px",
-                  height: "40px",
-                  marginLeft: "auto",
-                  display: "block",
-                  backgroundColor: "#5E5E5E",
-                  color: "#FFFFFF",
-                  border: "0",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
-              >
-                사용자명 변경
-              </button> */}
-            </div>
-
-            {/* 이메일 */}
-            <div
-              style={{
-                height: "20px",
-                marginTop: "20px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-              }}
-            >
-              이메일
-            </div>
-            <input
-              type="text"
-              value={""}
-              onChange={console.log()}
-              disabled
-              style={{
-                width: "calc(100% - 10px)",
-                height: "40px",
-                marginTop: "5px",
-                display: "block",
-                padding: "10px",
-                boxSizing: "border-box",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-              placeholder={email}
-            />
           </div>
 
-          {/* Right */}
-          <div
-            style={{
-              width: "calc(50% - 2px)",
-              height: "600px",
-              position: "relative", // 추가: 부모 요소에 상대적인 위치 지정
-            }}
-          >
-            <h2
-              style={{
-                maginTop: "10px",
-                marginLeft: "10px",
-                marginBottom: "0",
-                fontFamily: "NotoSans",
-              }}
-            >
-              영양 정보
-            </h2>
-            <div style={{ width: "100%", display: "flex" }}>
-              <div style={{ width: "50%" }}>
-                {/* 최소칼로리 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최소칼로리(kcal)
-                </div>
-
-                <input
-                  type="text"
-                  value={minCal}
-                  onChange={handleChangeMinCal}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
+          <div className="profile-area1">
+            <p className="profile-title">선호 요리</p>
+            <div className="recommend-list-row">
+              <div className="recommend-list-item">
+                <img
+                  className="recommend-list-img"
+                  src={FoodImgSource1 ? FoodImgSource1 : NoFoodImg}
+                  alt="testIMG"
                 />
+                <h5
+                  className="recommend-list-name"
+                  style={{ color: "#aeaeae" }}
+                >
+                  {FoodName1En ? FoodName1En : "No Food Info"}
+                </h5>
+                <h5 className="recommend-list-name">
+                  {FoodName1 ? FoodName1 : "음식 정보가 없습니다"}
+                </h5>
               </div>
-              <div style={{ width: "50%" }}>
-                {/* 최소탄수화물 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최소탄수화물(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={minCarb}
-                  onChange={handleChangeMinCarb}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
+              <div className="recommend-list-item">
+                <img
+                  className="recommend-list-img"
+                  src={FoodImgSource2 ? FoodImgSource2 : NoFoodImg}
+                  alt="testIMG"
                 />
+                <h5
+                  className="recommend-list-name"
+                  style={{ color: "#aeaeae" }}
+                >
+                  {FoodName2En ? FoodName2En : "No Food Info"}
+                </h5>
+                <h5 className="recommend-list-name">
+                  {FoodName2 ? FoodName2 : "음식 정보가 없습니다"}
+                </h5>
+              </div>
+              <div className="recommend-list-item">
+                <img
+                  className="recommend-list-img"
+                  src={FoodImgSource3 ? FoodImgSource3 : NoFoodImg}
+                  alt="testIMG"
+                />
+                <h5
+                  className="recommend-list-name"
+                  style={{ color: "#aeaeae" }}
+                >
+                  {FoodName3En ? FoodName3En : "No Food Info"}
+                </h5>
+                <h5 className="recommend-list-name">
+                  {FoodName3 ? FoodName3 : "음식 정보가 없습니다"}
+                </h5>
+              </div>
+              <div className="recommend-list-item">
+                <img
+                  className="recommend-list-img"
+                  src={FoodImgSource4 ? FoodImgSource4 : NoFoodImg}
+                  alt="testIMG"
+                />
+                <h5
+                  className="recommend-list-name"
+                  style={{ color: "#aeaeae" }}
+                >
+                  {FoodName4En ? FoodName4En : "No Food Info"}
+                </h5>
+                <h5 className="recommend-list-name">
+                  {FoodName4 ? FoodName4 : "음식 정보가 없습니다"}
+                </h5>
+              </div>
+              <div className="recommend-list-item" style={{ marginRight: "0" }}>
+                <img
+                  className="recommend-list-img"
+                  src={FoodImgSource5 ? FoodImgSource5 : NoFoodImg}
+                  alt="testIMG"
+                />
+                <h5
+                  className="recommend-list-name"
+                  style={{ color: "#aeaeae" }}
+                >
+                  {FoodName5En ? FoodName5En : "No Food Info"}
+                </h5>
+                <h5 className="recommend-list-name">
+                  {FoodName5 ? FoodName5 : "음식 정보가 없습니다"}
+                </h5>
               </div>
             </div>
 
-            <div style={{ width: "100%", display: "flex" }}>
-              <div style={{ width: "50%" }}>
-                {/* 최소단백질 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최소단백질(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={minProt}
-                  onChange={handleChangeMinProt}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-              <div style={{ width: "50%" }}>
-                {/* 최소지방 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최소지방(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={minFat}
-                  onChange={handleChangeMinFat}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
+            <div className="refri-ingrebuttonarea">
+              <button className="refri-button1" onClick={showModal4}>
+                선호요리 변경
+              </button>
             </div>
-
-            <div style={{ width: "100%", display: "flex" }}>
-              <div style={{ width: "50%" }}>
-                {/* 최대칼로리 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최대칼로리(kcal)
-                </div>
-
-                <input
-                  type="text"
-                  value={maxCal}
-                  onChange={handleChangeMaxCal}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-              <div style={{ width: "50%" }}>
-                {/* 최대탄수화물 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최대탄수화물(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={maxCarb}
-                  onChange={handleChangeMaxCarb}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-            </div>
-
-            <div style={{ width: "100%", display: "flex" }}>
-              <div style={{ width: "50%" }}>
-                {/* 최대단백질 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최대단백질(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={maxProt}
-                  onChange={handleChangeMaxProt}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-              <div style={{ width: "50%" }}>
-                {/* 최대지방 */}
-                <div
-                  style={{
-                    height: "20px",
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                    display: "flex",
-                    textAlign: "left",
-                    alignItems: "center",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                  }}
-                >
-                  최대지방(g)
-                </div>
-
-                <input
-                  type="text"
-                  value={maxFat}
-                  onChange={handleChangeMaxFat}
-                  style={{
-                    width: "calc(100% - 10px)",
-                    height: "40px",
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    display: "block",
-                    padding: "10px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                  }}
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              onClick={handleSaveCalories}
-              style={{
-                width: "calc(100% - 10px)",
-                height: "40px",
-                marginTop: "10px",
-                marginLeft: "10px",
-                display: "block",
-                backgroundColor: "#5E5E5E",
-                color: "#FFFFFF",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            >
-              칼로리&영양소 정보 상/하한 변경
+          </div>
+          <div className="profile-down-button-area">
+            <button className="profile-tomain-button" onClick={handleToMain}>
+              메인으로 돌아가기
             </button>
           </div>
         </div>
 
-        {/* 선호 음식 */}
-        <h2
-          style={{
-            marginTop: "0",
-            borderTop: "2px solid #a5a5a5",
-            paddingTop: "10px",
-            fontFamily: "NotoSans",
-          }}
-        >
-          선호 음식
-        </h2>
-
-        <div
-          style={{
-            marginTop: "5px",
-            border: "4px solid #ffa6c5",
-            borderRadius: "8px",
-            padding: "10px",
-            boxSizing: "border-box",
-            display: "flex",
-            fontFamily: "NotoSans",
-            fontWeight: "700",
-            textAlign: "center",
-          }}
-        >
-          {/* 선호음식 1 */}
-          <div style={{ width: "calc((100% - 40px) / 5)" }}>
-            <img
-              src={FoodImgSource1 ? FoodImgSource1 : NoFoodImg}
-              alt="testIMG"
-              style={{ width: "calc(100% - 10px)", height: "180px" }}
-            />
-            <span style={{ color: "#aeaeae" }}>{FoodName1En}</span>
-            <br />
-            <span>{FoodName1}</span>
-          </div>
-
-          {/* 선호음식 2 */}
-          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
-            <img
-              src={FoodImgSource2 ? FoodImgSource2 : NoFoodImg}
-              alt="testIMG"
-              style={{ width: "calc(100% - 10px)", height: "180px" }}
-            />
-            <span style={{ color: "#aeaeae" }}>{FoodName2En}</span>
-            <br />
-            <span>{FoodName2}</span>
-          </div>
-
-          {/* 선호음식 3 */}
-          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
-            <img
-              src={FoodImgSource3 ? FoodImgSource3 : NoFoodImg}
-              alt="testIMG"
-              style={{ width: "calc(100% - 10px)", height: "180px" }}
-            />
-            <span style={{ color: "#aeaeae" }}>{FoodName3En}</span>
-            <br />
-            <span>{FoodName3}</span>
-          </div>
-
-          {/* 선호음식 4 */}
-          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
-            <img
-              src={FoodImgSource4 ? FoodImgSource4 : NoFoodImg}
-              alt="testIMG"
-              style={{ width: "calc(100% - 10px)", height: "180px" }}
-            />
-            <span style={{ color: "#aeaeae" }}>{FoodName4En}</span>
-            <br />
-            <span>{FoodName4}</span>
-          </div>
-
-          {/* 선호음식 5 */}
-          <div style={{ width: "calc((100% - 40px) / 5)", marginLeft: "10px" }}>
-            <img
-              src={FoodImgSource5 ? FoodImgSource5 : NoFoodImg}
-              alt="testIMG"
-              style={{ width: "calc(100% - 10px)", height: "180px" }}
-            />
-            <span style={{ color: "#aeaeae" }}>{FoodName5En}</span>
-            <br />
-            <span>{FoodName5}</span>
-          </div>
-        </div>
-
-        {/* button area */}
-        <div style={{ marginTop: "30px", display: "flex" }}>
-          <button
-            type="submit"
-            onClick={showModal4}
-            style={{
-              width: "250px",
-              height: "40px",
-              display: "block",
-              backgroundColor: "#5E5E5E",
-              color: "#FFFFFF",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-          >
-            선호 음식 변경하기
-          </button>
-
-          {/* 메인으로 돌아가기 */}
-          <button
-            type="button"
-            onClick={handleToMain}
-            style={{
-              width: "250px",
-              height: "40px",
-              marginLeft: "auto",
-              display: "inline-block",
-              backgroundColor: "#3498DB",
-              color: "#FFFFFF",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            메인으로 돌아가기
-          </button>
-        </div>
+        {/* 푸터 */}
+        <Footer />
       </div>
-
-      {/* 푸터 */}
-      <Footer />
-
       {/* 프로필 사진 변경 모달 */}
       <Modal
         isOpen={modalIsOpen}
