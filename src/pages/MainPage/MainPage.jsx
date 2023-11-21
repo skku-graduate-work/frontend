@@ -58,6 +58,10 @@ export default function MainPage() {
   const [minCarb, setMinCarb] = useState(0);
   const [minProt, setMinProt] = useState(0);
   const [minFat, setMinFat] = useState(0);
+  const [maxCal, setMaxCal] = useState(0);
+  const [maxCarb, setMaxCarb] = useState(0);
+  const [maxProt, setMaxProt] = useState(0);
+  const [maxFat, setMaxFat] = useState(0);
   const [modalIsOpen, setIsOpen] = useState(false);
 
   // State to store the current random image index
@@ -136,6 +140,10 @@ export default function MainPage() {
         setMinCarb(res.data.user.minCarbs);
         setMinProt(res.data.user.minProtein);
         setMinFat(res.data.user.minFat);
+        setMaxCal(res.data.user.maxCalories);
+        setMaxCarb(res.data.user.maxCarbs);
+        setMaxProt(res.data.user.maxProtein);
+        setMaxFat(res.data.user.maxFat);
         setIngredients(res.data.ingredients);
         if (res.data.favoriteFoodInfoList) {
           setFavorite(res.data.favoriteFoodInfoList);
@@ -178,6 +186,10 @@ export default function MainPage() {
             minCarb={minCarb}
             minProt={minProt}
             minFat={minFat}
+            maxCal={maxCal}
+            maxCarb={maxCarb}
+            maxProt={maxProt}
+            maxFat={maxFat}
           />
 
           {/* 추천 요리 */}

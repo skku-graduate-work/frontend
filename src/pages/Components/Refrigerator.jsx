@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-
-import { GetFood } from "../../axios";
-
 import AddIngredientForm from "./AddIngredientForm";
 import SearchFoodForm from "./SearchFoodForm";
 import SearchFoodForm2 from "./SearchFoodForm2";
+import "./Refrigerator.css";
 
 const Refrigerator = (props) => {
   // 모달 창 스타일
@@ -33,6 +31,10 @@ const Refrigerator = (props) => {
   const [minCarb, setMinCarb] = useState(0);
   const [minProt, setMinProt] = useState(0);
   const [minFat, setMinFat] = useState(0);
+  const [maxCal, setMaxCal] = useState(0);
+  const [maxCarb, setMaxCarb] = useState(0);
+  const [maxProt, setMaxProt] = useState(0);
+  const [maxFat, setMaxFat] = useState(0);
 
   // 재료 등록 창 모달 보임함수
   const showModal = () => {
@@ -115,6 +117,10 @@ const Refrigerator = (props) => {
     setMinCarb(props.minCarb);
     setMinProt(props.minProt);
     setMinFat(props.minFat);
+    setMaxCal(props.maxCal);
+    setMaxCarb(props.maxCarb);
+    setMaxProt(props.maxProt);
+    setMaxFat(props.maxFat);
     if (props.ingredients) {
       setIngredients(props.ingredients);
     }
@@ -128,359 +134,107 @@ const Refrigerator = (props) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {/* Left Section */}
-        <div
-          style={{
-            flex: 7,
-            padding: "20px",
-          }}
-        >
-          <h2
-            style={{
-              textAlign: "center",
-              fontSize: "20px",
-              fontFamily: "NotoSans",
-            }}
-          >{`${userName} 님의 냉장고`}</h2>
-          <div
-            style={{
-              marginTop: "50px",
-              display: "flex",
-              flexWrap: "wrap",
-              height: "250px",
-              overflowY: "scroll", // 세로 scrollbar만 표시
-              overflowX: "hidden", // 가로 scrollbar는 숨김
-            }}
-          >
-            {ingredients.map((ingredient, index) => (
-              <div
-                key={index}
+      <div className="refri-area1">
+        <p className="refri-title">
+          <span style={{ color: "#E2594C" }}>{userName}</span> 님의 식재료
+        </p>
+
+        <div className="refri-ingrearea">
+          {ingredients.map((ingredient, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                marginBottom: "10px",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "calc(25%)", // 한 줄에 4개씩
+              }}
+            >
+              <img
+                src={ingredient.image}
+                alt={ingredient.name_ko}
                 style={{
-                  display: "flex",
-                  marginBottom: "10px",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  width: "calc(33.33%)", // 한 줄에 세 개씩
+                  width: "80px",
+                  height: "80px",
+                  marginRight: "10px",
+                }}
+              />
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: "16px",
+                  fontFamily: "NanumSquareNeoBd",
                 }}
               >
-                <img
-                  src={ingredient.image}
-                  alt={ingredient.name_ko}
-                  style={{ width: "80px", height: "80px", marginRight: "10px" }}
-                />
-                <h3
-                  style={{
-                    margin: 0,
-                    fontSize: "16px",
-                    fontFamily: "NotoSans",
-                  }}
-                >
-                  {ingredient.name_ko}
-                </h3>
-                <input
-                  type="checkbox"
-                  checked={ingredient.checked}
-                  onChange={() => handleIngredientCheckboxChange(index)}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "15px",
-                    width: "18px", // 원하는 가로 크기
-                    height: "18px", // 원하는 세로 크기
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* 힌트 */}
-          <h2
-            style={{
-              textAlign: "center",
-              fontSize: "20px",
-              fontFamily: "NotoSans",
-              color: "#aeaeae",
-            }}
-          >
-            최대 3개의 재료를 선택할 수 있습니다
-          </h2>
+                {ingredient.name_ko}
+              </h3>
+              <input
+                type="checkbox"
+                checked={ingredient.checked}
+                onChange={() => handleIngredientCheckboxChange(index)}
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "15px",
+                  width: "18px", // 원하는 가로 크기
+                  height: "18px", // 원하는 세로 크기
+                }}
+              />
+            </div>
+          ))}
         </div>
 
-        {/* Right Section */}
-        <div
-          style={{
-            flex: 3,
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* Your content on the right section */}
+        <h2 className="refri-hint">최대 3개의 재료를 선택할 수 있습니다</h2>
 
-          <div
-            style={{
-              marginBottom: "120px",
-              textAlign: "center",
-            }}
-          >
-            <h2
-              style={{
-                marginBottom: "0",
-                fontSize: "18px",
-                fontFamily: "NotoSans",
-                color: "#333333",
-              }}
-            >
-              {userName}&nbsp;님의 영양정보
-            </h2>
-
-            <div
-              style={{
-                width: "250px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {/* 최소칼로리 */}
-              <div style={{ width: "calc(50% - 5px)", display: "flex" }}>
-                <input
-                  type="text"
-                  value={minCal}
-                  disabled
-                  style={{
-                    width: "50%",
-                    height: "30px",
-                    marginTop: "5px",
-                    marginBottom: "5px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontSize: "14px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    textAlign: "right",
-                  }}
-                />
-                <p
-                  style={{
-                    width: "50%",
-                    marginLeft: "5px",
-                    fontSize: "14px",
-                    fontFamily: "NotoSans",
-                    color: "#7F7F7F",
-                    margin: 0,
-                  }}
-                >
-                  칼로리
-                  <br />
-                  (kcal)
-                </p>
-              </div>
-
-              {/* 최소탄수화물 */}
-              <div
-                style={{
-                  width: "calc(50% - 5px)",
-                  marginLeft: "10px",
-                  display: "flex",
-                }}
-              >
-                <input
-                  type="text"
-                  value={minCarb}
-                  disabled
-                  style={{
-                    width: "50%",
-                    height: "30px",
-                    marginTop: "5px",
-                    marginBottom: "5px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontSize: "14px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    textAlign: "right",
-                  }}
-                />
-                <p
-                  style={{
-                    width: "50%",
-                    marginLeft: "5px",
-                    fontSize: "14px",
-                    fontFamily: "NotoSans",
-                    color: "#7F7F7F",
-                    margin: 0,
-                  }}
-                >
-                  탄수화물
-                  <br />
-                  (g)
-                </p>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "250px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {/* 최소단백질 */}
-              <div style={{ width: "calc(50% - 5px)", display: "flex" }}>
-                <input
-                  type="text"
-                  value={minProt}
-                  disabled
-                  style={{
-                    width: "50%",
-                    height: "30px",
-                    marginTop: "5px",
-                    marginBottom: "5px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontSize: "14px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    textAlign: "right",
-                  }}
-                />
-                <p
-                  style={{
-                    width: "50%",
-                    marginLeft: "5px",
-                    fontSize: "14px",
-                    fontFamily: "NotoSans",
-                    color: "#7F7F7F",
-                    margin: 0,
-                  }}
-                >
-                  단백질
-                  <br />
-                  (g)
-                </p>
-              </div>
-
-              {/* 최소지방 */}
-              <div
-                style={{
-                  width: "calc(50% - 5px)",
-                  marginLeft: "10px",
-                  display: "flex",
-                }}
-              >
-                <input
-                  type="text"
-                  value={minFat}
-                  disabled
-                  style={{
-                    width: "50%",
-                    height: "30px",
-                    marginTop: "5px",
-                    marginBottom: "5px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                    fontFamily: "NotoSans",
-                    fontSize: "14px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    textAlign: "right",
-                  }}
-                />
-                <p
-                  style={{
-                    width: "50%",
-                    marginLeft: "5px",
-                    fontSize: "14px",
-                    fontFamily: "NotoSans",
-                    color: "#7F7F7F",
-                    margin: 0,
-                  }}
-                >
-                  지방
-                  <br />
-                  (g)
-                </p>
-              </div>
-            </div>
-
-            {/* 영양소 하한으로 검색 */}
-            <button
-              onClick={showModal3}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "5px",
-                backgroundColor: "#c0c0c0",
-                color: "#FFFFFF",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              개인 영양정보로 검색
-            </button>
-            <h2
-              style={{
-                marginTop: "0",
-                textAlign: "center",
-                fontSize: "16px",
-                fontFamily: "NotoSans",
-                color: "#aeaeae",
-              }}
-            >
-              최소 영양정보 이상의 음식을 검색합니다
-            </h2>
-          </div>
-
-          <button
-            onClick={showModal}
-            style={{
-              width: "264px",
-              height: "40px",
-              marginBottom: "10px",
-              backgroundColor: "#5E5E5E",
-              color: "#FFFFFF",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
+        <div className="refri-ingrebuttonarea">
+          <button className="refri-button1" onClick={showModal}>
             식재료 추가하기
           </button>
-          <button
-            onClick={showModal2}
-            style={{
-              width: "264px",
-              height: "40px",
-              backgroundColor: "#3498DB",
-              color: "#FFFFFF",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            선택한 재료 조합으로 검색
+          <button className="refri-button2" onClick={showModal2}>
+            요리 검색
+          </button>
+        </div>
+      </div>
+
+      <div className="refri-area2">
+        <p className="refri-title">
+          <span style={{ color: "#E2594C" }}>{userName}</span> 님의 영양정보
+        </p>
+        <div className="refri-ingre-row">
+          <p className="refri-ingre-info">
+            <span style={{ fontFamily: "NanumSquareNeoBd" }}>칼로리:</span>{" "}
+            <span style={{ color: "#E2594C" }}>{minCal}</span>kcal 이상,{" "}
+            <span style={{ color: "#E2594C" }}>{maxCal}</span>kcal 이하
+          </p>
+        </div>
+        <div className="refri-ingre-row">
+          <p className="refri-ingre-info">
+            <span style={{ fontFamily: "NanumSquareNeoBd" }}>탄수화물:</span>{" "}
+            <span style={{ color: "#E2594C" }}>{minCarb}</span>g 이상,{" "}
+            <span style={{ color: "#E2594C" }}>{maxCarb}</span>g 이하
+          </p>
+        </div>
+        <div className="refri-ingre-row">
+          <p className="refri-ingre-info">
+            <span style={{ fontFamily: "NanumSquareNeoBd" }}>단백질:</span>{" "}
+            <span style={{ color: "#E2594C" }}>{minProt}</span>g 이상,{" "}
+            <span style={{ color: "#E2594C" }}>{maxProt}</span>g 이하
+          </p>
+        </div>
+        <div className="refri-ingre-row">
+          <p className="refri-ingre-info">
+            <span style={{ fontFamily: "NanumSquareNeoBd" }}>지방:</span>{" "}
+            <span style={{ color: "#E2594C" }}>{minFat}</span>g 이상,{" "}
+            <span style={{ color: "#E2594C" }}>{maxFat}</span>g 이하
+          </p>
+        </div>
+        <div className="refri-buttonarea2">
+          <h2 className="refri-hint2">
+            사용자가 설정한 영양정보로 요리를 검색합니다
+          </h2>
+          {/* 영양소 하한으로 검색 */}
+          <button className="refri-button3" onClick={showModal3}>
+            요리 검색
           </button>
         </div>
       </div>
