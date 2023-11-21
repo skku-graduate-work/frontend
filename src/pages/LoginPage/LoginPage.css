@@ -15,7 +15,7 @@
   font-size: 40px;
   font-weight: 700;
   color: #ffffff;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoBd";
 
   display: flex;
   align-items: center;
@@ -36,8 +36,7 @@
 
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoRg";
 }
 
 .login-button:hover {
@@ -57,7 +56,7 @@
 
   font-size: 32px;
   font-weight: 700;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoRg";
 }
 
 .email-region {
@@ -76,7 +75,7 @@
   background-color: #fafafa;
   color: #959595;
   font-weight: 700;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoRg";
 }
 
 .password-region {
@@ -99,7 +98,7 @@
   background-color: #fafafa;
   color: #959595;
   font-weight: 700;
-  font-family: "NotoSans";
+  font-family: "NanumSquareNeoRg";
 }
 
 .login-button-area {
@@ -122,7 +121,7 @@
   font-size: 16px;
   font-weight: 700;
   color: #ffffff;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoRg";
 }
 
 .login-button-2:hover {
@@ -159,5 +158,5 @@
 
   font-size: 16px;
   font-weight: 700;
-  font-family: "NanumSquare";
+  font-family: "NanumSquareNeoRg";
 }

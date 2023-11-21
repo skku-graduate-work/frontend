@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "react-modal";
-
-import LocalDiningIcon from "@mui/icons-material/LocalDining";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
-import SearchIcon from "@mui/icons-material/Search";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import PersonIcon from "@mui/icons-material/Person";
 
 import "./NavBar.css";
@@ -58,14 +54,16 @@ const NavBar = (props) => {
         <div className="logoTitleContainer">
           <div className="logoContainer">
             {/* 사이트 로고 */}
-            <LocalDiningIcon
+            <RestaurantIcon
               style={{
                 width: "64px",
                 height: "64px",
               }}
             />
           </div>
-          <h1 className="siteTitle">음식 추천 시스템</h1>
+          <h1 className="siteTitle">
+            요리 <span style={{ color: "#E2594C" }}>검색</span> 플랫폼
+          </h1>
         </div>
 
         <div className="profileContainer">
@@ -80,31 +78,18 @@ const NavBar = (props) => {
           />
           <h1
             style={{
-              marginLeft: "10px",
+              marginLeft: "5px",
               fontSize: "16px",
               fontWeight: "700",
-              fontFamily: "NotoSans",
+              fontFamily: "NanumSquareNeoRg",
             }}
           >
-            {userName} 님
+            <span style={{ color: "#E2594C" }}>{userName}</span> 님
           </h1>
           <button
+            className="logout-button"
             type="button"
             onClick={handleLogout}
-            style={{
-              width: "100px",
-              height: "40px",
-              marginLeft: "10px",
-              display: "inline-block",
-              backgroundColor: "#3498DB",
-              color: "#FFFFFF",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
           >
             로그아웃
           </button>

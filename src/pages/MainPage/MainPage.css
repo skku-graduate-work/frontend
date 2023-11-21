@@ -1,0 +1,15 @@
+.main-bar {
+  height: 80px;
+
+  background-color: #dedede;
+}
+
+.main-background {
+  background-color: #f7f7f7;
+}
+
+.main-imgarea {
+  width: 100vw;
+  max-height: 600px;
+  overflow: hidden;
+}

@@ -1,6 +1,6 @@
 import kurlyLogo from "../../images/Kurly_Logo01.png";
-import githubIcon from "../../images/Icon_github.png";
-import notionIcon from "../../images/Icon_notion.png";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import "./Footer.css";
 
 const Footer = () => {
   const handleLinkKurly = () => {
@@ -20,7 +20,7 @@ const Footer = () => {
     <div
       style={{
         marginTop: "30px",
-        borderTop: "2px solid #e9e9e9",
+        borderTop: "2px solid #969696",
         backgroundColor: "#ffffff",
       }}
     >
@@ -34,10 +34,24 @@ const Footer = () => {
           alignItems: "center",
         }}
       >
+        <div className="footer-container">
+          <div className="footer-logo">
+            {/* 사이트 로고 */}
+            <RestaurantIcon
+              style={{
+                width: "32px",
+                height: "32px",
+              }}
+            />
+          </div>
+          <h1 className="footer-title">요리 검색 플랫폼</h1>
+        </div>
+
         <div
           style={{
             display: "flex",
             alignItems: "center",
+            marginLeft: "auto",
           }}
         >
           <img
@@ -54,10 +68,10 @@ const Footer = () => {
           <div style={{ marginLeft: "10px" }}>
             <h1
               style={{
-                marginBottom: "0",
+                marginBottom: "5px",
                 fontSize: "16px",
                 fontWeight: "700",
-                fontFamily: "NotoSans",
+                fontFamily: "NanumSquareNeoRg",
               }}
             >
               빈 냉장고, 채우고 싶다면?{" "}
@@ -67,7 +81,7 @@ const Footer = () => {
                 marginTop: "0",
                 fontSize: "16px",
                 fontWeight: "700",
-                fontFamily: "NotoSans",
+                fontFamily: "NanumSquareNeoRg",
                 color: "#2980B9",
                 cursor: "pointer",
               }}
@@ -77,7 +91,7 @@ const Footer = () => {
             </h1>
           </div>
         </div>
-        <div style={{ marginLeft: "auto", display: "flex" }}>
+        {/* <div style={{ marginLeft: "auto", display: "flex" }}>
           <img
             src={githubIcon}
             alt="깃허브아이콘"
@@ -95,7 +109,7 @@ const Footer = () => {
               cursor: "pointer",
             }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

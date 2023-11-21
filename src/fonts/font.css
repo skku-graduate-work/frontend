@@ -17,3 +17,27 @@
   font-family: "NanumSquare";
   src: url("../fonts/NanumSquareR.otf") format("opentype");
 }
+
+/* font */
+@font-face {
+  font-family: "NanumSquareNeoLt";
+  src: url("../fonts/NanumSquareNeo-aLt.ttf") format("opentype");
+}
+
+/* font */
+@font-face {
+  font-family: "NanumSquareNeoRg";
+  src: url("../fonts/NanumSquareNeo-bRg.ttf") format("opentype");
+}
+
+/* font */
+@font-face {
+  font-family: "NanumSquareNeoBd";
+  src: url("../fonts/NanumSquareNeo-cBd.ttf") format("opentype");
+}
+
+/* font */
+@font-face {
+  font-family: "NanumSquareNeoHv";
+  src: url("../fonts/NanumSquareNeo-eHv.ttf") format("opentype");
+}

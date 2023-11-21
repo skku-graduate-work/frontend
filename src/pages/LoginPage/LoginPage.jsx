@@ -111,7 +111,7 @@ export default function LoginPage() {
         Your browser does not support the video tag.
       </video>
       <div className="title">
-        <RestaurantIcon style={{ fontSize: "64px" }} /> &nbsp;사이트 제목
+        <RestaurantIcon style={{ fontSize: "64px" }} /> &nbsp;요리 검색 플랫폼
       </div>
       <button className="login-button" onClick={openLoginModal}>
         로그인
@@ -140,7 +140,7 @@ export default function LoginPage() {
       >
         {/* 첫 번째 영역 */}
         <div className="login-region-1">
-          <h2 className="login-region-1-title">사이트 제목</h2>
+          <h2 className="login-region-1-title">요리 검색 플랫폼</h2>
           {/* 이메일 입력창 */}
           <div className="email-region">
             <input
@@ -176,7 +176,7 @@ export default function LoginPage() {
                 padding: "0 20px",
                 color: "#ccc",
                 fontWeight: "700",
-                fontFamily: "NanumSquare",
+                fontFamily: "NanumSquareNeoRg",
               }}
             >
               또는

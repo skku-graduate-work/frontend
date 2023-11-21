@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
-
-import { getCookie } from "../../utils/Cookie";
-
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-
 import Refrigerator from "../Components/Refrigerator";
 import Recommendation from "../Components/Recommendation";
 import FavorFoodForm from "../Components/FavorFoodForm";
-
 import { GetUserInfo } from "../../axios";
-
 import Modal from "react-modal";
+import "./MainPage.css";
+import randomImg1 from "../../images/main_img01.webp";
+import randomImg2 from "../../images/main_img02.webp";
+import randomImg3 from "../../images/main_img03.webp";
+import randomImg4 from "../../images/main_img04.webp";
+import randomImg5 from "../../images/main_img05.webp";
+import randomImg6 from "../../images/main_img06.webp";
+import randomImg7 from "../../images/main_img07.webp";
+import randomImg8 from "../../images/main_img08.webp";
+import randomImg9 from "../../images/main_img09.webp";
+import randomImg10 from "../../images/main_img10.webp";
+import randomImg11 from "../../images/main_img11.webp";
 
 export default function MainPage() {
   // 쿠키 이름으로 엑세스 토큰을 가져옵니다.
@@ -28,6 +34,21 @@ export default function MainPage() {
     return null;
   }
 
+  // List of imported images
+  const randomImages = [
+    randomImg1,
+    randomImg2,
+    randomImg3,
+    randomImg4,
+    randomImg5,
+    randomImg6,
+    randomImg7,
+    randomImg8,
+    randomImg9,
+    randomImg10,
+    randomImg11,
+  ];
+
   // 상태 변수
   const [accessToken, setAccessToken] = useState("");
   const [userName, setUserName] = useState("");
@@ -38,6 +59,12 @@ export default function MainPage() {
   const [minProt, setMinProt] = useState(0);
   const [minFat, setMinFat] = useState(0);
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  // State to store the current random image index
+  const [currentImageIndex, setCurrentImageIndex] = useState(
+    Math.floor(Math.random() * randomImages.length)
+  );
+  const [imageOpacity, setImageOpacity] = useState(1);
 
   // 모달 창 스타일
   const customStyles = {
@@ -61,6 +88,28 @@ export default function MainPage() {
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  // Function to change the image index and trigger a smooth transition
+  const changeImage = () => {
+    setImageOpacity(0); // Start fading out
+    setTimeout(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % randomImages.length
+      );
+      setImageOpacity(1); // Start fading in
+    }, 300); // Adjust the timeout based on the transition duration
+  };
+
+  // Set up an interval to change the image every 5 seconds
+  useEffect(() => {
+    const intervalId = setInterval(changeImage, 5000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Get the currently selected random image
+  const selectedRandomImage = randomImages[currentImageIndex];
 
   // 초기 엑세스 토큰 설정
   useEffect(() => {
@@ -103,30 +152,43 @@ export default function MainPage() {
     <>
       {/* 네비게이션 바 */}
       <NavBar userName={userName} />
-      <div
-        className="inner"
-        style={{ width: "1024px", margin: "30px auto 0 auto" }}
-      >
-        {/* 냉장고 */}
-        <Refrigerator
-          setIngredients={setIngredients}
-          accessToken={accessToken}
-          userName={userName}
-          ingredients={ingredients}
-          minCal={minCal}
-          minCarb={minCarb}
-          minProt={minProt}
-          minFat={minFat}
-        />
-
-        {/* 추천 요리 */}
-        <div style={{ marginTop: "30px" }}>
-          <Recommendation userName={userName} favorite={favorite} />
+      <div className="main-bar"></div>
+      <div className="main-background">
+        <div className="main-imgarea">
+          {/* Render the randomly selected image */}
+          <img
+            src={selectedRandomImage}
+            alt="Random Main Image"
+            style={{
+              width: "100%",
+              height: "auto",
+              opacity: imageOpacity,
+              transition: "opacity 1s ease-in-out", // Add a smooth opacity transition effect
+            }}
+          />
         </div>
-      </div>
+        <div className="inner" style={{ width: "1024px", margin: "0 auto" }}>
+          {/* 냉장고 */}
+          <Refrigerator
+            setIngredients={setIngredients}
+            accessToken={accessToken}
+            userName={userName}
+            ingredients={ingredients}
+            minCal={minCal}
+            minCarb={minCarb}
+            minProt={minProt}
+            minFat={minFat}
+          />
 
-      {/* 푸터 */}
-      <Footer />
+          {/* 추천 요리 */}
+          <div style={{ marginTop: "30px" }}>
+            <Recommendation userName={userName} favorite={favorite} />
+          </div>
+        </div>
+
+        {/* 푸터 */}
+        <Footer />
+      </div>
 
       {/* 선호음식 변경 모달 */}
       <Modal

@@ -1,12 +1,15 @@
 .menuBar {
   width: 100%;
+  height: 140px;
   border-bottom: 2px solid #e9e9e9;
+
+  display: flex;
+  align-items: center;
   background-color: #ffffff;
 }
 
 .menuBarInner {
   width: 1024px;
-  height: 100px;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -26,11 +29,32 @@
 .siteTitle {
   margin: 0;
   font-size: 36px;
-  font-family: "NotoSans";
+  font-family: "NanumSquareNeoBd";
 }
 
 .profileContainer {
-  /* 내 정보 아이콘 컨테이너의 스타일 */
   display: flex;
   align-items: center;
+}
+
+.logout-button {
+  width: 200px;
+  margin-left: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: inline-block;
+  background-color: black;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "NanumSquareNeoRg";
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: black;
 }

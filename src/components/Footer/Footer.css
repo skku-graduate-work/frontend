@@ -1,0 +1,14 @@
+.footer-container {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo {
+  margin-right: 15px;
+}
+
+.footer-title {
+  margin: 0;
+  font-size: 18px;
+  font-family: "NanumSquareNeoHv";
+}
