@@ -87,257 +87,71 @@ const SignupForm = (props) => {
   };
 
   return (
-    <div
-      style={{
-        width: "600px",
-        height: "600px",
-        border: "2px solid #a5a5a5",
-        fontFamily: "NotoSans",
-        fontWeight: "700",
-      }}
-    >
-      <div style={{ width: "450px", height: "500px", margin: "50px 75px" }}>
-        <div
-          style={{
-            height: "50px",
-            textAlign: "center",
-            fontSize: "38px",
-          }}
-        >
-          회원가입
-        </div>
-        <form
-          style={{ width: "100%", height: "420px", marginTop: "30px" }}
-          onSubmit={handleSubmit}
-        >
-          <div
-            style={{
-              height: "20px",
-              paddingLeft: "5px",
-              display: "flex",
-              textAlign: "left",
-              alignItems: "center",
-            }}
-          >
-            Email
-          </div>
+    <>
+      <div className="login-region-1">
+        <h2 className="login-region-1-title">회원가입</h2>
+        {/* 이메일 입력창 */}
+        <div className="email-region">
           <input
-            type="email"
+            className="email-input"
+            type="text"
             value={email}
             onChange={handleEmailChange}
-            style={{
-              width: "100%",
-              height: "40px",
-              display: "block",
-              padding: "10px",
-              boxSizing: "border-box",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-            placeholder="이메일을 입력해주세요"
-            disabled={isEmailVerified}
+            placeholder="이메일"
           />
-
-          {/* 이메일 인증 영역 */}
-          {/* {!isEmailVerified && (
-            <div style={{ height: "40px", marginTop: "10px", display: "flex" }}>
-              <button
-                type="button"
-                onClick={handleSendEmail}
-                style={{
-                  width: "120px",
-                  height: "100%",
-                  display: "inline-block",
-                  backgroundColor: "#3498DB",
-                  color: "#FFFFFF",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                  border: "0",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                }}
-              >
-                인증메일 전송
-              </button>
-
-              <input
-                type="text"
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
-                style={{
-                  width: "230px",
-                  marginLeft: "10px",
-                  display: "block",
-                  padding: "10px",
-                  boxSizing: "border-box",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
-                placeholder="인증코드 입력"
-              />
-
-              <button
-                type="button"
-                onClick={handleCheckEmail}
-                style={{
-                  width: "80px",
-                  display: "inline-block",
-                  marginLeft: "auto",
-                  padding: "5px",
-                  backgroundColor: "#5E5E5E",
-                  color: "#FFFFFF",
-                  border: "0",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
-              >
-                인증확인
-              </button>
-            </div>
-          )} */}
-
-          {isEmailVerified && (
-            <span
-              style={{
-                display: "block",
-                height: "40px",
-                marginTop: "10px",
-                color: "green",
-                marginLeft: "10px",
-                fontSize: "24px",
-                fontWeight: "700",
-              }}
-            >
-              ✓
-            </span>
-          )}
-
-          <div
-            style={{
-              height: "20px",
-              marginTop: "10px",
-              paddingLeft: "5px",
-              display: "flex",
-              textAlign: "left",
-              alignItems: "center",
-            }}
-          >
-            Password
-          </div>
+        </div>
+        {/* 비밀번호 입력창 */}
+        <div className="password-region">
           <input
+            className="password-input"
+            style={{ color: "black" }}
             type="password"
             value={password}
             onChange={handlePasswordChange}
-            style={{
-              width: "100%",
-              height: "40px",
-              display: "block",
-              padding: "10px",
-              boxSizing: "border-box",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-            placeholder="비밀번호를 입력해주세요"
+            placeholder="비밀번호"
           />
-
-          <div
-            style={{
-              height: "20px",
-              marginTop: "10px",
-              paddingLeft: "5px",
-              display: "flex",
-              textAlign: "left",
-              alignItems: "center",
-            }}
-          >
-            Password Check
-          </div>
+        </div>
+        {/* 비밀번호 확인창 */}
+        <div className="password-region">
           <input
+            className="password-input"
+            style={{ color: "black" }}
             type="password"
             value={passwordCheck}
             onChange={handlePasswordCheckChange}
-            style={{
-              width: "100%",
-              height: "40px",
-              display: "block",
-              padding: "10px",
-              boxSizing: "border-box",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-            placeholder="비밀번호를 한번 더 입력해주세요"
+            placeholder="비밀번호 재입력"
           />
-
-          <div
-            style={{
-              height: "20px",
-              marginTop: "10px",
-              paddingLeft: "5px",
-              display: "flex",
-              textAlign: "left",
-              alignItems: "center",
-            }}
-          >
-            Username
-          </div>
+        </div>
+        {/* 사용자명 입력창 */}
+        <div className="password-region">
           <input
+            className="email-input"
             type="text"
             value={username}
             onChange={handleUsernameChange}
-            style={{
-              width: "100%",
-              height: "40px",
-              display: "block",
-              padding: "10px",
-              boxSizing: "border-box",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-            placeholder="사용자 이름을 입력해주세요"
+            placeholder="사용자명"
           />
-
-          <button
-            type="submit"
-            style={{
-              marginTop: "60px",
-              width: "100%",
-              height: "40px",
-              display: "block",
-              backgroundColor: "#5E5E5E",
-              color: "#FFFFFF",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-          >
+        </div>
+        <div className="login-button-area" style={{ marginTop: "100px" }}>
+          {/* 회원가입 버튼 */}
+          <button className="login-button-2" onClick={handleSubmit}>
             회원가입
           </button>
-        </form>
-        <ToastContainer
-          position="bottom-center"
-          limit={1}
-          closeButton={false}
-          autoClose={1000}
-          hideProgressBar
-          toastStyle={{
-            fontFamily: "NotoSans",
-            textAlign: "center",
-          }}
-        />
+        </div>
       </div>
-    </div>
+
+      <ToastContainer
+        position="bottom-center"
+        limit={1}
+        closeButton={false}
+        autoClose={1000}
+        hideProgressBar
+        toastStyle={{
+          fontFamily: "NotoSans",
+          textAlign: "center",
+        }}
+      />
+    </>
   );
 };
 

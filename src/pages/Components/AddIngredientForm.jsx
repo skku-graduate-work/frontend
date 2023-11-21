@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-
 import {
   GetUserInfo,
   PostIngredient,
   PostObjectDetection,
   ReportODResult,
 } from "../../axios";
+import "./AddIngredientForm.css";
 
 const AddIngredientForm = (props) => {
   // 상태 변수
@@ -125,281 +125,123 @@ const AddIngredientForm = (props) => {
   }, [props]);
 
   return (
-    <div
-      style={{
-        width: "600px",
-        height: "450px",
-        border: "2px solid #a5a5a5",
-        fontFamily: "NotoSans",
-        fontWeight: "700",
-      }}
-    >
-      <div
-        style={{
-          width: "450px",
-          height: "350px",
-          margin: "50px 75px",
-          display: "flex", // 부모 요소에 display: flex 추가
-          flexDirection: "column", // 세로 방향으로 배치
-        }}
-      >
-        {/* title */}
-        <div
-          style={{
-            height: "50px",
-            textAlign: "center",
-            fontSize: "38px",
-          }}
-        >
-          재료 추가하기
-        </div>
-
-        {/* content area */}
+    <>
+      <div className="login-region-1">
+        <h2 className="login-region-1-title">식재료 추가</h2>
         {/* 일반 입력 모드의 경우 */}
         {!mode && (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "30px",
-            }}
-          >
-            <div
-              style={{
-                height: "20px",
-                paddingLeft: "5px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-              }}
-            >
-              New Ingredient
+          <>
+            {/* 식재료명 입력창 */}
+            <div className="email-region">
+              <input
+                className="email-input"
+                type="text"
+                value={ingredient}
+                onChange={(e) => setIngredient(e.target.value)}
+                placeholder="식재료명"
+              />
             </div>
-
-            <input
-              type="text"
-              value={ingredient}
-              onChange={(e) => setIngredient(e.target.value)}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "5px",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-              placeholder="식재료명 입력"
-            />
-
             {/* 첨부파일 영역: 이미지 선택 input 추가 */}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "15px",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            />
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "15px",
-                backgroundColor: "#5E5E5E",
-                color: "#FFFFFF",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            >
-              재료 추가하기
-            </button>
-          </div>
-        )}
-
-        {/* 객체탐지 입력 모드의 경우 */}
-        {mode && (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "30px",
-            }}
-          >
-            {/* 첨부파일 영역: 이미지 선택 input 추가 */}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange2}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "15px",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            />
-
-            {/* 힌트 */}
-            <div
-              style={{
-                height: "20px",
-                paddingLeft: "5px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                color: "#aeaeae",
-              }}
-            >
-              식재료가 포함된 이미지를 첨부하세요.
+            <div className="password-region">
+              <input
+                className="password-input"
+                type="file"
+                accept="image/*"
+                style={{ border: "0", padding: "0", backgroundColor: "white" }}
+                onChange={handleImageChange}
+              />
             </div>
-
-            <button
-              type="button"
-              onClick={handleSubmit2}
-              style={{
-                width: "100%",
-                height: "40px",
-                marginTop: "10px",
-                backgroundColor: "#5E5E5E",
-                color: "#FFFFFF",
-                border: "0",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontFamily: "NotoSans",
-                fontWeight: "700",
-                fontSize: "16px",
-              }}
-            >
-              객체 탐지하기
-            </button>
-
-            {/* 결과 드롭다운과 버튼 */}
-            <div
-              style={{
-                display: results.length > 0 ? "flex" : "none",
-                marginTop: "15px",
-              }}
-            >
-              <select
-                value={selectedResultIndex}
-                onChange={(e) =>
-                  setSelectedResultIndex(parseInt(e.target.value))
-                }
-                style={{
-                  width: "50%",
-                  height: "40px",
-                  marginRight: "5px",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
-              >
-                {results.map((result, index) => (
-                  <option key={index} value={index}>
-                    {result.description_ko}
-                  </option>
-                ))}
-              </select>
-
+            <div className="login-button-area">
+              {/* 식재료 추가 버튼 */}
               <button
-                type="button"
-                onClick={handleDropdownButtonClick}
-                style={{
-                  width: "50%",
-                  height: "40px",
-                  backgroundColor: "#3498DB",
-                  color: "#FFFFFF",
-                  border: "0",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  fontFamily: "NotoSans",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                }}
+                className="add-ingre-button"
+                onClick={handleSubmit}
+                style={{ marginTop: "55px" }}
               >
-                식재료 등록하기
+                식재료 추가
               </button>
             </div>
-
-            {/* 힌트 */}
-            <div
-              style={{
-                height: "20px",
-                paddingLeft: "5px",
-                display: "flex",
-                textAlign: "left",
-                alignItems: "center",
-                color: "#aeaeae",
-              }}
-            >
-              일치하는 결과가 없다면, 일반 입력으로 추가해주세요
-            </div>
-          </div>
+          </>
         )}
-
-        {/* mode area */}
-        <div
-          style={{
-            width: "100%",
-            marginTop: "auto",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {/* normal mode */}
-          <button
-            type="button"
-            onClick={handleChangeMode}
+        {/* 객체탐지 입력 모드의 경우 */}
+        {mode && (
+          <>
+            {/* 첨부파일 영역: 이미지 선택 input 추가 */}
+            <div className="email-region">
+              <input
+                className="password-input"
+                type="file"
+                accept="image/*"
+                style={{ border: "0", padding: "0", backgroundColor: "white" }}
+                onChange={handleImageChange2}
+              />
+            </div>
+            <div className="login-button-area">
+              {/* 객체 탐지 버튼 */}
+              <button className="add-ingre-button2" onClick={handleSubmit2}>
+                객체 탐지
+              </button>
+            </div>
+            {/* 결과 드롭다운과 버튼 */}
+            {results.length != 0 && (
+              <>
+                <div className="password-region">
+                  <select
+                    className="add-ingre-oddropdown"
+                    value={selectedResultIndex}
+                    onChange={(e) =>
+                      setSelectedResultIndex(parseInt(e.target.value))
+                    }
+                  >
+                    {results.map((result, index) => (
+                      <option key={index} value={index}>
+                        {result.description_ko}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="login-button-area">
+                  <button
+                    className="add-ingre-button"
+                    type="button"
+                    onClick={handleDropdownButtonClick}
+                  >
+                    식재료 추가
+                  </button>
+                </div>
+              </>
+            )}
+          </>
+        )}
+        {/* 구분선 */}
+        <div className="line-area">
+          <hr style={{ flex: "1", borderTop: "1px solid #ccc" }} />
+          <span
             style={{
-              width: "calc(50% - 7.5px)",
-              height: "40px",
-              backgroundColor: "#5E5E5E",
-              color: "#FFFFFF",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontFamily: "NotoSans",
+              padding: "0 20px",
+              color: "#ccc",
               fontWeight: "700",
-              fontSize: "16px",
+              fontFamily: "NanumSquareNeoRg",
             }}
           >
-            일반 입력모드
+            등록 모드 변경
+          </span>
+          <hr style={{ flex: "1", borderTop: "1px solid #ccc" }} />
+        </div>
+        <div className="login-button-area">
+          {/* 일반 입력 모드 */}
+          <button className="add-ingre-button" onClick={handleChangeMode}>
+            일반 입력 모드
           </button>
-
-          {/* OCR mode */}
-          <button
-            type="button"
-            onClick={handleChangeMode2}
-            style={{
-              width: "calc(50% - 7.5px)",
-              height: "40px",
-              marginLeft: "15px",
-              backgroundColor: "#3498DB",
-              color: "#FFFFFF",
-              border: "0",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontFamily: "NotoSans",
-              fontWeight: "700",
-              fontSize: "16px",
-            }}
-          >
-            객체탐지 입력모드
+        </div>
+        <div className="login-button-area">
+          {/* 객체 탐지 입력 모드 */}
+          <button className="add-ingre-button2" onClick={handleChangeMode2}>
+            객체 탐지 입력 모드
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

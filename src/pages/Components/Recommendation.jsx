@@ -53,7 +53,7 @@ const Recommendation = (props) => {
                 temp.push(null);
               }
             } catch (err) {
-              console.log(err);
+              // console.log(err);
             }
           })
         );
@@ -66,7 +66,6 @@ const Recommendation = (props) => {
 
   // 유사 음식 세부정보 받아오기
   useEffect(() => {
-    console.log("유사음식세부정보: ", recommendFood);
     let temp = [];
     recommendFood.map((element, index) => {
       if (element) {

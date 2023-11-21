@@ -19,19 +19,6 @@ export default function LoginPage() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [modalType, setModalType] = useState("login"); // 모달 종류 추가
 
-  // 모달 창 스타일
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "0",
-    },
-  };
-
   Modal.setAppElement("#root");
   const navigate = useNavigate();
 
@@ -243,7 +230,24 @@ export default function LoginPage() {
       <Modal
         isOpen={isSignUpModalOpen}
         onRequestClose={closeSignUpModal}
-        style={customStyles}
+        style={{
+          portalClassName: "modal-portal", // 새로운 portal 클래스 추가
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+          content: {
+            width: "400px",
+            height: "500px",
+            margin: "auto",
+            backgroundColor: "#FAFAFA",
+            display: "flex",
+            flexDirection: "column", // 세로 방향으로 나열
+            justifyContent: "space-between", // 컨텐츠 사이의 간격을 최대화
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)", // 그림자 추가
+            padding: "5px", // padding 제거
+            animation: "slideIn 0.5s ease-out", // 슬라이딩 애니메이션
+          },
+        }}
         contentLabel="Example Modal"
       >
         <SignupForm closeModal={closeSignUpModal} />
